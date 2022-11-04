@@ -14,16 +14,16 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { UsuariosfichasRoutingModule } from './usuariosfichas-routing.module';
-import { UsuariosfichasComponent } from './usuariosfichas.component';
+import { RoutersfichasRoutingModule } from './routersfichas-routing.module';
+import { RoutersfichasComponent } from './routersfichas.component';
 
 
 
 @NgModule({
-  declarations: [UsuariosfichasComponent],
+  declarations: [RoutersfichasComponent],
   imports: [
     CommonModule,
-    UsuariosfichasRoutingModule,
+    RoutersfichasRoutingModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -40,4 +40,4 @@ import { UsuariosfichasComponent } from './usuariosfichas.component';
     DialogModule
   ]
 })
-export class UsuariosfichasModule { }
+export class RoutersfichasModule { }

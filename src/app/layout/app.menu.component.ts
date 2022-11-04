@@ -27,7 +27,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Agregar Router',
                         icon: 'pi pi-fw pi-globe',
-                        routerLink: ['/landing']
+                        routerLink: ['/hotspot/routersfichas']
                     },
                     {
                         label: 'Hotspot',
@@ -46,7 +46,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Access Denied',
                                 icon: 'pi pi-fw pi-lock',
-                                routerLink: ['/auth/access']
+                                routerLink: ['/hotspot/routersfichas']
                             }
                         ]
                     },
