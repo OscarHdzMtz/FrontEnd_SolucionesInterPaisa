@@ -21,6 +21,38 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
+                label: 'Fichas Hotspot',
+                icon: 'pi pi-fw pi-briefcase',
+                items: [
+                    {
+                        label: 'Agregar Router',
+                        icon: 'pi pi-fw pi-globe',
+                        routerLink: ['/landing']
+                    },
+                    {
+                        label: 'Hotspot',
+                        icon: 'pi pi-fw pi-user',
+                        items: [
+                            {
+                                label: 'Ver Perfiles',
+                                icon: 'pi pi-fw pi-sign-in',
+                                routerLink: ['/hotspot/perfilfichas']
+                            },
+                            {
+                                label: 'Ver usuarios',
+                                icon: 'pi pi-fw pi-times-circle',
+                                routerLink: ['/hotspot/usuariosfichas']
+                            },
+                            {
+                                label: 'Access Denied',
+                                icon: 'pi pi-fw pi-lock',
+                                routerLink: ['/auth/access']
+                            }
+                        ]
+                    },
+                ]
+            },
+            {
                 label: 'UI Components',
                 items: [
                     { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
