@@ -20,7 +20,6 @@ import { PerfilfichasComponent } from './perfilfichas.component';
 
 
 @NgModule({
-  declarations: [PerfilfichasComponent],
   imports: [
     CommonModule,
     PerfilfichasRoutingModule,
@@ -38,6 +37,7 @@ import { PerfilfichasComponent } from './perfilfichas.component';
         RadioButtonModule,
         InputNumberModule,
         DialogModule
-  ]
+  ],
+  declarations: [PerfilfichasComponent]
 })
 export class PerfilfichasModule { }

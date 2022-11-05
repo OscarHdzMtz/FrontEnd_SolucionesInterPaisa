@@ -11,17 +11,17 @@ import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
-import { PerfilfichasComponent } from './demo/components/hotspot/perfilfichas/perfilfichas.component';
-import { UsuariosfichasComponent } from './demo/components/hotspot/usuariosfichas/usuariosfichas.component';
-import { RoutersfichasComponent } from './demo/components/hotspot/routersfichas/routersfichas.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent, PerfilfichasComponent, UsuariosfichasComponent, RoutersfichasComponent
+        AppComponent, NotfoundComponent,
     ],
     imports: [
         AppRoutingModule,
-        AppLayoutModule
+        AppLayoutModule,
+        HttpClientModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

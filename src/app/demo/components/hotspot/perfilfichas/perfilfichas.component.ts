@@ -1,15 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { PerfilfichasService } from 'src/app/demo/service/perfilfichas.service';
 
 @Component({
   selector: 'app-perfilfichas',
   templateUrl: './perfilfichas.component.html',
-  styleUrls: ['./perfilfichas.component.scss']
 })
 export class PerfilfichasComponent implements OnInit {
 
-  constructor() { }
+listplanesfichas: any[] = [];
+
+  constructor(private _perfilfichas: PerfilfichasService) { }
 
   ngOnInit(): void {
+    this.obtenerplanesfichas();
+  }
+
+
+  obtenerplanesfichas(){
+        this._perfilfichas.getPlanesFichas().subscribe(data =>{
+            console.log(data)
+            this.listplanesfichas = data;
+        }, error => {
+            console.log(error);
+        })
   }
 
 }
