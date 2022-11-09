@@ -76,7 +76,7 @@
     </p-table>
 
 
-    <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Agregar perfil" [modal]="true"
+    <p-dialog [(visible)]="perfilModalDialog" [style]="{width: '450px'}" header="Agregar perfil" [modal]="true"
         styleClass="p-fluid">
         <ng-template pTemplate="content">
             <img>
@@ -160,7 +160,7 @@
         <ng-template pTemplate="footer">
             <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
                 (click)="hideDialog()"></button>
-            <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"></button>
+            <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="agregarPlanesFichas()"></button>
         </ng-template>
     </p-dialog>
 
