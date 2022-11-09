@@ -3,61 +3,165 @@
 <div class="card">
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"></button>
+            <button pButton pRipple label="Nuevo perfil" icon="pi pi-plus" class="p-button-success mr-2"
+                (click)="openNew()"></button>
             <button pButton pRipple icon="pi pi-trash" class="p-button-danger"></button>
         </ng-template>
 
         <ng-template pTemplate="right">
-            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import"
+                class="mr-2 inline-block"></p-fileUpload>
             <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
         </ng-template>
     </p-toolbar>
 
 
-<p-table #dt [value]="listplanesfichas" [rows]="10" [paginator]="true"  responsiveLayout="scroll">
-<ng-template pTemplate="caption">
-    <div class="flex align-items-center justify-content-between">
-        <h5 class="m-0">Manage Products</h5>
-        <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" placeholder="Search..." />
-        </span>
-    </div>
-</ng-template>
-<ng-template pTemplate="header">
-    <tr>
-        <th style="width: 3rem">
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-        </th>
-        <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
-        <th pSortableColumn="macCookieTimeout">Duracion<p-sortIcon field="macCookieTimeout"></p-sortIcon></th>
-        <th pSortableColumn="rateLimit">Velocidad Subida <p-sortIcon field="rateLimit"></p-sortIcon></th>
-        <th pSortableColumn="rateLimit">Velocidad bajada <p-sortIcon field="rateLimit"></p-sortIcon></th>
-        <th pSortableColumn="rateLimit">Expiracion <p-sortIcon field="rateLimit"></p-sortIcon></th>
-        <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
-        <th></th>
-    </tr>
-</ng-template>
-<ng-template pTemplate="body" let-planes>
-    <tr>
-        <td>
-            <p-tableCheckbox [value]="planes"></p-tableCheckbox>
-        </td>
-        <td>{{planes.name}}</td>
-        <td>{{planes.macCookieTimeout}}</td>
-        <td>{{planes.rateLimit}}</td>
-        <td>{{planes.rateLimit}}</td>
-        <td><p-rating [ngModel]="planes.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-        <td><span [class]="'product-badge status-' + (planes.inventoryStatus ? planes.inventoryStatus.toLowerCase() : '')">{{planes.inventoryStatus}}</span></td>
-        <td>
-            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
-            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" ></button>
-        </td>
-    </tr>
-</ng-template>
-<ng-template pTemplate="summary">
-    <div class="flex align-items-center justify-content-between">
-        Un total de {{listplanesfichas ? listplanesfichas.length : 0 }} planes.
-    </div>
-</ng-template>
-</p-table>
+    <p-table #dt [value]="listplanesfichas" [rows]="10" [paginator]="true" responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Perfiles</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="macCookieTimeout">Duracion<p-sortIcon field="macCookieTimeout"></p-sortIcon>
+                </th>
+                <th pSortableColumn="rateLimit">Velocidad Subida <p-sortIcon field="rateLimit"></p-sortIcon>
+                </th>
+                <th pSortableColumn="rateLimit">Velocidad bajada <p-sortIcon field="rateLimit"></p-sortIcon>
+                </th>
+                <th pSortableColumn="rateLimit">Expiracion <p-sortIcon field="rateLimit"></p-sortIcon>
+                </th>
+                <th pSortableColumn="idleTimeout">Status <p-sortIcon field="idleTimeout"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-planes>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="planes"></p-tableCheckbox>
+                </td>
+                <td>{{planes.name}}</td>
+                <td>{{planes.macCookieTimeout}}</td>
+                <td>{{planes.rateLimit}}</td>
+                <td>{{planes.rateLimit}}</td>
+                <td>
+                    <p-rating [ngModel]="planes.rating" [readonly]="true" [cancel]="false"></p-rating>
+                </td>
+                <td><span
+                        [class]="'product-badge status-' + (planes.idleTimeout ? planes.idleTimeout.toLowerCase() : '')">{{planes.idleTimeout}}</span>
+                </td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                        (click)="editProduct(planes)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                Un total de {{listplanesfichas ? listplanesfichas.length : 0 }} planes.
+            </div>
+        </ng-template>
+    </p-table>
+
+
+    <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Agregar perfil" [modal]="true"
+        styleClass="p-fluid">
+        <ng-template pTemplate="content">
+            <img>
+            <div class="field">
+                <label for="name">Nombre del perfil</label>
+                <input type="text" pInputText id="name" required autofocus />
+                <small class="p-error">campo requerido</small>
+            </div>
+            <div class="field">
+                <label>Tipo de fichas</label>
+                <p-dropdown [options]="selectTipoFicha" [(ngModel)]="fichaSelected"
+                    placeholder="Selecciona Tipo de ficha" optionLabel="nombre" [showClear]="true"></p-dropdown>
+            </div>
+
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="quantity">Velocidad</label>
+                    <input type="text" pInputText pKeyFilter="num" placeholder="0">
+                </div>
+                <div class="field col">
+                    <label>de subida</label>
+                    <p-dropdown [options]="selectVelocidadsubida" [(ngModel)]="velocidadSelectedsubida"
+                        placeholder="Mbps/Kbps" optionLabel="nombre" [showClear]="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="quantity" style="text-align: right;">Velocidad</label>
+                    <input type="text" pInputText pKeyFilter="num" placeholder="0">
+                </div>
+                <div class="field col">
+                    <label>de bajada</label>
+                    <p-dropdown [options]="selectVelocidadbajada" [(ngModel)]="velocidadSelectedbajada"
+                        placeholder="Mbps/Kbps" optionLabel="nombre" [showClear]="true"></p-dropdown>
+                </div>
+            </div>
+            <label><strong>Tiempo limite de fichas</strong></label> <br>
+            <div class="grid p-fluid">
+                <div class="col-12 md:col-4">
+                    <label for="minmax-buttons">Dia</label>
+                    <p-inputNumber [(ngModel)]="defaulttimpolimiteDia" mode="decimal" [showButtons]="true"
+                        inputId="minmax-buttons" [min]="0" [max]="100">
+                    </p-inputNumber>
+                </div>
+                <div class="col-12 md:col-4">
+                    <label for="minmax-buttons">Hora</label>
+                    <p-inputNumber [(ngModel)]="defaulttimpolimiteHora" mode="decimal" [showButtons]="true"
+                        inputId="minmax-buttons" [min]="0" [max]="23">
+                    </p-inputNumber>
+                </div>
+                <div class="col-12 md:col-4">
+                    <label for="minmax-buttons">Minuto</label>
+                    <p-inputNumber [(ngModel)]="defaulttimpolimiteMin" mode="decimal" [showButtons]="true"
+                        inputId="minmax-buttons" [min]="0" [max]="60">
+                    </p-inputNumber>
+                </div>
+            </div>
+            <label><strong>Tiempo de expiracion de la ficha</strong></label> <br>
+            <div class="grid p-fluid">
+                <div class="col-12 md:col-4">
+                    <label for="minmax-buttons">Dia</label>
+                    <p-inputNumber [(ngModel)]="defaultExpiracionDia" mode="decimal" [showButtons]="true"
+                        inputId="minmax-buttons" [min]="0" [max]="100">
+                    </p-inputNumber>
+                </div>
+                <div class="col-12 md:col-4">
+                    <label for="minmax-buttons">Hora</label>
+                    <p-inputNumber [(ngModel)]="defaultExpiracionHora" mode="decimal" [showButtons]="true"
+                        inputId="minmax-buttons" [min]="0" [max]="23">
+                    </p-inputNumber>
+                </div>
+                <div class="col-12 md:col-4">
+                    <label for="minmax-buttons">Minuto</label>
+                    <p-inputNumber [(ngModel)]="defaultExpiracionMin" mode="decimal" [showButtons]="true"
+                        inputId="minmax-buttons" [min]="0" [max]="60">
+                    </p-inputNumber>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+                (click)="hideDialog()"></button>
+            <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"></button>
+        </ng-template>
+    </p-dialog>
+
+    <!-- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> -->
