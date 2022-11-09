@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { PerfilfichasService } from 'src/app/demo/service/perfilfichas.service';
+
 
 interface TipoFicha {
     nombre: string;
@@ -44,7 +46,7 @@ export class PerfilfichasComponent implements OnInit {
     selectVelocidadbajada: TipoFicha[];
     velocidadSelectedbajada?: TipoFicha;
 
-    constructor(private _perfilfichas: PerfilfichasService) {
+    constructor(private _perfilfichas: PerfilfichasService, private toastr: ToastrService) {
         this.selectTipoFicha = [
             { nombre: 'Corrido', value: 'CORRIDO', status: true },
             { nombre: 'Pausado', value: 'PAUSADO', status: true },
@@ -65,7 +67,7 @@ export class PerfilfichasComponent implements OnInit {
         /* this._perfilfichas.getPlanesFichas().subscribe(data => this.listplanesfichas = data); */
     }
 
-    //Abre el modal de A
+    //METODO QUE ABRE EL MODAL
     openNew() {
         this.planes = {};
         this.submitted = false;
@@ -84,21 +86,45 @@ export class PerfilfichasComponent implements OnInit {
         );
     }
 
-    agregarPlanesFichas(){
-        const planes : any = {
-            nameProfile : "DesdeFrontQWQWQ",
-            addressPoolProfile : "none",
-            velocidadSubidaBajadaProfile : "1M/3M",
-            limiteDeTiempoProfile : "5d",
-            onLoginProfile : "",
-            onLogoutProfile : "planesFichas.onLogoutProfil"
+    CadenaAleatoria() {
+        let result = '';
+        const characters =
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        for (let i = 0; i < 6; i++) {
+            result += characters.charAt(
+                Math.floor(Math.random() * charactersLength)
+            );
         }
-    this._perfilfichas.savePlanesFichas(planes).subscribe(data =>{
-        this.obtenerplanesfichas();
-    }, error => {
-        console.log(error);
-    })
-    this.hideDialog();
+        return result;
+    }
+
+
+    agregarPlanesFichas() {
+        const planes2: any = {
+            nameProfile: this.CadenaAleatoria(),
+            addressPoolProfile: 'none',
+            velocidadSubidaBajadaProfile: '1M/3M',
+            limiteDeTiempoProfile: '5d',
+            onLoginProfile: '',
+            onLogoutProfile: 'planesFichas.onLogoutProfil',
+        };
+        this._perfilfichas.savePlanesFichas(planes2).subscribe(
+            (data) => {
+                this.toastr.success(
+                    planes2.nameProfile + ' Agregado Correctamente',
+                    'Perfil Agregado', {progressBar: true}
+                );
+                //MANDA A TRAER EL METODO OBTENER PLANES PARA QUE SE ACTUALIZE LA TABLA CON EL NUEVO PERFIL EN TIEMP REAL
+                this.obtenerplanesfichas();
+            },
+            (error) => {
+                this.toastr.error(error.status + ', ' + error.name, 'Errorr');
+                console.log(error);
+            }
+        );
+        //Cierra el Modal
+        this.hideDialog();
     }
 
     editProduct(planes: any) {
@@ -106,7 +132,7 @@ export class PerfilfichasComponent implements OnInit {
         this.planes = { ...planes };
         this.perfilModalDialog = true;
     }
-
+//METODO QUE CIERRA EL MODAL
     hideDialog() {
         this.perfilModalDialog = false;
         this.submitted = false;

@@ -12,6 +12,8 @@ import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
     imports: [
         AppRoutingModule,
         AppLayoutModule,
-        HttpClientModule
+        HttpClientModule,
+        BrowserAnimationsModule, // required animations module
+        ToastrModule.forRoot(), // ToastrModule added
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
