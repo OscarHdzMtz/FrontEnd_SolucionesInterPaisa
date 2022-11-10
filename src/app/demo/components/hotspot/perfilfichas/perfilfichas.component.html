@@ -81,8 +81,8 @@
         <ng-template pTemplate="content">
             <img>
             <div class="field">
-                <label for="name">Nombre del perfil</label>
-                <input type="text" pInputText id="name" required autofocus />
+                <label for="nombrePerfil">Nombre del perfil</label>
+                <input type="text" pInputText id="nombrePerfil" [(ngModel)]="perfilDesdeModal.nombrePerfilModal" required autofocus />
                 <small class="p-error">campo requerido</small>
             </div>
             <div class="field">
@@ -94,23 +94,23 @@
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="quantity">Velocidad</label>
-                    <input type="text" pInputText pKeyFilter="num" placeholder="0">
+                    <input type="text" pInputText pKeyFilter="num" placeholder="0" [(ngModel)]="perfilDesdeModal.velocidadSubidaModal">
                 </div>
                 <div class="field col">
                     <label>de subida</label>
-                    <p-dropdown [options]="selectVelocidadsubida" [(ngModel)]="velocidadSelectedsubida"
-                        placeholder="Mbps/Kbps" optionLabel="nombre" [showClear]="true"></p-dropdown>
+                    <p-dropdown [options]="seleccionVelocidadsubida"
+                        placeholder="Mbps/Kbps" optionLabel="velocidadSubidaEnModal" [showClear]="true" [(ngModel)]="perfilDesdeModal.velocidadSubidaEnModal"></p-dropdown>
                 </div>
             </div>
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="quantity" style="text-align: right;">Velocidad</label>
-                    <input type="text" pInputText pKeyFilter="num" placeholder="0">
+                    <input type="text" pInputText pKeyFilter="num" placeholder="0" [(ngModel)]="perfilDesdeModal.velocidadBajadaModal">
                 </div>
                 <div class="field col">
                     <label>de bajada</label>
-                    <p-dropdown [options]="selectVelocidadbajada" [(ngModel)]="velocidadSelectedbajada"
-                        placeholder="Mbps/Kbps" optionLabel="nombre" [showClear]="true"></p-dropdown>
+                    <p-dropdown [options]="seleccionVelocidadbajada"
+                        placeholder="Mbps/Kbps" optionLabel="nombre" [showClear]="true" [(ngModel)]="perfilDesdeModal.velocidadBajadaEnModal"></p-dropdown>
                 </div>
             </div>
             <label><strong>Tiempo limite de fichas</strong></label> <br>
@@ -118,19 +118,19 @@
                 <div class="col-12 md:col-4">
                     <label for="minmax-buttons">Dia</label>
                     <p-inputNumber [(ngModel)]="defaulttimpolimiteDia" mode="decimal" [showButtons]="true"
-                        inputId="minmax-buttons" [min]="0" [max]="100">
+                        inputId="minmax-buttons" [min]="0" [max]="100" [(ngModel)]="perfilDesdeModal.tiempoLimiteFichaDia">
                     </p-inputNumber>
                 </div>
                 <div class="col-12 md:col-4">
                     <label for="minmax-buttons">Hora</label>
                     <p-inputNumber [(ngModel)]="defaulttimpolimiteHora" mode="decimal" [showButtons]="true"
-                        inputId="minmax-buttons" [min]="0" [max]="23">
+                        inputId="minmax-buttons" [min]="0" [max]="23" [(ngModel)]="perfilDesdeModal.tiempoLimiteFichaHora">
                     </p-inputNumber>
                 </div>
                 <div class="col-12 md:col-4">
                     <label for="minmax-buttons">Minuto</label>
                     <p-inputNumber [(ngModel)]="defaulttimpolimiteMin" mode="decimal" [showButtons]="true"
-                        inputId="minmax-buttons" [min]="0" [max]="60">
+                        inputId="minmax-buttons" [min]="0" [max]="60" [(ngModel)]="perfilDesdeModal.tiempoLimiteFichaMin">
                     </p-inputNumber>
                 </div>
             </div>
@@ -139,19 +139,19 @@
                 <div class="col-12 md:col-4">
                     <label for="minmax-buttons">Dia</label>
                     <p-inputNumber [(ngModel)]="defaultExpiracionDia" mode="decimal" [showButtons]="true"
-                        inputId="minmax-buttons" [min]="0" [max]="100">
+                        inputId="minmax-buttons" [min]="0" [max]="100" [(ngModel)]="perfilDesdeModal.tiemoExpiracionFichaDia">
                     </p-inputNumber>
                 </div>
                 <div class="col-12 md:col-4">
                     <label for="minmax-buttons">Hora</label>
                     <p-inputNumber [(ngModel)]="defaultExpiracionHora" mode="decimal" [showButtons]="true"
-                        inputId="minmax-buttons" [min]="0" [max]="23">
+                        inputId="minmax-buttons" [min]="0" [max]="23" [(ngModel)]="perfilDesdeModal.tiemoExpiracionFichaHora">
                     </p-inputNumber>
                 </div>
                 <div class="col-12 md:col-4">
                     <label for="minmax-buttons">Minuto</label>
                     <p-inputNumber [(ngModel)]="defaultExpiracionMin" mode="decimal" [showButtons]="true"
-                        inputId="minmax-buttons" [min]="0" [max]="60">
+                        inputId="minmax-buttons" [min]="0" [max]="60" [(ngModel)]="perfilDesdeModal.tiemoExpiracionFichaMin">
                     </p-inputNumber>
                 </div>
             </div>

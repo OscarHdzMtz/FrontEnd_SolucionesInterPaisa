@@ -16,7 +16,7 @@ export class PerfilfichasService {
         return this.http.get(this.myAppURL + this.myApiUrl);
     }
 
-    savePlanesFichas(planes: any): Observable<any>{
-        return this.http.post(this.myAppURL + this.myApiUrl, planes);
+    savePlanesFichas(PlanesFichas: any): Observable<any>{
+        return this.http.post(this.myAppURL + this.myApiUrl, PlanesFichas);
     }
 }
