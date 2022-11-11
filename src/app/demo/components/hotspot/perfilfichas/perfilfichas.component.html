@@ -97,9 +97,12 @@
                     <input type="text" pInputText pKeyFilter="num" placeholder="0" [(ngModel)]="perfilDesdeModal.velocidadSubidaModal">
                 </div>
                 <div class="field col">
-                    <label>de subida</label>
-                    <p-dropdown [options]="seleccionVelocidadsubida"
-                        placeholder="Mbps/Kbps" optionLabel="velocidadSubidaEnModal" [showClear]="true" [(ngModel)]="perfilDesdeModal.velocidadSubidaEnModal"></p-dropdown>
+                    <label>de bajada</label>
+                    <p-dropdown [(ngModel)]="perfilDesdeModal.velocidadSubidaEnModal" inputId="velocidadSubidaEnModal" [options]="seleccionVelocidadsubida" placeholder="Select">
+                        <ng-template let-option pTemplate="item">
+                            <span [class]="'product-badge status-' + option">{{option}}</span>
+                        </ng-template>
+                    </p-dropdown>
                 </div>
             </div>
             <div class="formgrid grid">
@@ -109,8 +112,11 @@
                 </div>
                 <div class="field col">
                     <label>de bajada</label>
-                    <p-dropdown [options]="seleccionVelocidadbajada"
-                        placeholder="Mbps/Kbps" optionLabel="nombre" [showClear]="true" [(ngModel)]="perfilDesdeModal.velocidadBajadaEnModal"></p-dropdown>
+                    <p-dropdown [(ngModel)]="perfilDesdeModal.velocidadBajadaEnModal" inputId="velocidadSubidaEnModal" [options]="seleccionVelocidadbajada" placeholder="Select">
+                        <ng-template let-option pTemplate="item">
+                            <span [class]="'product-badge status-' + option">{{option}}</span>
+                        </ng-template>
+                    </p-dropdown>
                 </div>
             </div>
             <label><strong>Tiempo limite de fichas</strong></label> <br>

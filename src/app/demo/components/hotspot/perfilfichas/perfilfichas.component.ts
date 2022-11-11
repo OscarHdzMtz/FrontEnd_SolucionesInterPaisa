@@ -41,7 +41,7 @@ export class PerfilfichasComponent implements OnInit {
     perfilDesdeModal: PerfilesFichaModal = {
     nombrePerfilModal : '',
     velocidadSubidaModal: 0,
-    velocidadSubidaEnModal: '',
+    velocidadSubidaEnModal: "",
     velocidadBajadaModal: 0,
     velocidadBajadaEnModal: '',
     tiempoLimiteFichaDia: 0,
@@ -71,9 +71,9 @@ export class PerfilfichasComponent implements OnInit {
     selectTipoFicha: TipoFicha[];
     fichaSelected?: TipoFicha;
     //VARIABLES DE VELOCIDAD DE TIPO DE DICHAS MB/KB
-    seleccionVelocidadsubida: TipoFicha[];
+    seleccionVelocidadsubida: any[];
 
-    seleccionVelocidadbajada: TipoFicha[];
+    seleccionVelocidadbajada: any[];
 
 
     constructor(private _perfilfichasService: PerfilfichasService, private toastr: ToastrService) {
@@ -82,13 +82,12 @@ export class PerfilfichasComponent implements OnInit {
             { nombre: 'Pausado', value: 'PAUSADO', status: true },
             { nombre: 'Megas', value: 'MEGAS', status: true },
         ];
+        //VALORES QUE SE MOSTRARAN EN EL SELECT
         this.seleccionVelocidadsubida = [
-            { nombre: 'Kbps', value: 'K', status: true },
-            { nombre: 'Mbps', value: 'M', status: true },
+            "Kbps", "Mbps"
         ];
         this.seleccionVelocidadbajada = [
-            { nombre: 'Kbps', value: 'K', status: true },
-            { nombre: 'Mbps', value: 'M', status: true },
+            "Kbps", "Mbps"
         ];
     }
 
@@ -104,6 +103,7 @@ export class PerfilfichasComponent implements OnInit {
         this.perfilModalDialog = true;
     }
 
+    //METODO PARA OBTENER LOS PERFILES DESDE EL BACKEND
     obtenerplanesfichas() {
         this._perfilfichasService.getPlanesFichas().subscribe(
             (data) => {
@@ -115,7 +115,7 @@ export class PerfilfichasComponent implements OnInit {
             }
         );
     }
-
+    //METODO PARA GENERAR CADENA ALEATORIA
     CadenaAleatoria() {
         let result = '';
         const characters =
@@ -142,16 +142,22 @@ export class PerfilfichasComponent implements OnInit {
             tiempoLimiteFichaMinConCero = this.perfilDesdeModal.tiempoLimiteFichaMin
         }
 
-    console.log(" valor" + this.perfilDesdeModal.velocidadSubidaEnModal);
-    //CREAMOS UNA VARIABLE CON LOS DATOS QUE SE ENVIARA EL BACKEND Y GUARDAR AL MIKROTIK
-        const PlanesFichas: any = {
+        //OBTENER EL PRIMER CARACTER DE Mbps Y Kbps ===> 'M', 'K'
+        var velocidadSubidaEnModalSubstring = this.perfilDesdeModal.velocidadSubidaEnModal.substring(0, 1);
+        var velocidadBajadaEnModalSubstring = this.perfilDesdeModal.velocidadBajadaEnModal.substring(0, 1);
+
+
+        //CREAMOS UNA VARIABLE CON LOS DATOS QUE SE ENVIARA EL BACKEND Y GUARDAR AL MIKROTIK
+        var PlanesFichas: any = {
             nameProfile: this.perfilDesdeModal.nombrePerfilModal,
             addressPoolProfile: 'none',
-            velocidadSubidaBajadaProfile: this.perfilDesdeModal.velocidadSubidaModal + this.perfilDesdeModal.velocidadSubidaEnModal + "/" + this.perfilDesdeModal.velocidadBajadaModal + this.perfilDesdeModal.velocidadBajadaEnModal,
+            velocidadSubidaBajadaProfile: this.perfilDesdeModal.velocidadSubidaModal + velocidadSubidaEnModalSubstring + "/" + this.perfilDesdeModal.velocidadBajadaModal + velocidadBajadaEnModalSubstring,
             limiteDeTiempoProfile: this.perfilDesdeModal.tiempoLimiteFichaDia + "d " + tiempoLimiteFichaHoraConCero + ":" + tiempoLimiteFichaMinConCero + ":00",
             onLoginProfile: '',
             onLogoutProfile: 'planesFichas.onLogoutProfil',
         };
+
+        //Enviamos los datos del variable al
         this._perfilfichasService.savePlanesFichas(PlanesFichas).subscribe(
             (data) => {
                 this.toastr.success(
@@ -162,12 +168,29 @@ export class PerfilfichasComponent implements OnInit {
                 this.obtenerplanesfichas();
             },
             (error) => {
-                this.toastr.error(error.status + ', ' + error.name, 'Errorr');
+                this.toastr.error(error.status + ', ' + error.name, 'Error',{
+                    progressBar: true
+                });
                 console.log(error);
             }
         );
+        //CON ESTO RESTABLECEMOS LOS VALORES DEL MODAL A VACIO
+        this.perfilDesdeModal = {
+            nombrePerfilModal : '',
+            velocidadSubidaModal: 0,
+            velocidadSubidaEnModal: "",
+            velocidadBajadaModal: 0,
+            velocidadBajadaEnModal: '',
+            tiempoLimiteFichaDia: 0,
+            tiempoLimiteFichaHora: 0,
+            tiempoLimiteFichaMin: 0,
+            tiemoExpiracionFichaDia:0,
+            tiemoExpiracionFichaHora:0,
+            tiemoExpiracionFichaMin:0
+        };
         //Cierra el Modal
         this.hideDialog();
+
     }
 
     editProduct(planes: any) {
