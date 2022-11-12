@@ -76,50 +76,53 @@
     </p-table>
 
 
-    <p-dialog [(visible)]="perfilModalDialog" [style]="{width: '450px'}" header="Agregar perfil" [modal]="true"
+    <p-dialog [(visible)]="perfilModalDialog" [style]="{width: '450px'}" header="AGREGAR PERFIL" [modal]="true"
         styleClass="p-fluid">
         <ng-template pTemplate="content">
             <img>
             <div class="field">
-                <label for="nombrePerfil">Nombre del perfil</label>
-                <input type="text" pInputText id="nombrePerfil" [(ngModel)]="perfilDesdeModal.nombrePerfilModal" required autofocus />
-                <small class="p-error">campo requerido</small>
+                <label>Tipo de fichas</label>
+                <p-dropdown [(ngModel)]="perfilDesdeModal.tipodeFichas"  inputId="velocidadSubidaEnModal" [options]="selectTipoFicha" placeholder="Seleccione tipo de fichas">
+                    <ng-template let-optionSelectedTipoFicha pTemplate="item">
+                        <span><strong>{{optionSelectedTipoFicha}}</strong></span>
+                    </ng-template>
+                </p-dropdown>
             </div>
             <div class="field">
-                <label>Tipo de fichas</label>
-                <p-dropdown [options]="selectTipoFicha" [(ngModel)]="fichaSelected"
-                    placeholder="Selecciona Tipo de ficha" optionLabel="nombre" [showClear]="true"></p-dropdown>
+                <label for="nombrePerfil">Nombre del perfil</label>
+                <input type="text" pInputText id="nombrePerfil" [(ngModel)]="perfilDesdeModal.nombrePerfilModal" required autofocus />
+                <small class="p-error" *ngIf="submitted && !perfilDesdeModal.nombrePerfilModal">campo requerido</small>
             </div>
-
-            <div class="formgrid grid">
-                <div class="field col">
-                    <label for="quantity">Velocidad</label>
-                    <input type="text" pInputText pKeyFilter="num" placeholder="0" [(ngModel)]="perfilDesdeModal.velocidadSubidaModal">
+            <div *ngIf="perfilDesdeModal.tipodeFichas !== ''">
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="quantity">Velocidad</label>
+                        <input type="text" pInputText pKeyFilter="num" placeholder="0" [(ngModel)]="perfilDesdeModal.velocidadSubidaModal">
+                    </div>
+                    <div class="field col">
+                        <label>de bajada</label>
+                        <p-dropdown [(ngModel)]="perfilDesdeModal.velocidadSubidaEnModal" inputId="velocidadSubidaEnModal" [options]="seleccionVelocidadsubida" placeholder="Kbps/Mbps">
+                            <ng-template let-option pTemplate="item">
+                                <span><strong>{{option}}</strong></span>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
                 </div>
-                <div class="field col">
-                    <label>de bajada</label>
-                    <p-dropdown [(ngModel)]="perfilDesdeModal.velocidadSubidaEnModal" inputId="velocidadSubidaEnModal" [options]="seleccionVelocidadsubida" placeholder="Select">
-                        <ng-template let-option pTemplate="item">
-                            <span [class]="'product-badge status-' + option">{{option}}</span>
-                        </ng-template>
-                    </p-dropdown>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="quantity" style="text-align: right;">Velocidad</label>
+                        <input type="text" pInputText pKeyFilter="num" placeholder="0" [(ngModel)]="perfilDesdeModal.velocidadBajadaModal">
+                    </div>
+                    <div class="field col">
+                        <label>de bajada</label>
+                        <p-dropdown [(ngModel)]="perfilDesdeModal.velocidadBajadaEnModal" inputId="velocidadSubidaEnModal" [options]="seleccionVelocidadbajada" placeholder="Kbps/Mbps">
+                            <ng-template let-option pTemplate="item">
+                                <span><strong>{{option}}</strong></span>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
                 </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <label for="quantity" style="text-align: right;">Velocidad</label>
-                    <input type="text" pInputText pKeyFilter="num" placeholder="0" [(ngModel)]="perfilDesdeModal.velocidadBajadaModal">
-                </div>
-                <div class="field col">
-                    <label>de bajada</label>
-                    <p-dropdown [(ngModel)]="perfilDesdeModal.velocidadBajadaEnModal" inputId="velocidadSubidaEnModal" [options]="seleccionVelocidadbajada" placeholder="Select">
-                        <ng-template let-option pTemplate="item">
-                            <span [class]="'product-badge status-' + option">{{option}}</span>
-                        </ng-template>
-                    </p-dropdown>
-                </div>
-            </div>
-            <label><strong>Tiempo limite de fichas</strong></label> <br>
+                <label><strong>Tiempo limite de fichas</strong></label> <br>
             <div class="grid p-fluid">
                 <div class="col-12 md:col-4">
                     <label for="minmax-buttons">Dia</label>
@@ -140,25 +143,45 @@
                     </p-inputNumber>
                 </div>
             </div>
-            <label><strong>Tiempo de expiracion de la ficha</strong></label> <br>
-            <div class="grid p-fluid">
-                <div class="col-12 md:col-4">
-                    <label for="minmax-buttons">Dia</label>
-                    <p-inputNumber [(ngModel)]="defaultExpiracionDia" mode="decimal" [showButtons]="true"
-                        inputId="minmax-buttons" [min]="0" [max]="100" [(ngModel)]="perfilDesdeModal.tiemoExpiracionFichaDia">
-                    </p-inputNumber>
+            </div>
+            <div *ngIf="perfilDesdeModal.tipodeFichas === 'Megas'">
+                <label><strong>Limite de trafico</strong></label> <br>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="quantity">Velocidad</label>
+                        <input type="text" pInputText pKeyFilter="num" placeholder="0" [(ngModel)]="perfilDesdeModal.velocidadSubidaModal">
+                    </div>
+                    <div class="field col">
+                        <label>de bajada</label>
+                        <p-dropdown [(ngModel)]="perfilDesdeModal.limiteDeTraficoFichaEnKbMbGb" inputId="limiteDeTraficoFichaEnKbMbGb" [options]="seleccionLimiteDeTrafico" placeholder="Kbps/Mbps/Gbps">
+                            <ng-template let-option pTemplate="item">
+                                <span><strong>{{option}}</strong></span>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
                 </div>
-                <div class="col-12 md:col-4">
-                    <label for="minmax-buttons">Hora</label>
-                    <p-inputNumber [(ngModel)]="defaultExpiracionHora" mode="decimal" [showButtons]="true"
-                        inputId="minmax-buttons" [min]="0" [max]="23" [(ngModel)]="perfilDesdeModal.tiemoExpiracionFichaHora">
-                    </p-inputNumber>
-                </div>
-                <div class="col-12 md:col-4">
-                    <label for="minmax-buttons">Minuto</label>
-                    <p-inputNumber [(ngModel)]="defaultExpiracionMin" mode="decimal" [showButtons]="true"
-                        inputId="minmax-buttons" [min]="0" [max]="60" [(ngModel)]="perfilDesdeModal.tiemoExpiracionFichaMin">
-                    </p-inputNumber>
+            </div>
+            <div *ngIf="perfilDesdeModal.tipodeFichas === 'Megas' || perfilDesdeModal.tipodeFichas === 'Pausado'">
+                <label><strong>Tiempo de expiracion de la ficha</strong></label> <br>
+                <div class="grid p-fluid">
+                    <div class="col-12 md:col-4">
+                        <label for="minmax-buttons">Dia</label>
+                        <p-inputNumber [(ngModel)]="defaultExpiracionDia" mode="decimal" [showButtons]="true"
+                            inputId="minmax-buttons" [min]="0" [max]="100" [(ngModel)]="perfilDesdeModal.tiemoExpiracionFichaDia">
+                        </p-inputNumber>
+                    </div>
+                    <div class="col-12 md:col-4">
+                        <label for="minmax-buttons">Hora</label>
+                        <p-inputNumber [(ngModel)]="defaultExpiracionHora" mode="decimal" [showButtons]="true"
+                            inputId="minmax-buttons" [min]="0" [max]="23" [(ngModel)]="perfilDesdeModal.tiemoExpiracionFichaHora">
+                        </p-inputNumber>
+                    </div>
+                    <div class="col-12 md:col-4">
+                        <label for="minmax-buttons">Minuto</label>
+                        <p-inputNumber [(ngModel)]="defaultExpiracionMin" mode="decimal" [showButtons]="true"
+                            inputId="minmax-buttons" [min]="0" [max]="60" [(ngModel)]="perfilDesdeModal.tiemoExpiracionFichaMin">
+                        </p-inputNumber>
+                    </div>
                 </div>
             </div>
         </ng-template>

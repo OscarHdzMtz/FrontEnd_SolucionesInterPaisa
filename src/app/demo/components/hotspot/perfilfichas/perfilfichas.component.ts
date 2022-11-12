@@ -14,6 +14,7 @@ interface TipoFicha {
 //CREAMOS LA INTERFAZ CON LOS DATOS QUE SE RECIBIRA DESDE EL MODAL
 interface PerfilesFichaModal {
     nombrePerfilModal : string,
+    tipodeFichas: string,
     velocidadSubidaModal?: number,
     velocidadSubidaEnModal: string,
     velocidadBajadaModal: number,
@@ -24,7 +25,8 @@ interface PerfilesFichaModal {
     tiemoExpiracionFichaDia:number
     tiemoExpiracionFichaHora:number
     tiemoExpiracionFichaMin:number
-
+    limiteDeTraficoFicha: number,
+    limiteDeTraficoFichaEnKbMbGb: string
 }
 
 
@@ -40,6 +42,7 @@ export class PerfilfichasComponent implements OnInit {
     // creamos una variable con el tipo de interface de los datos que vienen desde el modal y INICIALIZAMOS LOS VARIABLES QUE VENDRAN DESDE EL MODAL
     perfilDesdeModal: PerfilesFichaModal = {
     nombrePerfilModal : '',
+    tipodeFichas: '',
     velocidadSubidaModal: 0,
     velocidadSubidaEnModal: "",
     velocidadBajadaModal: 0,
@@ -49,13 +52,15 @@ export class PerfilfichasComponent implements OnInit {
     tiempoLimiteFichaMin: 0,
     tiemoExpiracionFichaDia:0,
     tiemoExpiracionFichaHora:0,
-    tiemoExpiracionFichaMin:0
+    tiemoExpiracionFichaMin:0,
+    limiteDeTraficoFicha: 0,
+    limiteDeTraficoFichaEnKbMbGb: ''
     }
 
     //VARIABLE DE LOS VALORES DEL MODAL
     //false para que el modal no se abre cuando carga la pagina
     perfilModalDialog: boolean = false;
-    submitted: boolean = false;
+    submitted?: boolean;
 
     //VARIABLES DE VALOR POR DEFAULT TIEMPO LIMITE DE FICHAS
     defaulttimpolimiteDia: string = '0';
@@ -68,19 +73,17 @@ export class PerfilfichasComponent implements OnInit {
     defaultExpiracionMin: string = '0';
 
     //VARIABLES DE SELECCION DE TIPO DE FICHAS
-    selectTipoFicha: TipoFicha[];
+    selectTipoFicha: any[];
     fichaSelected?: TipoFicha;
     //VARIABLES DE VELOCIDAD DE TIPO DE DICHAS MB/KB
     seleccionVelocidadsubida: any[];
-
     seleccionVelocidadbajada: any[];
+    seleccionLimiteDeTrafico: any[];
 
 
     constructor(private _perfilfichasService: PerfilfichasService, private toastr: ToastrService) {
         this.selectTipoFicha = [
-            { nombre: 'Corrido', value: 'CORRIDO', status: true },
-            { nombre: 'Pausado', value: 'PAUSADO', status: true },
-            { nombre: 'Megas', value: 'MEGAS', status: true },
+            "Corrido", "Pausado", "Megas"
         ];
         //VALORES QUE SE MOSTRARAN EN EL SELECT
         this.seleccionVelocidadsubida = [
@@ -89,6 +92,9 @@ export class PerfilfichasComponent implements OnInit {
         this.seleccionVelocidadbajada = [
             "Kbps", "Mbps"
         ];
+        this.seleccionLimiteDeTrafico = [
+            "Kbps", "Mbps", "Gbps"
+        ]
     }
 
     ngOnInit(): void {
@@ -98,7 +104,6 @@ export class PerfilfichasComponent implements OnInit {
 
     //METODO QUE ABRE EL MODAL
     openNew() {
-        /* this.planes = {}; */
         this.submitted = false;
         this.perfilModalDialog = true;
     }
@@ -131,6 +136,8 @@ export class PerfilfichasComponent implements OnInit {
 
 
     agregarPlanesFichas() {
+
+        this.submitted = true
         //VALIDAMOS SI LA HORA ES MENOR A 10 Y LE AGREGAMOS UN CERO ANTES PARA QUE LO RECONOSCA MIKROTIK
         var tiempoLimiteFichaHoraConCero
         var tiempoLimiteFichaMinConCero
@@ -161,7 +168,7 @@ export class PerfilfichasComponent implements OnInit {
         this._perfilfichasService.savePlanesFichas(PlanesFichas).subscribe(
             (data) => {
                 this.toastr.success(
-                    PlanesFichas.nameProfile + ' Agregado Correctamente',
+                    this.perfilDesdeModal.nombrePerfilModal + ' Agregado Correctamente',
                     'Perfil Agregado', {progressBar: true}
                 );
                 //MANDA A TRAER EL METODO OBTENER PLANES PARA QUE SE ACTUALIZE LA TABLA CON EL NUEVO PERFIL EN TIEMP REAL
@@ -177,6 +184,7 @@ export class PerfilfichasComponent implements OnInit {
         //CON ESTO RESTABLECEMOS LOS VALORES DEL MODAL A VACIO
         this.perfilDesdeModal = {
             nombrePerfilModal : '',
+            tipodeFichas: '',
             velocidadSubidaModal: 0,
             velocidadSubidaEnModal: "",
             velocidadBajadaModal: 0,
@@ -186,7 +194,9 @@ export class PerfilfichasComponent implements OnInit {
             tiempoLimiteFichaMin: 0,
             tiemoExpiracionFichaDia:0,
             tiemoExpiracionFichaHora:0,
-            tiemoExpiracionFichaMin:0
+            tiemoExpiracionFichaMin:0,
+            limiteDeTraficoFicha: 0,
+            limiteDeTraficoFichaEnKbMbGb: ''
         };
         //Cierra el Modal
         this.hideDialog();
