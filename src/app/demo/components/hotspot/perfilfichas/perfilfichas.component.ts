@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { PerfilfichasService } from 'src/app/demo/service/perfilfichas.service';
+import { ConfirmationService } from 'primeng/api';
+import {Message} from 'primeng//api';
+import {MessageService} from 'primeng/api';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 
 interface TipoFicha {
@@ -33,6 +36,7 @@ interface PerfilesFichaModal {
 @Component({
     selector: 'app-perfilfichas',
     templateUrl: './perfilfichas.component.html',
+    providers: [MessageService,ConfirmationService]
 })
 export class PerfilfichasComponent implements OnInit {
     //ARREGLO DONDE SE OBTIENEN LAS PERFILES DESDE EL FRONT
@@ -81,7 +85,7 @@ export class PerfilfichasComponent implements OnInit {
     seleccionLimiteDeTrafico: any[];
 
 
-    constructor(private _perfilfichasService: PerfilfichasService, private toastr: ToastrService) {
+    constructor(private _perfilfichasService: PerfilfichasService, private toastr: ToastrService, private messageService: MessageService, private confirmationService: ConfirmationService) {
         this.selectTipoFicha = [
             "Corrido", "Pausado", "Megas"
         ];
@@ -200,6 +204,32 @@ export class PerfilfichasComponent implements OnInit {
         };
         //Cierra el Modal
         this.hideDialog();
+
+    }
+    /* deletePlanesFichas(id: string) {
+        this._perfilfichasService.deletePlanesFichas(id).subscribe(data =>{
+            this.toastr.success('Plan eliminada con Exito', 'Plan Eliminado');
+            this.obtenerplanesfichas();
+        }, error => {
+            this.toastr.error(error.status, 'Error')
+        })
+    } */
+    deletePlanesFichas(id: string, nombrePerfil: string) {
+        this.confirmationService.confirm({
+            message: 'Estas seguro que quieres Eliminar ' + nombrePerfil +' ?',
+            header: 'Eliminar',
+            icon: 'pi pi-trash',
+            accept: () => {
+                this._perfilfichasService.deletePlanesFichas(id).subscribe(data => {
+                    /* this.toastr.warning('Perfil ' + nombrePerfil + ' eliminada con Exito','Eliminado'); */
+                    this.messageService.add({severity:'success', summary: 'Eliminado', detail: 'Perfil ' + nombrePerfil + ' eliminada con Exito', life: 3000});
+                    this.obtenerplanesfichas();
+                }, error => {
+                    /* this.toastr.error(error.status + ' ' +  error.name, 'Error') */
+                    this.messageService.add({severity:'error', summary: 'Error', detail: error.status + ' ' +  error.name, life: 3000});
+                });
+            }
+        });
 
     }
 

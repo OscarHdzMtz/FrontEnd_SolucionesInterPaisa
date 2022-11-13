@@ -1,4 +1,4 @@
-<!-- <p-toast></p-toast> -->
+<p-toast></p-toast>
 
 <div class="card">
     <p-toolbar styleClass="mb-4">
@@ -64,7 +64,7 @@
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
                         (click)="editProduct(planes)"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletePlanesFichas(planes.id, planes.name)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -193,4 +193,4 @@
         </ng-template>
     </p-dialog>
 
-    <!-- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> -->
+    <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

@@ -19,4 +19,8 @@ export class PerfilfichasService {
     savePlanesFichas(PlanesFichas: any): Observable<any>{
         return this.http.post(this.myAppURL + this.myApiUrl, PlanesFichas);
     }
+
+    deletePlanesFichas(id: string): Observable<any>{
+        return this.http.delete(this.myAppURL + this.myApiUrl + id)
+    }
 }

@@ -16,6 +16,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { PerfilfichasComponent } from './perfilfichas.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
@@ -36,7 +37,8 @@ import { PerfilfichasComponent } from './perfilfichas.component';
         DropdownModule,
         RadioButtonModule,
         InputNumberModule,
-        DialogModule
+        DialogModule,
+        ConfirmDialogModule,
   ],
   declarations: [PerfilfichasComponent]
 })
