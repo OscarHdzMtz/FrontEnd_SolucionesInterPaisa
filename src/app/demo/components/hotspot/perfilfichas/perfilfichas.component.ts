@@ -16,6 +16,7 @@ interface TipoFicha {
 
 //CREAMOS LA INTERFAZ CON LOS DATOS QUE SE RECIBIRA DESDE EL MODAL
 interface PerfilesFichaModal {
+    idPerfilModal: string;
     nombrePerfilModal : string,
     tipodeFichas: string,
     velocidadSubidaModal: string,
@@ -45,6 +46,7 @@ export class PerfilfichasComponent implements OnInit {
 
     // creamos una variable con el tipo de interface de los datos que vienen desde el modal y INICIALIZAMOS LOS VARIABLES QUE VENDRAN DESDE EL MODAL
     perfilDesdeModal: PerfilesFichaModal = {
+    idPerfilModal: "",
     nombrePerfilModal : '',
     tipodeFichas: '',
     velocidadSubidaModal: "",
@@ -140,53 +142,100 @@ export class PerfilfichasComponent implements OnInit {
 
 
     agregarPlanesFichas() {
-
         this.submitted = true
-        //VALIDAMOS SI LA HORA ES MENOR A 10 Y LE AGREGAMOS UN CERO ANTES PARA QUE LO RECONOSCA MIKROTIK
-        var tiempoLimiteFichaHoraConCero
-        var tiempoLimiteFichaMinConCero
-        if(this.perfilDesdeModal.tiempoLimiteFichaHora < 10 || this.perfilDesdeModal.tiempoLimiteFichaMin < 10 ){
-            tiempoLimiteFichaHoraConCero ="0" + this.perfilDesdeModal.tiempoLimiteFichaHora
-            tiempoLimiteFichaMinConCero = "0" + this.perfilDesdeModal.tiempoLimiteFichaMin
-        }else{
-            tiempoLimiteFichaHoraConCero = this.perfilDesdeModal.tiempoLimiteFichaHora
-            tiempoLimiteFichaMinConCero = this.perfilDesdeModal.tiempoLimiteFichaMin
-        }
+        if(this.perfilDesdeModal.idPerfilModal !== ""){
+                //VALIDAMOS SI LA HORA ES MENOR A 10 Y LE AGREGAMOS UN CERO ANTES PARA QUE LO RECONOSCA MIKROTIK
+                var tiempoLimiteFichaHoraConCero
+                var tiempoLimiteFichaMinConCero
+                if(this.perfilDesdeModal.tiempoLimiteFichaHora < 10 || this.perfilDesdeModal.tiempoLimiteFichaMin < 10 ){
+                    tiempoLimiteFichaHoraConCero ="0" + this.perfilDesdeModal.tiempoLimiteFichaHora
+                    tiempoLimiteFichaMinConCero = "0" + this.perfilDesdeModal.tiempoLimiteFichaMin
+                }else{
+                    tiempoLimiteFichaHoraConCero = this.perfilDesdeModal.tiempoLimiteFichaHora
+                    tiempoLimiteFichaMinConCero = this.perfilDesdeModal.tiempoLimiteFichaMin
+                }
 
-        //OBTENER EL PRIMER CARACTER DE Mbps Y Kbps ===> 'M', 'K'
-        var velocidadSubidaEnModalSubstring = this.perfilDesdeModal.velocidadSubidaEnModal.substring(0, 1);
-        var velocidadBajadaEnModalSubstring = this.perfilDesdeModal.velocidadBajadaEnModal.substring(0, 1);
+                //OBTENER EL PRIMER CARACTER DE Mbps Y Kbps ===> 'M', 'K'
+                var velocidadSubidaEnModalSubstring = this.perfilDesdeModal.velocidadSubidaEnModal.substring(0, 1);
+                var velocidadBajadaEnModalSubstring = this.perfilDesdeModal.velocidadBajadaEnModal.substring(0, 1);
 
 
-        //CREAMOS UNA VARIABLE CON LOS DATOS QUE SE ENVIARA EL BACKEND Y GUARDAR AL MIKROTIK
-        var PlanesFichas: any = {
-            nameProfile: this.perfilDesdeModal.nombrePerfilModal,
-            addressPoolProfile: 'none',
-            velocidadSubidaBajadaProfile: this.perfilDesdeModal.velocidadSubidaModal + velocidadSubidaEnModalSubstring + "/" + this.perfilDesdeModal.velocidadBajadaModal + velocidadBajadaEnModalSubstring,
-            limiteDeTiempoProfile: this.perfilDesdeModal.tiempoLimiteFichaDia + "d " + tiempoLimiteFichaHoraConCero + ":" + tiempoLimiteFichaMinConCero + ":00",
-            onLoginProfile: '',
-            onLogoutProfile: 'planesFichas.onLogoutProfil',
-        };
-
-        //Enviamos los datos del variable al
-        this._perfilfichasService.savePlanesFichas(PlanesFichas).subscribe(
-            (data) => {
-                this.toastr.success(
-                    this.perfilDesdeModal.nombrePerfilModal + ' Agregado Correctamente',
-                    'Perfil Agregado', {progressBar: true}
+                //CREAMOS UNA VARIABLE CON LOS DATOS QUE SE ENVIARA EL BACKEND Y GUARDAR AL MIKROTIK
+                var PlanesFichas: any = {
+                    idProfile : this.perfilDesdeModal.idPerfilModal,
+                    nameProfile: this.perfilDesdeModal.nombrePerfilModal,
+                    addressPoolProfile: 'none',
+                    velocidadSubidaBajadaProfile: this.perfilDesdeModal.velocidadSubidaModal + velocidadSubidaEnModalSubstring + "/" + this.perfilDesdeModal.velocidadBajadaModal + velocidadBajadaEnModalSubstring,
+                    limiteDeTiempoProfile: this.perfilDesdeModal.tiempoLimiteFichaDia + "d " + tiempoLimiteFichaHoraConCero + ":" + tiempoLimiteFichaMinConCero + ":00",
+                    onLoginProfile: '',
+                    onLogoutProfile: 'planesFichas.onLogoutProfil',
+                };
+                //Enviamos los datos del variable al
+                this._perfilfichasService.savePlanesFichas(PlanesFichas).subscribe(
+                    (data) => {
+                        this.toastr.info(
+                            this.perfilDesdeModal.nombrePerfilModal + ' Perfil Actualizado Correctamente',
+                            'Actualizado', {progressBar: true}
+                        );
+                        //MANDA A TRAER EL METODO OBTENER PLANES PARA QUE SE ACTUALIZE LA TABLA CON EL NUEVO PERFIL EN TIEMP REAL
+                        this.obtenerplanesfichas();
+                    },
+                    (error) => {
+                        this.toastr.error(error.status + ', ' + error.name, 'Error',{
+                            progressBar: true
+                        });
+                        console.log(error);
+                    }
                 );
-                //MANDA A TRAER EL METODO OBTENER PLANES PARA QUE SE ACTUALIZE LA TABLA CON EL NUEVO PERFIL EN TIEMP REAL
-                this.obtenerplanesfichas();
-            },
-            (error) => {
-                this.toastr.error(error.status + ', ' + error.name, 'Error',{
-                    progressBar: true
-                });
-                console.log(error);
-            }
-        );
+        }else
+            {
+                //VALIDAMOS SI LA HORA ES MENOR A 10 Y LE AGREGAMOS UN CERO ANTES PARA QUE LO RECONOSCA MIKROTIK
+                var tiempoLimiteFichaHoraConCero
+                var tiempoLimiteFichaMinConCero
+                if(this.perfilDesdeModal.tiempoLimiteFichaHora < 10 || this.perfilDesdeModal.tiempoLimiteFichaMin < 10 ){
+                    tiempoLimiteFichaHoraConCero ="0" + this.perfilDesdeModal.tiempoLimiteFichaHora
+                    tiempoLimiteFichaMinConCero = "0" + this.perfilDesdeModal.tiempoLimiteFichaMin
+                }else{
+                    tiempoLimiteFichaHoraConCero = this.perfilDesdeModal.tiempoLimiteFichaHora
+                    tiempoLimiteFichaMinConCero = this.perfilDesdeModal.tiempoLimiteFichaMin
+                }
+
+                //OBTENER EL PRIMER CARACTER DE Mbps Y Kbps ===> 'M', 'K'
+                var velocidadSubidaEnModalSubstring = this.perfilDesdeModal.velocidadSubidaEnModal.substring(0, 1);
+                var velocidadBajadaEnModalSubstring = this.perfilDesdeModal.velocidadBajadaEnModal.substring(0, 1);
+
+
+                //CREAMOS UNA VARIABLE CON LOS DATOS QUE SE ENVIARA EL BACKEND Y GUARDAR AL MIKROTIK
+                var PlanesFichas: any = {
+                    nameProfile: this.perfilDesdeModal.nombrePerfilModal,
+                    addressPoolProfile: 'none',
+                    velocidadSubidaBajadaProfile: this.perfilDesdeModal.velocidadSubidaModal + velocidadSubidaEnModalSubstring + "/" + this.perfilDesdeModal.velocidadBajadaModal + velocidadBajadaEnModalSubstring,
+                    limiteDeTiempoProfile: this.perfilDesdeModal.tiempoLimiteFichaDia + "d " + tiempoLimiteFichaHoraConCero + ":" + tiempoLimiteFichaMinConCero + ":00",
+                    onLoginProfile: '',
+                    onLogoutProfile: 'planesFichas.onLogoutProfil',
+                };
+
+                //Enviamos los datos del variable al
+                this._perfilfichasService.savePlanesFichas(PlanesFichas).subscribe(
+                    (data) => {
+                        this.toastr.success(
+                            this.perfilDesdeModal.nombrePerfilModal + ' Agregado Correctamente',
+                            'Perfil Agregado', {progressBar: true}
+                        );
+                        //MANDA A TRAER EL METODO OBTENER PLANES PARA QUE SE ACTUALIZE LA TABLA CON EL NUEVO PERFIL EN TIEMP REAL
+                        this.obtenerplanesfichas();
+                    },
+                    (error) => {
+                        this.toastr.error(error.status + ', ' + error.name, 'Error',{
+                            progressBar: true
+                        });
+                        console.log(error);
+                    }
+                );
+        }
         //CON ESTO RESTABLECEMOS LOS VALORES DEL MODAL A VACIO
         this.perfilDesdeModal = {
+            idPerfilModal: "",
             nombrePerfilModal : '',
             tipodeFichas: '',
             velocidadSubidaModal: "",
@@ -233,7 +282,7 @@ export class PerfilfichasComponent implements OnInit {
 
     }
 
-    editPlanesFichas(nombre: string, macCookieTimeout: string, rateLimit: string) {
+    editPlanesFichas(nombre: string, macCookieTimeout: string, rateLimit: string, idPlanes: string) {
 
         //CONVERTIMOS EL STRING EN UN ARREGLO PARA PODER MANDAR EL VALOR DE SUBISDA Y BAJADA POR SEPARADO
         let rateLimitaSubida : Array<string>= rateLimit.split("/")
@@ -249,13 +298,15 @@ export class PerfilfichasComponent implements OnInit {
             if( caracter === "d" || caracter === "w"){
                 //VALIDAMOS SI LOS DIAS VIENE POR SEMANA, SI, SI OBTENEMOS EL VALOR DE LA SEMANA PARA PODER CONVERTIRLO EN DIA
                 if(caracter === "w"){
-                    console.log("Se encontro la letra D _"+  caracter + "Posicion " + recorrer );
-                    buscartiempoLimiteFichaSemana = macCookieTimeout.substring(recorrer- 1, recorrer)
+                    /* console.log("Se encontro la letra D _"+  caracter + "Posicion " + recorrer ); */
+                    buscartiempoLimiteFichaSemana = macCookieTimeout.substring(0, recorrer)
                     console.log(buscartiempoLimiteFichaSemana)
                 }
-                /* console.log("Se encontro la letra D _"+  caracter + "Posicion " + recorrer ); */
+                if(caracter === "d"){
+                    /* console.log("Se encontro la letra D _"+  caracter + "Posicion " + recorrer ); */
                 buscartiempoLimiteFichaDia = macCookieTimeout.substring(recorrer- 1, recorrer)
                 console.log(buscartiempoLimiteFichaDia)
+                }
             }
             if(caracter === "h"){
                 /* console.log("Se encontro la letra H _"+  caracter + "Posicion " + recorrer ); */
@@ -291,6 +342,7 @@ export class PerfilfichasComponent implements OnInit {
 
         //ASIGNAMOS LOS VALORES EL MODAL EDITAR
         this.perfilDesdeModal = {
+            idPerfilModal: idPlanes,
             nombrePerfilModal :  nombre,
             tipodeFichas: '',
             velocidadSubidaModal: rateLimitaSubida[0].substring(0, rateLimitaSubida[0].length-1),
@@ -307,6 +359,7 @@ export class PerfilfichasComponent implements OnInit {
             limiteDeTraficoFicha: 0,
             limiteDeTraficoFichaEnKbMbGb: ''
         }
+        console.log(this.perfilDesdeModal);
         this.perfilModalDialog = true;
     }
 //METODO QUE CIERRA EL MODAL
