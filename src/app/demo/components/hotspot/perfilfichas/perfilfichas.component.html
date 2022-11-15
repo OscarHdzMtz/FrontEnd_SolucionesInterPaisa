@@ -28,9 +28,9 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 3rem">
+               <!--  <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
+                </th> -->
                 <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon>
                 </th>
                 <th pSortableColumn="macCookieTimeout">Duracion<p-sortIcon field="macCookieTimeout"></p-sortIcon>
@@ -48,9 +48,9 @@
         </ng-template>
         <ng-template pTemplate="body" let-planes>
             <tr>
-                <td>
+                <!-- <td>
                     <p-tableCheckbox [value]="planes"></p-tableCheckbox>
-                </td>
+                </td> -->
                 <td>{{planes.name}}</td>
                 <td>{{planes.macCookieTimeout}}</td>
                 <td>{{planes.rateLimit}}</td>
@@ -63,7 +63,7 @@
                 </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-                        (click)="editProduct(planes)"></button>
+                        (click)="editPlanesFichas(planes.name, planes.macCookieTimeout, planes.rateLimit)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deletePlanesFichas(planes.id, planes.name)"></button>
                 </td>
             </tr>

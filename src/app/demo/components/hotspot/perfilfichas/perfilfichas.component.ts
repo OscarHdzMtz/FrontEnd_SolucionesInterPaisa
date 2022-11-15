@@ -18,9 +18,9 @@ interface TipoFicha {
 interface PerfilesFichaModal {
     nombrePerfilModal : string,
     tipodeFichas: string,
-    velocidadSubidaModal?: number,
+    velocidadSubidaModal: string,
     velocidadSubidaEnModal: string,
-    velocidadBajadaModal: number,
+    velocidadBajadaModal: string,
     velocidadBajadaEnModal: string
     tiempoLimiteFichaDia: number
     tiempoLimiteFichaHora: number
@@ -47,9 +47,9 @@ export class PerfilfichasComponent implements OnInit {
     perfilDesdeModal: PerfilesFichaModal = {
     nombrePerfilModal : '',
     tipodeFichas: '',
-    velocidadSubidaModal: 0,
+    velocidadSubidaModal: "",
     velocidadSubidaEnModal: "",
-    velocidadBajadaModal: 0,
+    velocidadBajadaModal: "",
     velocidadBajadaEnModal: '',
     tiempoLimiteFichaDia: 0,
     tiempoLimiteFichaHora: 0,
@@ -189,9 +189,9 @@ export class PerfilfichasComponent implements OnInit {
         this.perfilDesdeModal = {
             nombrePerfilModal : '',
             tipodeFichas: '',
-            velocidadSubidaModal: 0,
+            velocidadSubidaModal: "",
             velocidadSubidaEnModal: "",
-            velocidadBajadaModal: 0,
+            velocidadBajadaModal: "",
             velocidadBajadaEnModal: '',
             tiempoLimiteFichaDia: 0,
             tiempoLimiteFichaHora: 0,
@@ -233,9 +233,80 @@ export class PerfilfichasComponent implements OnInit {
 
     }
 
-    editProduct(planes: any) {
-        console.log('el plan es' + planes);
-        /* this.planes = { ...planes }; */
+    editPlanesFichas(nombre: string, macCookieTimeout: string, rateLimit: string) {
+
+        //CONVERTIMOS EL STRING EN UN ARREGLO PARA PODER MANDAR EL VALOR DE SUBISDA Y BAJADA POR SEPARADO
+        let rateLimitaSubida : Array<string>= rateLimit.split("/")
+
+
+        var buscartiempoLimiteFichaDia;
+        var buscartiempoLimiteFichaMin;
+        var buscartiempoLimiteFichaHora;
+        var buscartiempoLimiteFichaSemana;
+        //RECORREMOS EL macCookieTimeout QUE VIENE PARA BUSCAR EL VALOR DE MINUTOS, HORA Y DIA RECORRIENDO CARACTER POR CARACTER
+        for(var recorrer = 0; recorrer < macCookieTimeout.length; recorrer ++){
+            var caracter = macCookieTimeout.charAt(recorrer)
+            if( caracter === "d" || caracter === "w"){
+                //VALIDAMOS SI LOS DIAS VIENE POR SEMANA, SI, SI OBTENEMOS EL VALOR DE LA SEMANA PARA PODER CONVERTIRLO EN DIA
+                if(caracter === "w"){
+                    console.log("Se encontro la letra D _"+  caracter + "Posicion " + recorrer );
+                    buscartiempoLimiteFichaSemana = macCookieTimeout.substring(recorrer- 1, recorrer)
+                    console.log(buscartiempoLimiteFichaSemana)
+                }
+                /* console.log("Se encontro la letra D _"+  caracter + "Posicion " + recorrer ); */
+                buscartiempoLimiteFichaDia = macCookieTimeout.substring(recorrer- 1, recorrer)
+                console.log(buscartiempoLimiteFichaDia)
+            }
+            if(caracter === "h"){
+                /* console.log("Se encontro la letra H _"+  caracter + "Posicion " + recorrer ); */
+                buscartiempoLimiteFichaHora = macCookieTimeout.substring(recorrer - 1, recorrer)
+                console.log(buscartiempoLimiteFichaHora)
+            }
+            if(caracter === "m"){
+                /* console.log("Se encontro la letra M _"+  caracter + "Posicion " + recorrer ); */
+                buscartiempoLimiteFichaMin = macCookieTimeout.substring(recorrer - 1, recorrer)
+                console.log(buscartiempoLimiteFichaMin)
+            }
+        }
+        //VALIDAMOS SI LOS VARIABLES VIENEN COMO VALOR INDEFINIDO Y LE AGREGAMOS UN CERO
+        if(buscartiempoLimiteFichaMin === undefined){
+
+            buscartiempoLimiteFichaMin = 0;
+        }
+        if(buscartiempoLimiteFichaHora === undefined){
+            buscartiempoLimiteFichaHora = 0;
+        }
+        if(buscartiempoLimiteFichaDia === undefined){
+            buscartiempoLimiteFichaDia = 0;
+        }
+        if(buscartiempoLimiteFichaSemana === undefined){
+            buscartiempoLimiteFichaSemana = 0;
+        }
+        //convertimos el vaor que obtenemos en TIPO Number ya que la variable donde se va mandar es de tipo number
+        var buscartiempoLimiteFichaDiaNumber = Number(buscartiempoLimiteFichaDia);
+        var buscartiempoLimiteFichaHoraNumber = Number(buscartiempoLimiteFichaHora);
+        var buscartiempoLimiteFichaMinNumber = Number(buscartiempoLimiteFichaMin);
+        var buscartiempoLimiteFichaSemanaNumber = Number(buscartiempoLimiteFichaSemana);
+
+
+        //ASIGNAMOS LOS VALORES EL MODAL EDITAR
+        this.perfilDesdeModal = {
+            nombrePerfilModal :  nombre,
+            tipodeFichas: '',
+            velocidadSubidaModal: rateLimitaSubida[0].substring(0, rateLimitaSubida[0].length-1),
+            velocidadSubidaEnModal: rateLimitaSubida[0].substring(rateLimitaSubida[0].length-1, rateLimitaSubida[0].length) + "bps",
+            velocidadBajadaModal: rateLimitaSubida[1].substring(0, rateLimitaSubida[1].length-1),
+            velocidadBajadaEnModal: rateLimitaSubida[1].substring(rateLimitaSubida[1].length-1, rateLimitaSubida[1].length) + "bps",
+            //DESPUES DE VALIDAR SI LOS DIAS VIENEN EN SEMANA , MULTIPLICAMOS LA SEMANA POR 7 PARA SACAR EL DIA Y LE CONCATENAMOS CON DIAS POR SI VIENE DIAS TAMBN APARTE DE SEMANA
+            tiempoLimiteFichaDia: buscartiempoLimiteFichaSemanaNumber * 7 + buscartiempoLimiteFichaDiaNumber,
+            tiempoLimiteFichaHora: buscartiempoLimiteFichaHoraNumber,
+            tiempoLimiteFichaMin: buscartiempoLimiteFichaMinNumber,
+            tiemoExpiracionFichaDia:0,
+            tiemoExpiracionFichaHora:0,
+            tiemoExpiracionFichaMin:0,
+            limiteDeTraficoFicha: 0,
+            limiteDeTraficoFichaEnKbMbGb: ''
+        }
         this.perfilModalDialog = true;
     }
 //METODO QUE CIERRA EL MODAL
