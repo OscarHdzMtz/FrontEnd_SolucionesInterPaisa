@@ -6,6 +6,7 @@ import { ConfirmationService } from 'primeng/api';
 import {Message} from 'primeng//api';
 import {MessageService} from 'primeng/api';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import { exit } from 'process';
 
 
 interface TipoFicha {
@@ -292,7 +293,7 @@ export class PerfilfichasComponent implements OnInit {
         var buscartiempoLimiteFichaMin;
         var buscartiempoLimiteFichaHora;
         var buscartiempoLimiteFichaSemana;
-        //RECORREMOS EL macCookieTimeout QUE VIENE PARA BUSCAR EL VALOR DE MINUTOS, HORA Y DIA RECORRIENDO CARACTER POR CARACTER
+        //RECORREMOS EL macCookieTimeout QUE VIENE PARA BUSCAR EL VALOR DE DIA RECORRIENDO CARACTER POR CARACTER
         for(var recorrer = 0; recorrer < macCookieTimeout.length; recorrer ++){
             var caracter = macCookieTimeout.charAt(recorrer)
             if( caracter === "d" || caracter === "w"){
@@ -308,17 +309,130 @@ export class PerfilfichasComponent implements OnInit {
                 console.log(buscartiempoLimiteFichaDia)
                 }
             }
-            if(caracter === "h"){
+            /* if(caracter === "h"){ */
                 /* console.log("Se encontro la letra H _"+  caracter + "Posicion " + recorrer ); */
-                buscartiempoLimiteFichaHora = macCookieTimeout.substring(recorrer - 1, recorrer)
+                /* buscartiempoLimiteFichaHora = macCookieTimeout.substring(recorrer - 1, recorrer)
                 console.log(buscartiempoLimiteFichaHora)
-            }
-            if(caracter === "m"){
+            } */
+            /* if(caracter === "m"){ */
                 /* console.log("Se encontro la letra M _"+  caracter + "Posicion " + recorrer ); */
-                buscartiempoLimiteFichaMin = macCookieTimeout.substring(recorrer - 1, recorrer)
+             /*    buscartiempoLimiteFichaMin = macCookieTimeout.substring(recorrer - 1, recorrer)
                 console.log(buscartiempoLimiteFichaMin)
+            } */
+        }
+        //RECORREMOS PARA BUSCAR EL VALOR DE HORA
+        for(var recorrerHyM = 0; recorrerHyM < macCookieTimeout.length; recorrerHyM ++){
+            var caracter = macCookieTimeout.charAt(recorrerHyM)
+            //SI ENCONTRAMOS w RECORREMOS PARA BUSCAR d
+            if(caracter === "w"){
+                for(var buscarD = 0; buscarD < macCookieTimeout.length; buscarD ++){
+                    var caracterD = macCookieTimeout.charAt(buscarD)
+                    //SI ENCONTRAMOS d RECORREMOS PARA BUSCAR h
+                    if(caracterD === "d"){
+                        for(var buscarH = 0; buscarH < macCookieTimeout.length; buscarH ++){
+                            var caracterH = macCookieTimeout.charAt(buscarH)
+                            if(caracterH === "h"){
+                                //TOMAMOS EL VALOR DE LA POSICION DONDE SE ENCONTRO d Y h PARA OBTENER EL VALOR DE HORA
+                                buscartiempoLimiteFichaHora = macCookieTimeout.substring(buscarD + 1, buscarH)
+                                console.log(buscartiempoLimiteFichaHora)
+                                //BUSCAMOS EL VALOR MINUTO
+                                for (let buscarM = 0; buscarM < macCookieTimeout.length; buscarM++) {
+                                    var caracterM = macCookieTimeout.charAt(buscarM)
+                                        if (caracterM === "m") {
+                                            //ASIGNAMOS EL VALOR AL MINUTO, TOMANDO COMO REFERENCIA LA HORA Y EL TOTAL DE DIGITOS DE LA CADENA -1
+                                            buscartiempoLimiteFichaMin = macCookieTimeout.substring(buscarH + 1, macCookieTimeout.length -1)
+                                            console.log(buscartiempoLimiteFichaMin)
+                                            break;
+                                        }
+                                }
+                                break
+                            }
+                            if (caracterH === "m") {
+                                //ASIGNAMOS EL VALOR AL MINUTO, TOMANDO COMO REFERENCIA LA HORA Y EL TOTAL DE DIGITOS DE LA CADENA -1
+                                buscartiempoLimiteFichaMin = macCookieTimeout.substring(buscarD + 1, macCookieTimeout.length -1)
+                                console.log(buscartiempoLimiteFichaMin)
+                                break;
+                            }
+                        }
+                        break
+                    }
+                    //SI d NO EXISTE PROCEMOS A BUSCAR h
+                    if(caracterD === "h"){
+                        //Y TOMAMOS EL VALOR DE LA POSICION DONDE SE ENCUENTRA h
+                        buscartiempoLimiteFichaHora = macCookieTimeout.substring(recorrerHyM + 1, buscarD)
+                        console.log(buscartiempoLimiteFichaHora)
+                        //BUSCAMOS EL VALOR MINUTO
+                            for (let buscarM = 0; buscarM < macCookieTimeout.length; buscarM++) {
+                                var caracterM = macCookieTimeout.charAt(buscarM)
+                                if (caracterM === "m") {
+                                    //ASIGNAMOS EL VALOR AL MINUTO, TOMANDO COMO REFERENCIA LA HORA Y EL TOTAL DE DIGITOS DE LA CADENA -1
+                                    buscartiempoLimiteFichaMin = macCookieTimeout.substring(buscarD + 1, macCookieTimeout.length -1)
+                                    console.log(buscartiempoLimiteFichaMin)
+                                    break;
+                                }
+                            }
+                        break;
+                    }
+                    if (caracterD === "m") {
+                        buscartiempoLimiteFichaMin = macCookieTimeout.substring(recorrerHyM + 1, macCookieTimeout.length -1)
+                        console.log(buscartiempoLimiteFichaMin)
+                    }
+                }
+                break;
+            }
+            //SI NO EXISTE w BUSCAMOS DIRECTAMENTE d
+            if(caracter === "d"){
+                for(var buscarH = 0; buscarH < macCookieTimeout.length; buscarH ++){
+                    var caracterH = macCookieTimeout.charAt(buscarH)
+                    if(caracterH === "h"){
+                        //TOMAMOS EL VALOR DE LA POSICION DONDE SE ENCONTRO d Y h PARA OBTENER EL VALOR DE HORA
+                        buscartiempoLimiteFichaHora = macCookieTimeout.substring(recorrerHyM + 1, buscarH)
+                        console.log(buscartiempoLimiteFichaHora)
+                            //BUSCAMOS EL VALOR MINUTO
+                        for (let buscarM = 0; buscarM < macCookieTimeout.length; buscarM++) {
+                            var caracterM = macCookieTimeout.charAt(buscarM)
+                                if (caracterM === "m") {
+                                    //ASIGNAMOS EL VALOR AL MINUTO, TOMANDO COMO REFERENCIA LA HORA Y EL TOTAL DE DIGITOS DE LA CADENA -1
+                                    buscartiempoLimiteFichaMin = macCookieTimeout.substring(buscarH + 1, macCookieTimeout.length -1)
+                                    console.log(buscartiempoLimiteFichaMin)
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                    if (caracterH === "m") {
+                        buscartiempoLimiteFichaMin = macCookieTimeout.substring(recorrerHyM + 1, macCookieTimeout.length -1)
+                        console.log(buscartiempoLimiteFichaMin)
+                        break;
+                    }
+                }
+                break;
+            }
+            //SI NO EXISTE NI w NI d PROCEDEMOS A BUSCAR h
+            if(caracter === "h"){
+                buscartiempoLimiteFichaHora = macCookieTimeout.substring(0, recorrerHyM)
+                console.log(buscartiempoLimiteFichaHora)
+                //BUSCAMOS EL VALOR MINUTO
+                for (let buscarM = 0; buscarM < macCookieTimeout.length; buscarM++) {
+                    var caracterM = macCookieTimeout.charAt(buscarM)
+                        if (caracterM === "m") {
+                            //ASIGNAMOS EL VALOR AL MINUTO, TOMANDO COMO REFERENCIA LA HORA Y EL TOTAL DE DIGITOS DE LA CADENA -1
+                            buscartiempoLimiteFichaMin = macCookieTimeout.substring(recorrerHyM + 1, macCookieTimeout.length -1)
+                            console.log(buscartiempoLimiteFichaMin)
+                            break;
+                        }
+                }
+                break;
+            }
+            if (caracter === "m") {
+                buscartiempoLimiteFichaMin = macCookieTimeout.substring(0, macCookieTimeout.length -1)
+                console.log(buscartiempoLimiteFichaMin)
+                break;
             }
         }
+
+
+
         //VALIDAMOS SI LOS VARIABLES VIENEN COMO VALOR INDEFINIDO Y LE AGREGAMOS UN CERO
         if(buscartiempoLimiteFichaMin === undefined){
 
