@@ -39,14 +39,19 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/hotspot/perfilfichas']
                             },
                             {
-                                label: 'Ver usuarios',
-                                icon: 'pi pi-fw pi-times-circle',
+                                label: 'Fichas',
+                                icon: 'pi pi-fw pi-file',
                                 routerLink: ['/hotspot/usuariosfichas']
+                            },
+                            {
+                                label: 'Crear y vender ficha',
+                                icon: 'pi pi-fw pi-list',
+                                routerLink: ['/hotspot/crearvenderusuariosfichas']
                             },
                             {
                                 label: 'Access Denied',
                                 icon: 'pi pi-fw pi-lock',
-                                routerLink: ['/hotspot/routersfichas']
+                                routerLink: ['/notfound']
                             }
                         ]
                     },

@@ -14,32 +14,32 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { UsuariosfichasRoutingModule } from './usuariosfichas-routing.module';
-import { UsuariosfichasComponent } from './usuariosfichas.component';
-import {BadgeModule} from 'primeng/badge';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CrearvenderusuariosfichasComponent } from './crearvenderusuariosfichas.component';
+import { CrearvenderusuariosfichasRoutingModule } from './crearvenderusuariosfichas-routing.module';
 
 
 
 @NgModule({
-  declarations: [UsuariosfichasComponent],
   imports: [
     CommonModule,
-    UsuariosfichasRoutingModule,
+    CrearvenderusuariosfichasRoutingModule,
     TableModule,
-    FileUploadModule,
-    FormsModule,
-    ButtonModule,
-    RippleModule,
-    ToastModule,
-    ToolbarModule,
-    RatingModule,
-    InputTextModule,
-    InputTextareaModule,
-    DropdownModule,
-    RadioButtonModule,
-    InputNumberModule,
-    DialogModule,
-    BadgeModule
-  ]
+        FileUploadModule,
+        FormsModule,
+        ButtonModule,
+        RippleModule,
+        ToastModule,
+        ToolbarModule,
+        RatingModule,
+        InputTextModule,
+        InputTextareaModule,
+        DropdownModule,
+        RadioButtonModule,
+        InputNumberModule,
+        DialogModule,
+        ConfirmDialogModule,
+  ],
+  declarations: [CrearvenderusuariosfichasComponent]
 })
-export class UsuariosfichasModule { }
+export class CrearvenderusuariosfichasModule { }
