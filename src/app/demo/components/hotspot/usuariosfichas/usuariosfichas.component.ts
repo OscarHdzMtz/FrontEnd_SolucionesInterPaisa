@@ -9,6 +9,7 @@ import {Message} from 'primeng//api';
 import {MessageService} from 'primeng/api';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { ToastrService } from 'ngx-toastr';
+import { style } from '@angular/animations';
 
 @Component({
     selector: 'app-usuariosfichas',
@@ -82,5 +83,25 @@ export class UsuariosfichasComponent implements OnInit {
             data,
             fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION
         );
+    }
+
+    deleteUsuariosFichas(id: string, nombreFicha: string) {
+        this.confirmationService.confirm({
+            message: 'Estas seguro que quieres Eliminar la ficha ' + nombreFicha + ' ?',
+            header: 'Eliminar',
+            icon: 'pi pi-trash',
+
+            accept: () => {
+                this._usuarioFichasService.deleteUsuariosFichas(id).subscribe(data => {
+                    /* this.toastr.warning('Perfil ' + nombrePerfil + ' eliminada con Exito','Eliminado'); */
+                    this.messageService.add({severity:'success', summary: 'Eliminado', detail: 'Usuario ' + nombreFicha + ' eliminada con Exito', life: 3000});
+                    this.obtenerUsuariosFichas();
+                }, error => {
+                    /* this.toastr.error(error.status + ' ' +  error.name, 'Error') */
+                    this.messageService.add({severity:'error', summary: 'Error', detail: error.status + ' ' +  error.name, life: 3000});
+                });
+            }
+        });
+
     }
 }

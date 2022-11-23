@@ -16,4 +16,8 @@ export class UsuariosfichasService {
   getUsuariosFichas(): Observable<any>{
     return this.http.get(this.myAppURL + this.myApiUrl);
   }
+
+  deleteUsuariosFichas(id: string): Observable<any>{
+    return this.http.delete(this.myAppURL + this.myApiUrl + id);
+  }
 }

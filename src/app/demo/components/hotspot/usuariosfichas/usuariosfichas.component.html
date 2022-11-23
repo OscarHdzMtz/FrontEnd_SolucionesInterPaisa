@@ -1,5 +1,4 @@
-
-
+<p-toast></p-toast>
                 <div class="card">
                     <p-toolbar styleClass="mb-4 gap-2">
                         <ng-template pTemplate="left">
@@ -61,7 +60,7 @@
                                 <td>
                                     <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" ></button>
                                     <button pButton pRipple icon="pi pi-print" class="p-button-rounded p-button-success mr-2" ></button>
-                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"></button>
+                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteUsuariosFichas(fichas.id, fichas.name)"></button>
                                 </td>
                             </tr>
                         </ng-template>
@@ -72,3 +71,4 @@
                         </ng-template>
                     </p-table>
                 </div>
+                <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

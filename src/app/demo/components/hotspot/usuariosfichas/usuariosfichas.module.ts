@@ -17,6 +17,7 @@ import { DialogModule } from 'primeng/dialog';
 import { UsuariosfichasRoutingModule } from './usuariosfichas-routing.module';
 import { UsuariosfichasComponent } from './usuariosfichas.component';
 import {BadgeModule} from 'primeng/badge';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
@@ -39,7 +40,8 @@ import {BadgeModule} from 'primeng/badge';
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
-    BadgeModule
+    BadgeModule,
+    ConfirmDialogModule,
   ]
 })
 export class UsuariosfichasModule { }
