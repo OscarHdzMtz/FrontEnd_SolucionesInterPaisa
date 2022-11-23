@@ -17,6 +17,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { PerfilfichasComponent } from './perfilfichas.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { BadgeModule } from 'primeng/badge';
 
 
 
@@ -39,6 +40,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         InputNumberModule,
         DialogModule,
         ConfirmDialogModule,
+        BadgeModule,
   ],
   declarations: [PerfilfichasComponent]
 })
