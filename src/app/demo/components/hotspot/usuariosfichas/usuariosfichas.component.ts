@@ -90,7 +90,6 @@ export class UsuariosfichasComponent implements OnInit {
             message: 'Estas seguro que quieres Eliminar la ficha ' + nombreFicha + ' ?',
             header: 'Eliminar',
             icon: 'pi pi-trash',
-
             accept: () => {
                 this._usuarioFichasService.deleteUsuariosFichas(id).subscribe(data => {
                     /* this.toastr.warning('Perfil ' + nombrePerfil + ' eliminada con Exito','Eliminado'); */

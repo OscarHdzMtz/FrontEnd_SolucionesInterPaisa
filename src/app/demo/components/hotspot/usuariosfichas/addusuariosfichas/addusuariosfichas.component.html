@@ -1,0 +1,85 @@
+<div class="card">
+    <p-toolbar styleClass="mb-4 gap-2">
+        Crear fichas Hostpot
+    </p-toolbar>
+    <div class="grid p-fluid">
+        <div class="col-12 md:col-3">
+            <span class="p-float-label">
+                <input id="float-input" type="text" pInputText >
+                <label for="float-input">Cantidad a generar</label>
+            </span>
+        </div>
+        <div class="col-12 md:col-3">
+            <p-dropdown inputId="velocidadSubidaEnModal" placeholder="Seleccione Vendedor">
+                <ng-template pTemplate="item">
+                    <span><strong></strong></span>
+                </ng-template>
+            </p-dropdown>
+        </div>
+
+        <div class="col-12 md:col-3">
+            <p-dropdown inputId="velocidadSubidaEnModal" placeholder="Seleccione Servidor">
+                <ng-template pTemplate="item">
+                    <span><strong></strong></span>
+                </ng-template>
+            </p-dropdown>
+        </div>
+
+        <div class="col-12 md:col-3">
+            <p-dropdown inputId="velocidadSubidaEnModal" placeholder="Seleccione Perfil">
+                <ng-template pTemplate="item">
+                    <span><strong></strong></span>
+                </ng-template>
+            </p-dropdown>
+        </div>
+    </div>
+    <p-divider align="center">
+        <span class="p-tag"><i class="pi pi-user mr-2"></i>Configuracion Usuario</span>
+    </p-divider>
+
+    <div class="grid p-fluid">
+        <div class="col-12 md:col-3">
+            <span class="p-float-label">
+                <input id="float-input" type="text" pInputText >
+                <label for="float-input">Prefijo</label>
+            </span>
+        </div>
+        <div class="col-12 md:col-3">
+            <p>Longitud del usuario: <strong>{{valorLongUser}}</strong></p>
+            <p-slider [(ngModel)]="valorLongUser"></p-slider>
+        </div>
+        <div class="col-12 md:col-3">
+            <p-dropdown inputId="velocidadSubidaEnModal" [options]="tipoUsuarioGenerar" placeholder="Tipo de usuario">
+                <ng-template let-option pTemplate="item">
+                    <span><strong>{{option}}</strong></span>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="col-12 md:col-3">
+            <p-dropdown inputId="velocidadSubidaEnModal" [options]="tipoInicioDeSesion" placeholder="Seleccione tipo de inicio de sesion">
+                <ng-template let-option pTemplate="item">
+                    <span><strong>{{option}}</strong></span>
+                </ng-template>
+            </p-dropdown>
+        </div>
+    </div>
+
+    <p-divider align="center">
+        <span class="p-tag"><i class="pi pi-user mr-2"></i>Configuracion Contraseña</span>
+    </p-divider>
+
+    <div class="grid p-fluid">
+        <div class="col-12 md:col-3">
+            <p>Longitud de la contraseña: <strong>{{valorLongPass}}</strong></p>
+            <p-slider [(ngModel)]="valorLongPass"></p-slider>
+        </div>
+        <div class="col-12 md:col-3">
+            <p-dropdown inputId="velocidadSubidaEnModal" [options]="tipoUsuarioGenerar" placeholder="Tipo de Contraseña">
+                <ng-template let-option pTemplate="item">
+                    <span><strong>{{option}}</strong></span>
+                </ng-template>
+            </p-dropdown>
+        </div>
+    </div>
+
+</div>

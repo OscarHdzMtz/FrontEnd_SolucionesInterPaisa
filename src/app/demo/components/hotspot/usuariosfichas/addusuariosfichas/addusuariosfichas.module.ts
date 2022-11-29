@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AddusuariosfichasRoutingModule } from './addusuariosfichas-routing.module';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { FormsModule } from '@angular/forms';
@@ -14,19 +15,17 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { UsuariosfichasRoutingModule } from './usuariosfichas-routing.module';
-import { UsuariosfichasComponent } from './usuariosfichas.component';
-import {BadgeModule} from 'primeng/badge';
+import { BadgeModule } from 'primeng/badge';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { AddusuariosfichasComponent } from './addusuariosfichas/addusuariosfichas.component';
-
-
+import { AddusuariosfichasComponent } from './addusuariosfichas.component';
+import {DividerModule} from 'primeng/divider';
+import {SliderModule} from 'primeng/slider';
 
 @NgModule({
-  declarations: [UsuariosfichasComponent],
+  declarations: [AddusuariosfichasComponent],
   imports: [
     CommonModule,
-    UsuariosfichasRoutingModule,
+    AddusuariosfichasRoutingModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -43,6 +42,8 @@ import { AddusuariosfichasComponent } from './addusuariosfichas/addusuariosficha
     DialogModule,
     BadgeModule,
     ConfirmDialogModule,
+    DividerModule,
+    SliderModule
   ]
 })
-export class UsuariosfichasModule { }
+export class AddusuariosfichasModule { }

@@ -39,6 +39,11 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/hotspot/perfilfichas']
                             },
                             {
+                                label: 'Crear ficha',
+                                icon: 'pi pi-fw pi-list',
+                                routerLink: ['/hotspot/usuariosfichas/addusuariosfichas']
+                            },
+                            {
                                 label: 'Fichas',
                                 icon: 'pi pi-fw pi-file',
                                 routerLink: ['/hotspot/usuariosfichas']
