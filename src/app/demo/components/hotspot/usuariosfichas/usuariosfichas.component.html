@@ -2,7 +2,7 @@
 <div class="card">
     <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="Crear fichas" icon="pi pi-plus" class="p-button-success mr-2"></button>
+            <button pButton pRipple label="Crear fichas" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/hotspot/usuariosfichas/addusuariosfichas"></button>
             <button pButton pRipple icon="pi pi-trash" class="p-button-danger"></button>
         </ng-template>
         <ng-template pTemplate="right">
@@ -41,18 +41,18 @@
                 <th style="text-align:center" pSortableColumn="name">PIN/Usuario<p-sortIcon field="name"></p-sortIcon>
                 </th>
                 <th style="text-align:center">Password</th>
-                <th style="text-align:center" pSortableColumn="perfil">Perfil<p-sortIcon field="perfil"></p-sortIcon>
+                <th style="text-align:center" pSortableColumn="profile">Perfil<p-sortIcon field="profile"></p-sortIcon>
                 </th>
                 <th style="text-align:center" pSortableColumn="price">Precio<p-sortIcon field="price"></p-sortIcon>
                 </th>
                 <th style="text-align:center" pSortableColumn="category">Status <p-sortIcon field="category">
                     </p-sortIcon>
                 </th>
-                <th style="text-align:center" pSortableColumn="rating">Fecha de creación<p-sortIcon field="rating">
+                <th style="text-align:center" pSortableColumn="comment">Fecha de creación<p-sortIcon field="comment">
                     </p-sortIcon>
                 </th>
-                <th style="text-align:center" pSortableColumn="inventoryStatus">Vence en:<p-sortIcon
-                        field="inventoryStatus"></p-sortIcon>
+                <th style="text-align:center" pSortableColumn="limitUptime">Vence en:<p-sortIcon
+                        field="limitUptime"></p-sortIcon>
                 </th>
                 <th pSortableColumn="inventoryStatus">Expira en:<p-sortIcon field="inventoryStatus"></p-sortIcon>
                 </th>
@@ -67,7 +67,8 @@
                     <p-tableCheckbox [value]="fichas"></p-tableCheckbox>
                 </td>
                 <td style="text-align:center">{{fichas.name}}</td>
-                <td style="text-align:center">{{fichas.password}}</td>
+                <td *ngIf="fichas.password !== ''" style="text-align:center">{{fichas.password}}</td>
+                <td *ngIf="fichas.password === ''" style="text-align:center"><p-badge value="No aplica" severity="danger"></p-badge></td>
                 <td style="text-align:center">{{fichas.profile}}</td>
                 <td style="text-align:center">$5.00</td>
                 <td style="text-align:center">

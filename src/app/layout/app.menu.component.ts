@@ -38,11 +38,11 @@ export class AppMenuComponent implements OnInit {
                                 icon: 'pi pi-fw pi-sign-in',
                                 routerLink: ['/hotspot/perfilfichas']
                             },
-                            {
+                            /* {
                                 label: 'Crear ficha',
                                 icon: 'pi pi-fw pi-list',
                                 routerLink: ['/hotspot/usuariosfichas/addusuariosfichas']
-                            },
+                            }, */
                             {
                                 label: 'Fichas',
                                 icon: 'pi pi-fw pi-file',

@@ -26,9 +26,12 @@
         </div>
 
         <div class="col-12 md:col-3">
-            <p-dropdown inputId="velocidadSubidaEnModal" placeholder="Seleccione Perfil">
-                <ng-template pTemplate="item">
-                    <span><strong></strong></span>
+            <p-dropdown [options]="arrayPlanesFichas"  optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecciona un perfil">
+                <ng-template let-perfil pTemplate="item">
+                    <div class="country-item">
+                        <i [class]="'flag flag-' + perfil.name.toUpperCase()" ></i>
+                        <div><strong>{{perfil.name}}</strong></div>
+                    </div>
                 </ng-template>
             </p-dropdown>
         </div>
@@ -46,7 +49,7 @@
         </div>
         <div class="col-12 md:col-3">
             <p>Longitud del usuario: <strong>{{valorLongUser}}</strong></p>
-            <p-slider [(ngModel)]="valorLongUser"></p-slider>
+            <p-slider [(ngModel)]="valorLongUser" [min]="2" [max]="10"></p-slider>
         </div>
         <div class="col-12 md:col-3">
             <p-dropdown inputId="velocidadSubidaEnModal" [options]="tipoUsuarioGenerar" placeholder="Tipo de usuario">
@@ -71,7 +74,7 @@
     <div class="grid p-fluid">
         <div class="col-12 md:col-3">
             <p>Longitud de la contraseña: <strong>{{valorLongPass}}</strong></p>
-            <p-slider [(ngModel)]="valorLongPass"></p-slider>
+            <p-slider [(ngModel)]="valorLongPass" [min]="2" [max]="10" ></p-slider>
         </div>
         <div class="col-12 md:col-3">
             <p-dropdown inputId="velocidadSubidaEnModal" [options]="tipoUsuarioGenerar" placeholder="Tipo de Contraseña">
@@ -79,6 +82,14 @@
                     <span><strong>{{option}}</strong></span>
                 </ng-template>
             </p-dropdown>
+        </div>
+    </div>
+    <div class="grid p-fluid">
+        <div class="col-12 md:col-2">
+            <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="RegresarAtras()"></button>
+        </div>
+        <div class="col-12 md:col-2">
+            <button pButton type="button" label="Generar" class="p-button-success" ></button>
         </div>
     </div>
 
