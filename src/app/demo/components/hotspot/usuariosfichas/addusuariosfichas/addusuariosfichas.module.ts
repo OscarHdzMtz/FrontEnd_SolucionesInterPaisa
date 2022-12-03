@@ -20,6 +20,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { AddusuariosfichasComponent } from './addusuariosfichas.component';
 import {DividerModule} from 'primeng/divider';
 import {SliderModule} from 'primeng/slider';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [AddusuariosfichasComponent],
@@ -47,6 +49,8 @@ import {SliderModule} from 'primeng/slider';
     DialogModule,
     ConfirmDialogModule,
     BadgeModule,
+    ProgressBarModule,
+    ProgressSpinnerModule,
     ReactiveFormsModule
   ]
 })

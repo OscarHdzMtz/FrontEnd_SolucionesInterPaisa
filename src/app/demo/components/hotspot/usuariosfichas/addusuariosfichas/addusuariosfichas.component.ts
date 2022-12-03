@@ -68,6 +68,9 @@ export class AddusuariosfichasComponent implements OnInit {
 
     arrayUsuariosFichas: any[] = [];
 
+    submitted?: boolean;
+    modalSpinner? : boolean = false;
+    valorProgresBar :number = 0;
     //DONDE SE VA ALMACENAR EL PLAN SELECCIONADO AL CREAR FICHAS
    planesFichasSelected : any;
   constructor(private _perfilfichasService: PerfilfichasService,private _usuariosfichasService: UsuariosfichasService, private location:Location, private fb: FormBuilder, private toastr: ToastrService, private messageService: MessageService, private confirmationService: ConfirmationService) {
@@ -85,6 +88,7 @@ export class AddusuariosfichasComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerplanesFichas();
     this.obtenerUsuariosFichas();
+    
   }
 
   obtenerUsuariosFichas() {
@@ -110,8 +114,9 @@ export class AddusuariosfichasComponent implements OnInit {
         )
     }
 
-    
+    cantidadfichasToast:any;
     addUsuarioFichas(){  
+        this.cantidadfichasToast = this.userFormUsuariosFichas.get('cantidadfichas')?.value ;
         //OBTENEMOS TODAS LAS PROPIEDADES DEL PLAN ELEGIDO
         this.planesFichasSelected = this.userFormUsuariosFichas.get('planesFichas')?.value      
         console.log(this.userFormUsuariosFichas.value)
@@ -129,27 +134,45 @@ export class AddusuariosfichasComponent implements OnInit {
         valorLongPassFichas: this.userFormUsuariosFichas.get('formConfiguracionPass.valorLongPassFichas')?.value,
         tipoPasswordGenerarFichas: this.userFormUsuariosFichas.get('formConfiguracionPass.tipoPasswordGenerarFichas')?.value,   
         }     
-        console.log(usuariosFichas);   
-        this._usuariosfichasService.saveUsuariosFichas(usuariosFichas).subscribe(
-            (data) => {
+        console.log(usuariosFichas);           
+        this._usuariosfichasService.saveUsuariosFichas(usuariosFichas).subscribe(                        
+            (data) => {    
+                this.AbrirModalSpiner();                                          
                 this.toastr.success(
-                    'FICHA Actualizado Correctamente',
-                    'Actualizado', {progressBar: true}
-                );                                         
-            },
+                    'Se agregaron ' + this.cantidadfichasToast+ " fichas al mikrotik",
+                    'LISTO!', {progressBar: true}
+                );    
+                console.log("ModalCerrado")             
+                this.CerrarModalSpiner();                                          
+            },            
             (error) => {
                 this.toastr.error(error.status + ', ' + error.name, 'Error',{
                     progressBar: true
                 });
                 console.log(error);
-            }
-        );                                         
+            },            
+        );                     
+        this.modalSpinner = true;                        
         this.userFormUsuariosFichas.reset();
+        this.valorLongUser = 3;
+        this.valorLongPass = 3;              
     }
 
     RegresarAtras(){
         this.location.back();
         this.obtenerUsuariosFichas()
+    }
+
+
+    
+    AbrirModalSpiner(){        
+        this.submitted = true;
+        this.modalSpinner = true;
+    }
+
+    CerrarModalSpiner() {
+        this.submitted = false;
+        this.modalSpinner = false;        
     }
 
 }

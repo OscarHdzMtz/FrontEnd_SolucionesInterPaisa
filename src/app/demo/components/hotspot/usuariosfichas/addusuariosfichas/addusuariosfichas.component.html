@@ -1,5 +1,5 @@
 <p-toast></p-toast>
-<form [formGroup]="userFormUsuariosFichas" (ngSubmit)="addUsuarioFichas()">    
+<form [formGroup]="userFormUsuariosFichas" (ngSubmit)="addUsuarioFichas()">
     <div class="card">
         <div class="text-center">
             <h3>Generar fichas</h3>
@@ -99,18 +99,27 @@
         </div>
 
         <div class="grid p-fluid mt-3">
-            <div class="col-12 md:col-6"  align="right">
+            <div class="col-12 md:col-6" align="right">
                 <div class="col-12 md:col-3">
                     <button pButton type="submit" label="Generar" class="p-button-success"
-                    [disabled]="userFormUsuariosFichas.invalid"></button>
-                </div>                
+                        [disabled]="userFormUsuariosFichas.invalid"></button>
+                </div>
             </div>
             <div class="col-12 md:col-6">
                 <div class="col-12 md:col-3">
                     <button pButton type="button" label="Cancelar" class="p-button-danger"
-                    (click)="RegresarAtras()"></button>
-                </div>                
-            </div>            
+                        (click)="RegresarAtras()"></button>
+                </div>
+            </div>
         </div>
     </div>
 </form>
+<p-dialog [(visible)]="modalSpinner" [style]="{width: '300px'}" [modal]="true" styleClass="p-fluid">
+    <div align="center">   
+        <div style="background-color: #4BB543; border-radius: 5px; color: white;">
+            <span><i class="pi pi-check-circle mr-2"></i><strong>Conexion Exitosa AL MIKROTIK</strong></span>  
+        </div>   
+        <p-progressSpinner></p-progressSpinner>
+        <h3>Generando <strong>{{cantidadfichasToast}}</strong> Fichas </h3>
+    </div>
+</p-dialog>
