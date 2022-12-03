@@ -17,7 +17,11 @@ export class UsuariosfichasService {
     return this.http.get(this.myAppURL + this.myApiUrl);
   }
 
+  saveUsuariosFichas(usuariosFichas: any): Observable<any>{
+    return this.http.post(this.myAppURL + this.myApiUrl, usuariosFichas);
+  }
+
   deleteUsuariosFichas(id: string): Observable<any>{
     return this.http.delete(this.myAppURL + this.myApiUrl + id);
-  }
+  }  
 }

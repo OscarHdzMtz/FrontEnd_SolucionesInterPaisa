@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AddusuariosfichasRoutingModule } from './addusuariosfichas-routing.module';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
@@ -43,7 +43,11 @@ import {SliderModule} from 'primeng/slider';
     BadgeModule,
     ConfirmDialogModule,
     DividerModule,
-    SliderModule
+    SliderModule,
+    DialogModule,
+    ConfirmDialogModule,
+    BadgeModule,
+    ReactiveFormsModule
   ]
 })
 export class AddusuariosfichasModule { }

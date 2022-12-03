@@ -14,6 +14,7 @@ import { PhotoService } from './demo/service/photo.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ToastrModule } from 'ngx-toastr';
         HttpClientModule,
         BrowserAnimationsModule, // required animations module
         ToastrModule.forRoot(), // ToastrModule added
+        ReactiveFormsModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
