@@ -36,7 +36,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Dashboard',
                                 icon: 'pi pi-fw pi-lock',
-                                routerLink: ['/notfound']
+                                routerLink: ['/hotspot/dashboardhotspot']
                             },
                             {
                                 label: 'Ver Perfiles',
