@@ -1,3 +1,4 @@
+import { ServidoreshotspotfichasService } from './../../../../service/servidoreshotspotfichas.service';
 import { UsuariosfichasService } from 'src/app/demo/service/usuariosfichas.service';
 import { Component, OnInit } from '@angular/core';
 import {DividerModule} from 'primeng/divider';
@@ -43,7 +44,7 @@ export class AddusuariosfichasComponent implements OnInit {
     userFormUsuariosFichas = this.fb.group({
         cantidadfichas: ['', Validators.required],
         vendedorFichas: [''],
-        servidorFichas: [''],
+        servidorHotspot: [''],
         planesFichas: ['' /* , Validators.required */],        
         formConfiguracionUsers : this.fb.group({
         prefijoFichas: [''],
@@ -68,12 +69,19 @@ export class AddusuariosfichasComponent implements OnInit {
 
     arrayUsuariosFichas: any[] = [];
 
+    arrayServerHotspot: any[] = [];
+
     submitted?: boolean;
     modalSpinner? : boolean = false;
+
+    submittedFichasCreadas?: boolean;
+    modalFichasCreadas? : boolean = false;
+
     valorProgresBar :number = 0;
     //DONDE SE VA ALMACENAR EL PLAN SELECCIONADO AL CREAR FICHAS
    planesFichasSelected : any;
-  constructor(private _perfilfichasService: PerfilfichasService,private _usuariosfichasService: UsuariosfichasService, private location:Location, private fb: FormBuilder, private toastr: ToastrService, private messageService: MessageService, private confirmationService: ConfirmationService) {
+   serverHotspotSelected : any;
+  constructor(private _perfilfichasService: PerfilfichasService,private _usuariosfichasService: UsuariosfichasService, private _serverHotspot: ServidoreshotspotfichasService, private location:Location, private fb: FormBuilder, private toastr: ToastrService, private messageService: MessageService, private confirmationService: ConfirmationService) {
     this.tipoUsuarioGenerar = [
         "Numeros", "Letras", "Letras y numeros"
     ]
@@ -88,6 +96,7 @@ export class AddusuariosfichasComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerplanesFichas();
     this.obtenerUsuariosFichas();
+    this.obtenerServerHotspot()
     
   }
 
@@ -114,16 +123,29 @@ export class AddusuariosfichasComponent implements OnInit {
         )
     }
 
+    obtenerServerHotspot(){
+        this._serverHotspot.getServerHotspot().subscribe(
+            data => {
+                this.arrayServerHotspot = data;
+                console.log(data);
+            },
+            error=>{
+                console.log(error);
+            }
+        )
+    }
     cantidadfichasToast:any;
+    arrayUsuariosFichasCreados: any[] = [];
     addUsuarioFichas(){  
         this.cantidadfichasToast = this.userFormUsuariosFichas.get('cantidadfichas')?.value ;
         //OBTENEMOS TODAS LAS PROPIEDADES DEL PLAN ELEGIDO
         this.planesFichasSelected = this.userFormUsuariosFichas.get('planesFichas')?.value      
+        this.serverHotspotSelected = this.userFormUsuariosFichas.get('servidorHotspot')?.value
         console.log(this.userFormUsuariosFichas.value)
         const usuariosFichas : any = {
         cantidadfichas: this.userFormUsuariosFichas.get('cantidadfichas')?.value,
         vendedorFichas: this.userFormUsuariosFichas.get('vendedorFichas')?.value,
-        servidorFichas: this.userFormUsuariosFichas.get('servidorFichas')?.value,
+        servidorHotspot: this.serverHotspotSelected.name,
         /* planesFichas: this.userFormUsuariosFichas.get('planesFichas')?.value, */
         //OBTENEMOS EL NOMBRE DEL PLAN SELECIONADO
         planesFichas: this.planesFichasSelected.name,
@@ -140,10 +162,14 @@ export class AddusuariosfichasComponent implements OnInit {
                 this.AbrirModalSpiner();                                          
                 this.toastr.success(
                     'Se agregaron ' + this.cantidadfichasToast+ " fichas al mikrotik",
-                    'LISTO!', {progressBar: true}
-                );    
+                    'LISTO!', {progressBar: true}                    
+                );  
+                //GUARDAMOS LOS USUARIOS QUE SE CREARON EN UN ARRAY PARA ENVIARLES A UN MODAL  
+                this.arrayUsuariosFichasCreados = data;
+                console.log(data);
                 console.log("ModalCerrado")             
-                this.CerrarModalSpiner();                                          
+                this.CerrarModalSpiner();  
+                this.AbrirModalFichasCreadas();
             },            
             (error) => {
                 this.toastr.error(error.status + ', ' + error.name, 'Error',{
@@ -154,8 +180,8 @@ export class AddusuariosfichasComponent implements OnInit {
         );                     
         this.modalSpinner = true;                        
         this.userFormUsuariosFichas.reset();
-        this.valorLongUser = 3;
-        this.valorLongPass = 3;              
+        this.valorLongUser = 2;
+        this.valorLongPass = 2;              
     }
 
     RegresarAtras(){
@@ -168,6 +194,15 @@ export class AddusuariosfichasComponent implements OnInit {
     AbrirModalSpiner(){        
         this.submitted = true;
         this.modalSpinner = true;
+    }
+
+    AbrirModalFichasCreadas(){        
+        this.submittedFichasCreadas = true;
+        this.modalFichasCreadas = true;
+    }
+    CerrarModalFichasCreadas(){        
+        this.submittedFichasCreadas = false;
+        this.modalFichasCreadas = false;
     }
 
     CerrarModalSpiner() {

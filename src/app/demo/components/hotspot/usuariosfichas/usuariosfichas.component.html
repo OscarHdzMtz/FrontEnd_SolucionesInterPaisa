@@ -40,12 +40,12 @@
                 </th>
                 <th style="text-align:center" pSortableColumn="name">PIN/Usuario<p-sortIcon field="name"></p-sortIcon>
                 </th>
-                <th style="text-align:center">Password</th>
+                <th style="text-align:center">Contraseña</th>
                 <th style="text-align:center" pSortableColumn="profile">Perfil<p-sortIcon field="profile"></p-sortIcon>
                 </th>
                 <th style="text-align:center" pSortableColumn="Nuevo">Precio<p-sortIcon field="Nuevo"></p-sortIcon>
                 </th>
-                <th style="text-align:center" pSortableColumn="category">Status <p-sortIcon field="category">
+                <th style="text-align:center" pSortableColumn="category">Estado <p-sortIcon field="category">
                     </p-sortIcon>
                 </th>
                 <th style="text-align:center" pSortableColumn="comment">Fecha de creación<p-sortIcon field="comment">
@@ -54,8 +54,8 @@
                 <th style="text-align:center" pSortableColumn="limitUptime">Vence en:<p-sortIcon
                         field="limitUptime"></p-sortIcon>
                 </th>
-                <th pSortableColumn="inventoryStatus">Expira en:<p-sortIcon field="inventoryStatus"></p-sortIcon>
-                </th>
+                <!-- <th pSortableColumn="inventoryStatus">Expira en:<p-sortIcon field="inventoryStatus"></p-sortIcon>
+                </th> -->
                 <th style="text-align:right">
                     <p-button label="Search" (onClick)="obtenerUsuariosFichas"></p-button>
                 </th>
@@ -84,7 +84,7 @@
                 <td style="text-align:center">
                     <p-badge value="{{fichas.uptime}}" severity="warning"></p-badge>
                 </td>
-                <td style="text-align:center">No aplica</td>
+                <!-- <td style="text-align:center">No aplica</td> -->
                 <td>
                     <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info mr-2"></button>
                     <button pButton pRipple icon="pi pi-print" class="p-button-rounded p-button-success mr-2"></button>

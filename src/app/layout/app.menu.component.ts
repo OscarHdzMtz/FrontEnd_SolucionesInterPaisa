@@ -26,21 +26,21 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     {
                         label: 'Agregar Router',
-                        icon: 'pi pi-fw pi-globe',
+                        icon: 'pi pi-fw pi-server',
                         routerLink: ['/hotspot/routersfichas']
                     },
                     {
                         label: 'Hotspot',
-                        icon: 'pi pi-fw pi-user',
+                        icon: 'pi pi-fw pi-wifi',
                         items: [
                             {
                                 label: 'Dashboard',
-                                icon: 'pi pi-fw pi-lock',
+                                icon: 'pi pi-fw pi-th-large',
                                 routerLink: ['/hotspot/dashboardhotspot']
                             },
                             {
-                                label: 'Ver Perfiles',
-                                icon: 'pi pi-fw pi-sign-in',
+                                label: 'Ver y Crear Perfiles',
+                                icon: 'pi pi-fw pi-file',
                                 routerLink: ['/hotspot/perfilfichas']
                             },
                             /* {
@@ -49,12 +49,12 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/hotspot/usuariosfichas/addusuariosfichas']
                             }, */
                             {
-                                label: 'Ver Fichas',
-                                icon: 'pi pi-fw pi-file',
+                                label: 'Ver y Crear Fichas',
+                                icon: 'pi pi-fw pi-bookmark',
                                 routerLink: ['/hotspot/usuariosfichas']
                             },
                             {
-                                label: 'Crear y vender ficha',
+                                label: 'Crear y Vender Ficha',
                                 icon: 'pi pi-fw pi-list',
                                 routerLink: ['/hotspot/crearvenderusuariosfichas']
                             },
@@ -65,6 +65,12 @@ export class AppMenuComponent implements OnInit {
                             }
                         ]
                     },
+                    {
+                        label: 'PPPOE',
+                        icon: 'pi pi-fw pi-user-plus',
+                        items: []
+                    }
+                    ,
                 ]
             },
            /*  {

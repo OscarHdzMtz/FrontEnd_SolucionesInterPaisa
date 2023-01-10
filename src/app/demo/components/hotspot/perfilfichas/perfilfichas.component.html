@@ -53,11 +53,13 @@
                     <p-tableCheckbox [value]="planes"></p-tableCheckbox>
                 </td> -->
                 <td >{{planes.name}}</td>
-                <td style="text-align:center"><p-badge value="{{planes.macCookieTimeout}}" severity="warning"></p-badge></td>
+                <td style="text-align:center"><p-badge value="{{planes.macCookieTimeout}}" severity="success"></p-badge></td>
                 <!-- OBTENEMOS LOS DIGITOS QUE ESTAN ANTES DE LA "/" -->
-                <td style="text-align:center"><p-badge value="{{planes.rateLimit.substring(0, planes.rateLimit.indexOf('/'))}}" severity="info"></p-badge></td>
+                <td style="text-align:center" *ngIf="planes.rateLimit.substring(0, planes.rateLimit.indexOf('/')) !== ''"><p-badge value="{{planes.rateLimit.substring(0, planes.rateLimit.indexOf('/'))}}" severity="info"></p-badge></td>
+                <td style="text-align:center" *ngIf="planes.rateLimit.substring(0, planes.rateLimit.indexOf('/')) === ''"><p-badge value="Ilimitado" severity="info"></p-badge></td>
                 <!-- OBTENEMOS LOS DIGITOS QUE ESTAN DESPUES DE LA "/" -->
-                <td style="text-align:center"><p-badge value="{{planes.rateLimit.substring(planes.rateLimit.indexOf('/') + 1, planes.rateLimit.length)}}" severity="info"></p-badge></td>
+                <td style="text-align:center" *ngIf="planes.rateLimit.substring(planes.rateLimit.indexOf('/') + 1, planes.rateLimit.length) !== ''"><p-badge value="{{planes.rateLimit.substring(planes.rateLimit.indexOf('/') + 1, planes.rateLimit.length)}}" severity="info"></p-badge></td>
+                <td style="text-align:center" *ngIf="planes.rateLimit.substring(planes.rateLimit.indexOf('/') + 1, planes.rateLimit.length) === ''"><p-badge value="Ilimitado" severity="info"></p-badge></td>
                 <td style="text-align:center">
                     <!-- <p-rating [ngModel]="planes.rating" [readonly]="true" [cancel]="false"></p-rating> -->
                     no aplica
