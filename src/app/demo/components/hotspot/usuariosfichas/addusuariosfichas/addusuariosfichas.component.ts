@@ -1,5 +1,6 @@
 import { ServidoreshotspotfichasService } from './../../../../service/servidoreshotspotfichas.service';
 import { UsuariosfichasService } from 'src/app/demo/service/usuariosfichas.service';
+import * as FileSaver from 'file-saver';
 import { Component, OnInit } from '@angular/core';
 import {DividerModule} from 'primeng/divider';
 import {SliderModule} from 'primeng/slider';
@@ -209,5 +210,51 @@ export class AddusuariosfichasComponent implements OnInit {
         this.submitted = false;
         this.modalSpinner = false;        
     }
+    exportExcelFichasCreadas() {
+        //BORRAMOS LOS DATOS QUE NO QUEREMOS QUE SE IMPRIME EN EL EXCEL CON UN FOR
+        for (let i = 0; i < this.arrayUsuariosFichasCreados.length; i++) {
+            delete(this.arrayUsuariosFichasCreados[i].id)
+            delete(this.arrayUsuariosFichasCreados[i].address)            
+            delete(this.arrayUsuariosFichasCreados[i].email)
+            delete(this.arrayUsuariosFichasCreados[i].limitBytesIn)
+            delete(this.arrayUsuariosFichasCreados[i].limitBytesOut)
+            delete(this.arrayUsuariosFichasCreados[i].limitBytesTotal)
+            delete(this.arrayUsuariosFichasCreados[i].limitUptime)
+            delete(this.arrayUsuariosFichasCreados[i].macAddress)
+            delete(this.arrayUsuariosFichasCreados[i].routes)
+            delete(this.arrayUsuariosFichasCreados[i].disabled)
+            delete(this.arrayUsuariosFichasCreados[i].bytesIn)
+            delete(this.arrayUsuariosFichasCreados[i].bytesOut)
+            delete(this.arrayUsuariosFichasCreados[i].packetsIn)
+            delete(this.arrayUsuariosFichasCreados[i].packetsOut)
+            delete(this.arrayUsuariosFichasCreados[i].uptime)
+        }                       
+        import('xlsx').then((xlsx) => {
+            const worksheet = xlsx.utils.json_to_sheet(
+                this.arrayUsuariosFichasCreados
+            );
+            const workbook = {
+                Sheets: { data: worksheet },
+                SheetNames: ['data'],
+            };
+            const excelBuffer: any = xlsx.write(workbook, {
+                bookType: 'xlsx',
+                type: 'array',
+            });
+            this.saveAsExcelFile(excelBuffer, 'UsuariosFichas');
+        });
+    }
 
+    saveAsExcelFile(buffer: any, fileName: string): void {
+        let EXCEL_TYPE =
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        let EXCEL_EXTENSION = '.xlsx';
+        const data: Blob = new Blob([buffer], {
+            type: EXCEL_TYPE,
+        });
+        FileSaver.saveAs(
+            data,
+            fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION
+        );
+    }
 }

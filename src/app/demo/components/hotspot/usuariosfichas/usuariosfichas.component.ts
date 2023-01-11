@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuariosfichasService } from 'src/app/demo/service/usuariosfichas.service';
 import * as FileSaver from 'file-saver';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
+/* import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable'; */
 import { BadgeModule } from 'primeng/badge';
 import { ConfirmationService } from 'primeng/api';
 import {Message} from 'primeng//api';
 import {MessageService} from 'primeng/api';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { ToastrService } from 'ngx-toastr';
-import { style } from '@angular/animations';
+/* import { style } from '@angular/animations'; */
 
 @Component({
     selector: 'app-usuariosfichas',
@@ -25,7 +25,7 @@ export class UsuariosfichasComponent implements OnInit {
     ngOnInit(): void {
         this.obtenerUsuariosFichas();
 
-        this.cols = [
+       /*  this.cols = [
             {
                 field: 'code',
                 header: 'Code',
@@ -39,7 +39,7 @@ export class UsuariosfichasComponent implements OnInit {
         this.exportColumns = this.cols.map((col) => ({
             title: col.header,
             dataKey: col.field,
-        }));
+        })); */
     }
 
     //OBTENER LOS DATOS DESDE EL SERVICIO
@@ -54,8 +54,26 @@ export class UsuariosfichasComponent implements OnInit {
             }
         );
     }
-
+    arrayUsuariosFichasPrint: any[] = [];
     exportExcel() {
+        //BORRAMOS LOS DATOS QUE NO QUEREMOS QUE SE IMPRIME EN EL EXCEL CON UN FOR
+        for (let i = 0; i < this.arrayUsuariosFichasFront.length; i++) {
+            delete(this.arrayUsuariosFichasFront[i].id)
+            delete(this.arrayUsuariosFichasFront[i].address)            
+            delete(this.arrayUsuariosFichasFront[i].email)
+            delete(this.arrayUsuariosFichasFront[i].limitBytesIn)
+            delete(this.arrayUsuariosFichasFront[i].limitBytesOut)
+            delete(this.arrayUsuariosFichasFront[i].limitBytesTotal)
+            delete(this.arrayUsuariosFichasFront[i].limitUptime)
+            delete(this.arrayUsuariosFichasFront[i].macAddress)
+            delete(this.arrayUsuariosFichasFront[i].routes)
+            delete(this.arrayUsuariosFichasFront[i].disabled)
+            delete(this.arrayUsuariosFichasFront[i].bytesIn)
+            delete(this.arrayUsuariosFichasFront[i].bytesOut)
+            delete(this.arrayUsuariosFichasFront[i].packetsIn)
+            delete(this.arrayUsuariosFichasFront[i].packetsOut)
+            delete(this.arrayUsuariosFichasFront[i].uptime)
+        }                       
         import('xlsx').then((xlsx) => {
             const worksheet = xlsx.utils.json_to_sheet(
                 this.arrayUsuariosFichasFront
@@ -68,7 +86,7 @@ export class UsuariosfichasComponent implements OnInit {
                 bookType: 'xlsx',
                 type: 'array',
             });
-            this.saveAsExcelFile(excelBuffer, 'products');
+            this.saveAsExcelFile(excelBuffer, 'UsuariosFichas');
         });
     }
 

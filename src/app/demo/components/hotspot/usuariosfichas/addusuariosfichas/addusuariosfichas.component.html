@@ -163,8 +163,8 @@
         </p-table>                 
         <ng-template pTemplate="footer">
             <div class="flex justify-content-center">
-                <button type="button" pButton pRipple label="Imprimir" icon="pi pi-print" class="p-button-success" pTooltip="XLS" tooltipPosition="bottom"></button>
-                <button type="button" pButton pRipple label="Excel" icon="pi pi-file-excel" class="p-button-warning" pTooltip="XLS" tooltipPosition="bottom"></button>
+                <button type="button" pButton pRipple label="Imprimir" icon="pi pi-print" class="p-button-info" pTooltip="XLS" tooltipPosition="bottom"></button>
+                <button type="button" pButton pRipple label="Excel" icon="pi pi-file-excel" class="p-button-success" pTooltip="XLS" tooltipPosition="bottom" (click)="exportExcelFichasCreadas()"></button>
                 <button type="button" pButton pRipple label="PDF" icon="pi pi-file-pdf" class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
                 <button type="button" pButton pRipple label="Cerrar" icon="pi pi-file-pdf" class="p-button-danger mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>            
             </div>
