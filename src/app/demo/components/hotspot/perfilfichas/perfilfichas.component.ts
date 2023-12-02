@@ -162,8 +162,9 @@ export class PerfilfichasComponent implements OnInit {
 
 
                 //CREAMOS UNA VARIABLE CON LOS DATOS QUE SE ENVIARA EL BACKEND Y GUARDAR AL MIKROTIK
-                var PlanesFichas: any = {
+                var PlanesFichas: any = {                    
                     idProfile : this.perfilDesdeModal.idPerfilModal,
+                    tipoDeFichas: this.perfilDesdeModal.tipodeFichas,
                     nameProfile: this.perfilDesdeModal.nombrePerfilModal,
                     addressPoolProfile: 'none',
                     velocidadSubidaBajadaProfile: this.perfilDesdeModal.velocidadSubidaModal + velocidadSubidaEnModalSubstring + "/" + this.perfilDesdeModal.velocidadBajadaModal + velocidadBajadaEnModalSubstring,
@@ -208,6 +209,7 @@ export class PerfilfichasComponent implements OnInit {
 
                 //CREAMOS UNA VARIABLE CON LOS DATOS QUE SE ENVIARA EL BACKEND Y GUARDAR AL MIKROTIK
                 var PlanesFichas: any = {
+                    tipoDeFichas: this.perfilDesdeModal.tipodeFichas,
                     nameProfile: this.perfilDesdeModal.nombrePerfilModal,
                     addressPoolProfile: 'none',
                     velocidadSubidaBajadaProfile: this.perfilDesdeModal.velocidadSubidaModal + velocidadSubidaEnModalSubstring + "/" + this.perfilDesdeModal.velocidadBajadaModal + velocidadBajadaEnModalSubstring,
