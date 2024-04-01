@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class UsuariosfichasactivasService {
 
-  myAppURL="https://localhost:44335/"
+  //myAppURL="https://localhost:44335/"
+  myAppURL="http://10.5.50.100:8080/"
     myApiUrl = "api/usuariosFichasActivos/"
   constructor(private http:HttpClient) { }
 //Obteniendo fichas activas desde el mikrotik

@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ServidoreshotspotfichasService {
-  myAppURL="https://localhost:44335/"
+  myAppURL="http://10.5.50.100:8080/"
   myApiUrl = "api/ServerHotspotFichas"
   constructor(private http: HttpClient) { }
 

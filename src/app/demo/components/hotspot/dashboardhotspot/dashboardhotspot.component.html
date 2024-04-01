@@ -6,8 +6,8 @@
                     <span class="block text-500 font-medium mb-3"><strong>Total de perfiles</strong></span>
                     <div class="text-900 font-medium text-xl"><h1>{{arrayPerfilFichas.length}}</h1></div>
                 </div>
-                <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '4.0rem', height: '4.0rem'}">
-                    <i class="pi pi-fw pi-list text-blue-500 text-xl"></i>
+                <div class="flex align-items-center justify-content-center bg-blue-google border-round" [ngStyle]="{width: '4.0rem', height: '4.0rem'}">
+                    <i class="pi pi-fw pi-list text-white text-xl"></i>
                 </div>
             </div>
             <!-- <span class="text-green-500 font-medium">24 new </span>
@@ -21,8 +21,8 @@
                     <span class="block text-500 font-medium mb-3"><strong>Total de usuarios</strong></span>
                     <div class="text-900 font-medium text-xl"><h1>{{arrayUsuariosFichas.length}}</h1></div>
                 </div>
-                <div class="flex align-items-center justify-content-center bg-orange-100 border-round" [ngStyle]="{width: '4.0rem', height: '4.0rem'}">
-                    <i class="pi pi-fw pi-user text-orange-500 text-xl"></i>
+                <div class="flex align-items-center justify-content-center bg-green-google border-round" [ngStyle]="{width: '4.0rem', height: '4.0rem'}">
+                    <i class="pi pi-fw pi-user text-white text-xl"></i>
                 </div>
             </div>            
         </div>
@@ -34,8 +34,8 @@
                     <span class="block text-500 font-medium mb-3"><strong>Fichas activas</strong></span>
                     <div class="text-900 font-medium text-xl"><h1>{{arrayUsuariosFichasActivos.length}}</h1></div>
                 </div>
-                <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" [ngStyle]="{width: '4.0rem', height: '4.0rem'}">
-                    <i class="pi pi-inbox text-cyan-500 text-xl"></i>
+                <div class="flex align-items-center justify-content-center bg-yellow-google border-round" [ngStyle]="{width: '4.0rem', height: '4.0rem'}">
+                    <i class="pi pi-inbox text-white text-xl"></i>
                 </div>
             </div>           
         </div>
@@ -47,8 +47,8 @@
                     <span class="block text-500 font-medium mb-3"><strong>Fichas eliminadas</strong></span>
                     <div class="text-900 font-medium text-xl"><h1>3</h1></div>
                 </div>
-                <div class="flex align-items-center justify-content-center bg-purple-100 border-round" [ngStyle]="{width: '4.0rem', height: '4.0rem'}">
-                    <i class="pi pi-comment text-purple-500 text-xl"></i>
+                <div class="flex align-items-center justify-content-center bg-red-google border-round" [ngStyle]="{width: '4.0rem', height: '4.0rem'}">
+                    <i class="pi pi-comment text-white text-xl"></i>
                 </div>
             </div>
             <!-- <span class="text-green-500 font-medium">85 </span>
@@ -56,30 +56,38 @@
         </div>
     </div>
 
-    <div class="col-12 xl:col-6">
+    <div class="col-12 xl:col-9">
         <div class="card">
-            <h5 align="center"><strong>Usuarios activos</strong></h5>
-            <p-table [value]="arrayUsuariosFichasActivos"  [paginator]="true" [rows]="5" responsiveLayout="scroll">
+            <h5 align="center"><strong>USUARIOS ACTIVOS</strong></h5>
+            <p-table  #dt [value]="arrayUsuariosFichasActivos" [rows]="10" [paginator]="true" [rowHover]="true" dataKey="id"
+            responsiveLayout="scroll" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+            [showCurrentPageReport]="true">
                 <ng-template pTemplate="header">
-                    <tr>
-                        <th>Usuario</th>
-                        <th pSortableColumn="name">Perfil <p-sortIcon field="name"></p-sortIcon></th>
-                        <th pSortableColumn="price">Tiempo Usado <p-sortIcon field="price"></p-sortIcon></th>
-                        <th>Tiempo restante</th>
+                    <tr>                                            
+                        <th pSortableColumn="userName">Usuario<p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="upTime">Tiempo de conexión<p-sortIcon field="price"></p-sortIcon></th>
+                        <th>Tiempo restante </th>                        
+                        <th pSortableColumn="upTime">Datos de bajada<p-sortIcon field="price"></p-sortIcon></th>
+                        <th pSortableColumn="upTime">Datos de subida<p-sortIcon field="price"></p-sortIcon></th>                        
+                        <th pSortableColumn="server">Server<p-sortIcon field="name"></p-sortIcon></th>                        
+                        <th pSortableColumn="address">Direccion IP<p-sortIcon field="name"></p-sortIcon></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-fichasactivas>
-                    <tr>
-                        <td style="width: 35%; min-width: 7rem;">{{fichasactivas.name}}</td>
-                        <td style="width: 35%; min-width: 7rem;">{{fichasactivas.profile}}</td>
-                        <td style="width: 35%; min-width: 8rem;">{{fichasactivas.uptime}}</td>
-                        <td style="width: 35%; min-width: 8rem;">{{fichasactivas.limitBytesIn}}</td>
+                    <tr>                                                
+                        <td style="width: 35%; min-width: 7rem;">{{fichasactivas.userName}}</td>
+                        <td style="width: 35%; min-width: 8rem;">{{fichasactivas.upTime}}</td>
+                        <td style="width: 35%; min-width: 8rem;">{{fichasactivas.sessionTimeLeft}}</td>
+                        <td style="width: 35%; min-width: 8rem;">{{ fichasactivas.bytesIn < 1048576 ? (fichasactivas.bytesIn / 1024).toFixed(2) + ' KB' : (fichasactivas.bytesIn / 1048576).toFixed(2) + ' MB' }}</td>
+                        <td style="width: 35%; min-width: 8rem;">{{ fichasactivas.bytesOut}}</td>
+                        <td style="width: 35%; min-width: 7rem;">{{fichasactivas.server}}</td>
+                        <td style="width: 35%; min-width: 7rem;">{{fichasactivas.address}}</td>
                     </tr>
                 </ng-template>
             </p-table>
         </div>       
     </div>
-    <div class="col-12 xl:col-6">
+    <div class="col-12 xl:col-3">
         <div class="card">
             <div class="flex justify-content-center align-items-center mb-5">
                 <h5 align="center"><strong>Detalles del RouterBoard</strong></h5>
@@ -165,3 +173,28 @@
 
 </div>
 
+<style>
+  /* Rojo Google */
+.bg-red-google {
+    background-color: #DB4437;
+}
+
+/* Verde Google */
+.bg-green-google {
+    background-color: #0F9D58;
+}
+
+/* Amarillo Google */
+.bg-yellow-google {
+    background-color: #F4B400;
+}
+
+/* Azul Google */
+.bg-blue-google {
+    background-color: #4285F4;
+}
+.bg-white-google {
+    background-color: #ffffff; /* Código hexadecimal para el blanco */
+}
+
+</style>

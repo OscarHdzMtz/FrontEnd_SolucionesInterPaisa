@@ -7,7 +7,8 @@ import { PerfilfichasComponent } from '../components/hotspot/perfilfichas/perfil
   providedIn: 'root'
 })
 export class PerfilfichasService {
-    myAppURL="https://localhost:44335/"
+    //myAppURL="https://localhost:5001/"
+    myAppURL="http://10.5.50.100:8080/"
     myApiUrl = "api/PlanesFichas/"
   constructor(private http:HttpClient) {}
 

@@ -13,13 +13,24 @@ export class DashboardhotspotComponent implements OnInit {
   arrayPerfilFichas : any [] = [];
   arrayUsuariosFichas : any [] = [];
   arrayUsuariosFichasActivos : any [] = [];
+  private intervalId: any;
+
   constructor(private _perfilesFichasService : PerfilfichasService, private _usuariosFichasService: UsuariosfichasService, private _usuariosFichasActivosService: UsuariosfichasactivasService) { }
 
   ngOnInit(): void {
     this.obtenerPerfilFichas();
     this.obtenerUsuariosFichas();
-    this.obtenerUsuariosFichasActivos();
+    this.obtenerUsuariosFichasActivos();// Cargar los datos cuando el componente se inicia
+    // Iniciar un intervalo para cargar los datos cada 2 segundos
+    this.intervalId = setInterval(() => {
+      this.obtenerUsuariosFichasActivos();
+    }, 2000); // Actualizar cada 2 segundos
   }
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId);// Detener el intervalo cuando el componente se destruye
+  }
+
   obtenerPerfilFichas(){
       this._perfilesFichasService.getPlanesFichas().subscribe(
         (data) => {
@@ -42,6 +53,7 @@ export class DashboardhotspotComponent implements OnInit {
       }
     )
   }
+  // Método para cargar los datos desde la API utilizando el servicio
   obtenerUsuariosFichasActivos(){
     this._usuariosFichasActivosService.getUsuariosFichasActivos().subscribe(
       data => {
