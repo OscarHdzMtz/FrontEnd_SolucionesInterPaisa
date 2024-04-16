@@ -44,8 +44,8 @@
         <div class="card mb-0">
             <div class="flex justify-content-between mb-0">
                 <div>
-                    <span class="block text-500 font-medium mb-3"><strong>Fichas eliminadas</strong></span>
-                    <div class="text-900 font-medium text-xl"><h1>3</h1></div>
+                    <span class="block text-500 font-medium mb-3"><strong>Servidores Hotspot</strong></span>
+                    <div class="text-900 font-medium text-xl"><h1>{{arrayServersHotspot.length}}</h1></div>
                 </div>
                 <div class="flex align-items-center justify-content-center bg-red-google border-round" [ngStyle]="{width: '4.0rem', height: '4.0rem'}">
                     <i class="pi pi-comment text-white text-xl"></i>
@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <div class="col-12 xl:col-9">
+    <div class="col-12 lg:col-9 xl:col-9">
         <div class="card">
             <h5 align="center"><strong>USUARIOS ACTIVOS</strong></h5>
             <p-table  #dt [value]="arrayUsuariosFichasActivos" [rows]="10" [paginator]="true" [rowHover]="true" dataKey="id"
@@ -67,8 +67,8 @@
                         <th pSortableColumn="userName">Usuario<p-sortIcon field="name"></p-sortIcon></th>
                         <th pSortableColumn="upTime">Tiempo de conexión<p-sortIcon field="price"></p-sortIcon></th>
                         <th>Tiempo restante </th>                        
-                        <th pSortableColumn="upTime">Datos de bajada<p-sortIcon field="price"></p-sortIcon></th>
-                        <th pSortableColumn="upTime">Datos de subida<p-sortIcon field="price"></p-sortIcon></th>                        
+                        <!-- <th pSortableColumn="upTime">Datos de bajada<p-sortIcon field="price"></p-sortIcon></th>
+                        <th pSortableColumn="upTime">Datos de subida<p-sortIcon field="price"></p-sortIcon></th>   -->                      
                         <th pSortableColumn="server">Server<p-sortIcon field="name"></p-sortIcon></th>                        
                         <th pSortableColumn="address">Direccion IP<p-sortIcon field="name"></p-sortIcon></th>
                     </tr>
@@ -78,8 +78,8 @@
                         <td style="width: 35%; min-width: 7rem;">{{fichasactivas.userName}}</td>
                         <td style="width: 35%; min-width: 8rem;">{{fichasactivas.upTime}}</td>
                         <td style="width: 35%; min-width: 8rem;">{{fichasactivas.sessionTimeLeft}}</td>
-                        <td style="width: 35%; min-width: 8rem;">{{ fichasactivas.bytesIn < 1048576 ? (fichasactivas.bytesIn / 1024).toFixed(2) + ' KB' : (fichasactivas.bytesIn / 1048576).toFixed(2) + ' MB' }}</td>
-                        <td style="width: 35%; min-width: 8rem;">{{ fichasactivas.bytesOut}}</td>
+                        <!-- <td style="width: 35%; min-width: 8rem;">{{ fichasactivas.bytesIn < 1048576 ? (fichasactivas.bytesIn / 1024).toFixed(2) + ' KB' : (fichasactivas.bytesIn / 1048576).toFixed(2) + ' MB' }}</td>
+                        <td style="width: 35%; min-width: 8rem;">{{ fichasactivas.bytesOut}}</td> -->
                         <td style="width: 35%; min-width: 7rem;">{{fichasactivas.server}}</td>
                         <td style="width: 35%; min-width: 7rem;">{{fichasactivas.address}}</td>
                     </tr>
@@ -87,86 +87,16 @@
             </p-table>
         </div>       
     </div>
-    <div class="col-12 xl:col-3">
+    <div class="col-12 lg:col-3 xl:col-3">
         <div class="card">
             <div class="flex justify-content-center align-items-center mb-5">
-                <h5 align="center"><strong>Detalles del RouterBoard</strong></h5>
+                <h5 align="center"><strong>Log</strong></h5>
                 <div>
-                    <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain" ></button>
+                    <!-- <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain" ></button> -->
                     <!-- <p-menu #menu [popup]="true" [model]="items"></p-menu> -->
                 </div>
             </div>
-            <ul class="list-none p-0 m-0">
-                <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                    <div>
-                        <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Nombre</span>
-                        <!-- <div class="mt-1 text-600">Clothing</div> -->
-                    </div>
-                    <div class="mt-2 md:mt-0 flex align-items-center">
-                        <!-- <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-                            <div class="bg-orange-500 h-full" [ngStyle]="{width: '50%'}"></div>
-                        </div> -->
-                        <span class="text-orange-500 ml-3 font-medium">MikrtikPrueba</span>
-                    </div>
-                </li>
-                <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                    <div>
-                        <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Memoria</span>
-                        <!-- <div class="mt-1 text-600">Accessories</div> -->
-                    </div>
-                    <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                        <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-                            <div class="bg-cyan-500 h-full" [ngStyle]="{width: '16%'}"></div>
-                        </div>
-                        <span class="text-cyan-500 ml-3 font-medium">%16</span>
-                    </div>
-                </li>
-                <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                    <div>
-                        <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Disco</span>
-                        <!-- <div class="mt-1 text-600">Accessories</div> -->
-                    </div>
-                    <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                        <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-                            <div class="bg-pink-500 h-full" [ngStyle]="{width: '67%'}"></div>
-                        </div>
-                        <span class="text-pink-500 ml-3 font-medium">%67</span>
-                    </div>
-                </li>
-                <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                    <div>
-                        <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Puerta de enlace</span>
-                        <!-- <div class="mt-1 text-600">Office</div> -->
-                    </div>
-                    <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                        <!-- <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-                            <div class="bg-green-500 h-full" [ngStyle]="{width: '35%'}"></div>
-                        </div> -->
-                        <span class="text-green-500 ml-3 font-medium">192.168.1.254</span>
-                    </div>
-                </li>
-                <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                    <div>
-                        <span class="text-900 font-medium mr-2 mb-1 md:mb-0">DNS</span>
-                        <!-- <div class="mt-1 text-600">Accessories</div> -->
-                    </div>
-                    <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">                        
-                        <span class="text-purple-500 ml-3 font-medium">8.8.8.8</span>
-                    </div>
-                </li>
-                <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                    <div>
-                        <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Prueba</span>
-                        <!-- <div class="mt-1 text-600">Clothing</div> -->
-                    </div>
-                    <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                        <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-                            <div class="bg-teal-500 h-full" [ngStyle]="{width: '40%'}"></div>
-                        </div>
-                        <span class="text-teal-500 ml-3 font-medium">%40</span>
-                    </div>
-                </li>
-            </ul>
+            
         </div>
     </div>
     
