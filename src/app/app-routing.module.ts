@@ -18,7 +18,8 @@ import { AuthGuard } from './auth/guards/auth.guard';
                     { path: 'documentation', loadChildren: () => import('./demo/components/documentation/documentation.module').then(m => m.DocumentationModule) },
                     { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
-                    { path: 'hotspot', loadChildren: () => import('./demo/components/hotspot/hotspot.module').then(m => m.HotspotModule), canActivate: [AuthGuard]  }
+                    //{ path: 'hotspot', loadChildren: () => import('./demo/components/hotspot/hotspot.module').then(m => m.HotspotModule), canActivate: [AuthGuard]  }
+                    { path: 'hotspot', loadChildren: () => import('./hotspot/hotspot.module').then(m => m.HotspotModule) }
                 ]
             },
             { path: 'auth', loadChildren: () => import('./auth/components/auth.module').then(m => m.AuthModule) },

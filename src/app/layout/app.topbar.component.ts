@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
+import { JwtPayload, jwtDecode } from 'jwt-decode';
 
 @Component({
     selector: 'app-topbar',
@@ -8,6 +9,10 @@ import { LayoutService } from "./service/app.layout.service";
 })
 export class AppTopBarComponent {
 
+    nombreEmpresa:string = "";
+    userLoged:string = "";
+    profileUser:string = "";
+    
     items!: MenuItem[];
 
     @ViewChild('menubutton') menuButton!: ElementRef;
@@ -16,5 +21,12 @@ export class AppTopBarComponent {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService) {
+        
+        this.nombreEmpresa = layoutService.Token_jwt_decode().empresa;
+        this.userLoged = layoutService.Token_jwt_decode().usuario;
+        this.profileUser = layoutService.Token_jwt_decode().perfil;
+        
+     }
+     
 }

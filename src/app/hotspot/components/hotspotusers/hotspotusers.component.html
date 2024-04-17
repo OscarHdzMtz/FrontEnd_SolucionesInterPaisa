@@ -1,0 +1,107 @@
+<p-toast></p-toast>
+<div class="card">
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <!-- <button pButton pRipple label="Crear fichas" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/hotspot/usuariosfichas/addusuariosfichas"></button> -->
+            <button pButton pRipple label="Crear fichas" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/hotspot/users/add']"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-danger"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <div class="flex">
+                <!-- <button type="button" pButton pRipple label="CSV" icon="pi pi-file" (click)="dt.exportCSV()" class="mr-2"
+                    pTooltip="CSV" tooltipPosition="bottom"></button> -->
+                <button type="button" pButton pRipple label="Excel" icon="pi pi-file-excel" (click)="exportExcel()"
+                    class="p-button-success mr-2" pTooltip="XLS" tooltipPosition="bottom"></button>
+                <button type="button" pButton pRipple label="PDF" icon="pi pi-file-pdf" class="p-button-warning mr-2" pTooltip="PDF"
+                    tooltipPosition="bottom"></button>
+                <button type="button" pButton pRipple label="Filtro" icon="pi pi-filter" (click)="dt.exportCSV({selectionOnly:true})"
+                    class="p-button-info ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"></button>
+            </div>
+            <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button> -->
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="arrayUsuariosFichasFront" [rows]="10" [paginator]="true" [rowHover]="true" dataKey="id"
+        responsiveLayout="scroll" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+        [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Perfiles</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th style="text-align:center" pSortableColumn="name">PIN/Usuario<p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th style="text-align:center">Contraseña</th>
+                <th style="text-align:center" pSortableColumn="profile">Perfil<p-sortIcon field="profile"></p-sortIcon>
+                </th>
+                <th style="text-align:center" pSortableColumn="Nuevo">Precio<p-sortIcon field="Nuevo"></p-sortIcon>
+                </th>
+                <th style="text-align:center" pSortableColumn="category">Estado <p-sortIcon field="category">
+                    </p-sortIcon>
+                </th>
+                <th style="text-align:center" pSortableColumn="comment">Fecha de creación<p-sortIcon field="comment">
+                    </p-sortIcon>
+                </th>
+                <th style="text-align:center" pSortableColumn="limitUptime">Vence en:<p-sortIcon
+                        field="limitUptime"></p-sortIcon>
+                </th>
+                <!-- <th pSortableColumn="inventoryStatus">Expira en:<p-sortIcon field="inventoryStatus"></p-sortIcon>
+                </th> -->
+                <th style="text-align:right">
+                    <p-button label="Search" (onClick)="obtenerUsuariosFichas"></p-button>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-fichas>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="fichas"></p-tableCheckbox>
+                </td>
+                <td style="text-align:center">{{fichas.name}}</td>
+                <td *ngIf="fichas.password !== ''" style="text-align:center">{{fichas.password}}</td>
+                <td *ngIf="fichas.password === ''" style="text-align:center"><p-badge value="No aplica" severity="danger"></p-badge></td>
+                <td style="text-align:center">{{fichas.profile}}</td>
+                <td style="text-align:center">$5.00</td>
+                <td *ngIf="fichas.uptime === fichas.limitUptime" style="text-align:center">
+                    <p-badge value="Vencido" severity="danger"></p-badge>
+                </td>
+                <td *ngIf="fichas.uptime !== '0s' && fichas.uptime !== fichas.limitUptime" style="text-align:center">
+                    <p-badge value="EnUso" severity="warning"></p-badge>
+                </td>
+                <td *ngIf="fichas.uptime === '0s'" style="text-align:center">
+                    <p-badge value="Nuevo" severity="success"></p-badge>
+                </td>
+                <td style="text-align:center">{{fichas.comment}}</td>
+                <td style="text-align:center"*ngIf="fichas.uptime !== '0s'">
+                    <p-badge value="{{fichas.uptime}}" severity="warning"></p-badge>
+                </td>
+                <td style="text-align:center" *ngIf="fichas.uptime === '0s'">
+                    <p-badge value="sin usar" severity="warning"></p-badge>
+                </td>
+                <!-- <td style="text-align:center">No aplica</td> -->
+                <td>
+                    <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info mr-2"></button>
+                    <button pButton pRipple icon="pi pi-print" class="p-button-rounded p-button-success mr-2" (click)="exportExcel()"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                        (click)="deleteUsuariosFichas(fichas.id, fichas.name)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                Un total de: {{arrayUsuariosFichasFront ? arrayUsuariosFichasFront.length : 0 }} fichas.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

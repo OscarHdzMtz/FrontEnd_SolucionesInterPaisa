@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import { Subject } from 'rxjs';
 
 export interface AppConfig {
@@ -96,5 +97,25 @@ export class LayoutService {
     onConfigUpdate() {
         this.configUpdate.next(this.config);
     }
+
+    Token_jwt_decode(): any {
+        
+        const token = this.getToken();
+
+        if (token) {
+
+            const decodedToken:any  = jwtDecode(token);
+            
+            return decodedToken
+        }
+
+    }
+    
+    getToken(): string {
+        // Obtiene el token del sessionStorage
+        
+        return sessionStorage.getItem('authToken') ?? ""; // Si el valor es null, retorna una cadena vacía
+
+      }
 
 }

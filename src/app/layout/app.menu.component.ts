@@ -27,7 +27,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Agregar Router',
                         icon: 'pi pi-fw pi-server',
-                        routerLink: ['/hotspot/routersfichas']
+                        routerLink: ['/hotspot/routers']
                     },
                     {
                         label: 'Hotspot',
@@ -36,12 +36,12 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Dashboard',
                                 icon: 'pi pi-fw pi-th-large',
-                                routerLink: ['/hotspot/dashboardhotspot']
+                                routerLink: ['/hotspot/dashboard']
                             },
                             {
                                 label: 'Ver y Crear Perfiles',
                                 icon: 'pi pi-fw pi-file',
-                                routerLink: ['/hotspot/perfilfichas']
+                                routerLink: ['/hotspot/userprofile']
                             },
                             /* {
                                 label: 'Crear ficha',
@@ -51,12 +51,12 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Ver y Crear Fichas',
                                 icon: 'pi pi-fw pi-bookmark',
-                                routerLink: ['/hotspot/usuariosfichas']
+                                routerLink: ['/hotspot/users']
                             },
                             {
                                 label: 'Crear y Vender Ficha',
                                 icon: 'pi pi-fw pi-list',
-                                routerLink: ['/hotspot/crearvenderusuariosfichas']
+                                routerLink: ['/hotspot/user']
                             },
                             {
                                 label: 'Access Denied',

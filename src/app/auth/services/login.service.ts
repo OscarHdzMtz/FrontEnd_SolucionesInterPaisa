@@ -45,6 +45,7 @@ private tokenKey = 'authToken';
     longToken = this.getToken();
 
     return longToken.length > 0;
+    
   }
 
   saveToken(token: string) {
