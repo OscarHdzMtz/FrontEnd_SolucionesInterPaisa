@@ -1,1 +1,55 @@
-<p>hotspotmikrotiks works!</p>
+<div class="grid">
+
+    <div class="col-12 lg:col-6 xl:col-6">
+        <div class="card">
+            <h5 align="center"><strong>ROUTERS HOTSPOT</strong></h5>           
+            <p-table [value]="arrayHotspotMikrotiks" [rows]="10" [paginator]="true" [rowHover]="true" dataKey="id"
+            responsiveLayout="scroll" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+            [showCurrentPageReport]="true">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th></th>
+                        <th pSortableColumn="nombre">nombre<p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="direccion_ip">Direccion IP<p-sortIcon field="price"></p-sortIcon></th>                                                                                          
+                        <!-- <th pSortableColumn="usuario">Usuario<p-sortIcon field="name"></p-sortIcon></th>                         -->
+                        <!-- <th pSortableColumn="created_at">Creado<p-sortIcon field="name"></p-sortIcon></th> -->
+                        <th pSortableColumn="active_status">Estado<p-sortIcon field="name"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-hotspotMikrotik let-columns="columns">
+                    <tr>
+                        <td>                            
+                            <img alt="img" src="assets/hotspot/img/mikrotik.png" [style.max-width.px]="100" [style.max-height.px]="100"style="vertical-align: middle" />                            
+                        </td>
+                        <td style="width: 35%; min-width: 7rem;">{{hotspotMikrotik.nombre}}</td>
+                        <td style="width: 35%; min-width: 8rem;">{{hotspotMikrotik.direccion_ip}}</td>
+                        <!-- <td style="width: 35%; min-width: 8rem;">{{hotspotMikrotik.usuario}}</td>                         -->
+                        <!-- <td style="width: 35%; min-width: 7rem;">{{hotspotMikrotik.created_at}}</td> -->
+                        <td><p-tag [severity]="getSeverity(hotspotMikrotik.active_status)">{{hotspotMikrotik.active_status ? 'Activo' : 'Inactivo' }}</p-tag></td>
+                        <td>
+                            <div style="display: flex; align-items: center;">
+                                <button pButton pRipple icon="pi pi-file-edit" class="p-button-rounded p-button-info mr-2"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>       
+    </div>
+    <div class="col-12 lg:col-6 xl:col-6">
+        <div class="card">
+            <div class="flex justify-content-center align-items-center mb-5">
+                <h5 align="center"><strong>MIKROTIK ACTIVO <p-tag severity="success" [rounded]="true"><span class="text-base">{{ResourcesystemHotspotMikrotik?.boardName}}</span></p-tag></strong></h5>
+                <div>
+                    <!-- <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain" ></button> -->
+                    <!-- <p-menu #menu [popup]="true" [model]="items"></p-menu> -->
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+
+</div>

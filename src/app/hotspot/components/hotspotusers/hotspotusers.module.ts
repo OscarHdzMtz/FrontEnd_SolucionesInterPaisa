@@ -20,6 +20,8 @@ import {BadgeModule} from 'primeng/badge';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HotspotusersComponent } from './hotspotusers.component';
 import { AddhotspotuserComponent } from './addhotspotuser/addhotspotuser.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 
 @NgModule({
@@ -43,6 +45,8 @@ import { AddhotspotuserComponent } from './addhotspotuser/addhotspotuser.compone
     DialogModule,
     BadgeModule,
     ConfirmDialogModule,
+    ProgressSpinnerModule,
+    ProgressBarModule,
   ]
 })
 export class HotspotusersModule { }

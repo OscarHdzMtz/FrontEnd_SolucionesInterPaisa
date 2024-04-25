@@ -54,11 +54,11 @@ export class LoginComponent {
                 
                 this.loginResponseOnbject = data;
           
-                console.log(data);
+                //console.log(data);
 
                 //console.log(data.resultado.token);
 
-                this.router.navigateByUrl('hotspot/dashboardhotspot');
+                this.router.navigateByUrl('hotspot/dashboard');
 
                 this.messageService.add({severity:'success', summary: 'Success', detail: "mensaje", life: 3000});   
 

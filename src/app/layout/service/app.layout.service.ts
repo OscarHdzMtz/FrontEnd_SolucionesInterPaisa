@@ -25,6 +25,10 @@ interface LayoutState {
 })
 export class LayoutService {
 
+    constructor() {
+        //this.token = this.layoutService.getToken();
+    }
+
     config: AppConfig = {
         ripple: false,
         inputStyle: 'outlined',
@@ -116,6 +120,11 @@ export class LayoutService {
         
         return sessionStorage.getItem('authToken') ?? ""; // Si el valor es null, retorna una cadena vacía
 
+      }
+
+      removeToken(nombreToken:string): void {
+        // Elimina el token del sessionStorage
+        sessionStorage.removeItem(nombreToken);
       }
 
 }

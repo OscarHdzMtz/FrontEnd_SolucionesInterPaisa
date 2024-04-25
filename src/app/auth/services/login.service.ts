@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, firstValueFrom, map } from 'rxjs';
+import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ myAppURL="http://10.5.50.100:8090/"
 myApiUrl = "api/auth/login"
 private tokenKey = 'authToken';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, public layoutService: LayoutService) { }
 
   register(formValue: any){
 
@@ -31,7 +32,12 @@ private tokenKey = 'authToken';
 
         if (response && response.resultado.token) {
 
+          this.layoutService.removeToken(this.tokenKey);
+
           this.saveToken(response.resultado.token);
+
+          console.log("Token guardar inicio de sesion", response.resultado.token);
+
         }
         return response; // Devuelve la respuesta original
       })
@@ -42,7 +48,7 @@ private tokenKey = 'authToken';
 
     let longToken : string;    
 
-    longToken = this.getToken();
+    longToken = this.layoutService.getToken(); //this.getToken();
 
     return longToken.length > 0;
     
@@ -53,9 +59,4 @@ private tokenKey = 'authToken';
     sessionStorage.setItem(this.tokenKey, token);
   }
 
-  getToken(): string {
-    // Obtiene el token del sessionStorage
-    return sessionStorage.getItem(this.tokenKey) ?? ""; // Si el valor es null, retorna una cadena vacía
-  }
-  
 }

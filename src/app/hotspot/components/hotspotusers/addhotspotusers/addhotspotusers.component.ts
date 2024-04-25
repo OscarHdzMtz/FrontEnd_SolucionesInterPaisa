@@ -98,7 +98,7 @@ this.obtenerServerHotspot()
 }
 
 obtenerUsuariosFichas() {
-this._usuariosfichasService.getUsuariosFichas().subscribe(
+this._usuariosfichasService.getHotspotUsersService().subscribe(
     (data) => {
         console.log(data);
         this.arrayUsuariosFichas = data;
@@ -109,9 +109,9 @@ this._usuariosfichasService.getUsuariosFichas().subscribe(
 );
 }
 obtenerplanesFichas(){
-    this._perfilfichasService.getPlanesFichas().subscribe(
+    this._perfilfichasService.getHotspotUserProfilesService().subscribe(
         data => {
-            this.arrayPlanesFichas = data;
+            this.arrayPlanesFichas = data.resultado;
             console.log(data);
         },
         (error) => {
@@ -154,7 +154,7 @@ addUsuarioFichas(){
     tipoPasswordGenerarFichas: this.userFormUsuariosFichas.get('formConfiguracionPass.tipoPasswordGenerarFichas')?.value,   
     }     
     console.log(usuariosFichas);           
-    this._usuariosfichasService.saveUsuariosFichas(usuariosFichas).subscribe(                        
+    this._usuariosfichasService.postHotspotUsersService(usuariosFichas).subscribe(                        
         (data) => {    
             this.AbrirModalSpiner();                                          
             this.toastr.success(

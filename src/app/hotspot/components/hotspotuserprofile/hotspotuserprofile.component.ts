@@ -110,10 +110,10 @@ export class HotspotuserprofileComponent implements OnInit {
 
   //METODO PARA OBTENER LOS PERFILES DESDE EL BACKEND
   obtenerplanesfichas() {
-      this._perfilfichasService.getPlanesFichas().subscribe(
+      this._perfilfichasService.getHotspotUserProfilesService().subscribe(
           (data) => {
-              console.log(data);
-              this.listplanesfichas = data;
+              console.log(data.resultado);
+              this.listplanesfichas = data.resultado;
           },
           (error) => {
               console.log(error);
@@ -166,7 +166,7 @@ export class HotspotuserprofileComponent implements OnInit {
                   onLogoutProfile: 'planesFichas.onLogoutProfil',
               };
               //Enviamos los datos del variable al
-              this._perfilfichasService.savePlanesFichas(PlanesFichas).subscribe(
+              this._perfilfichasService.postHotspotUserProfileService(PlanesFichas).subscribe(
                   (data) => {
                       this.toastr.info(
                           this.perfilDesdeModal.nombrePerfilModal + ' Perfil Actualizado Correctamente',
@@ -212,7 +212,7 @@ export class HotspotuserprofileComponent implements OnInit {
               };
 
               //Enviamos los datos del variable al
-              this._perfilfichasService.savePlanesFichas(PlanesFichas).subscribe(
+              this._perfilfichasService.postHotspotUserProfileService(PlanesFichas).subscribe(
                   (data) => {
                       this.toastr.success(
                           this.perfilDesdeModal.nombrePerfilModal + ' Agregado Correctamente',
@@ -265,7 +265,7 @@ export class HotspotuserprofileComponent implements OnInit {
           header: 'Eliminar',
           icon: 'pi pi-trash',
           accept: () => {
-              this._perfilfichasService.deletePlanesFichas(id).subscribe(data => {
+              this._perfilfichasService.deleteHotspotUserProfileService(id).subscribe(data => {
                   /* this.toastr.warning('Perfil ' + nombrePerfil + ' eliminada con Exito','Eliminado'); */
                   this.messageService.add({severity:'success', summary: 'Eliminado', detail: 'Perfil ' + nombrePerfil + ' eliminada con Exito', life: 3000});
                   this.obtenerplanesfichas();
@@ -279,6 +279,8 @@ export class HotspotuserprofileComponent implements OnInit {
   }
 
   editPlanesFichas(nombre: string, macCookieTimeout: string, rateLimit: string, idPlanes: string) {
+
+    console.log("entro edit");
 
       //CONVERTIMOS EL STRING EN UN ARREGLO PARA PODER MANDAR EL VALOR DE SUBISDA Y BAJADA POR SEPARADO
       let rateLimitaSubida : Array<string>= rateLimit.split("/")

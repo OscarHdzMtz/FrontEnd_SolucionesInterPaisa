@@ -15,6 +15,8 @@ export class HotspotusersComponent implements OnInit {
 
     cols?: any[];
     exportColumns?: any[];
+    loading: boolean = true;
+
     ngOnInit(): void {
         this.obtenerUsuariosFichas();
 
@@ -37,10 +39,11 @@ export class HotspotusersComponent implements OnInit {
 
     //OBTENER LOS DATOS DESDE EL SERVICIO
     obtenerUsuariosFichas() {
-        this._usuarioFichasService.getUsuariosFichas().subscribe(
+        this._usuarioFichasService.getHotspotUsersService().subscribe(
             (data) => {
-                console.log(data);
-                this.arrayUsuariosFichasFront = data;
+                console.log(data.resultado);
+                this.arrayUsuariosFichasFront = data.resultado;
+                //this.loading = false;
             },
             (error) => {
                 console.log(error);
@@ -102,17 +105,14 @@ export class HotspotusersComponent implements OnInit {
             header: 'Eliminar',
             icon: 'pi pi-trash',
             accept: () => {
-                this._usuarioFichasService.deleteUsuariosFichas(id).subscribe(data => {
-                    /* this.toastr.warning('Perfil ' + nombrePerfil + ' eliminada con Exito','Eliminado'); */
+                this._usuarioFichasService.deleteHotspotUsersService(id).subscribe(data => {                    
                     this.messageService.add({severity:'success', summary: 'Eliminado', detail: 'Usuario ' + nombreFicha + ' eliminada con Exito', life: 3000});
                     this.obtenerUsuariosFichas();
-                }, error => {
-                    /* this.toastr.error(error.status + ' ' +  error.name, 'Error') */
+                }, error => {                    
                     this.messageService.add({severity:'error', summary: 'Error', detail: error.status + ' ' +  error.name, life: 3000});
                 });
             }
         });
-
     }
 
 }

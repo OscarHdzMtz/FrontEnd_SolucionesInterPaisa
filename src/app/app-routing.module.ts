@@ -9,7 +9,7 @@ import { AuthGuard } from './auth/guards/auth.guard';
         RouterModule.forRoot([
             { path: '', loadChildren: () => import('./publico/publico.module').then(m => m.PublicoModule) },
             {
-                path: '', component: AppLayoutComponent, canActivate: [AuthGuard] ,
+                path: '', component: AppLayoutComponent, canActivateChild: [AuthGuard],
                 children: [
                     //{ path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },                    
                     { path: 'dashboard', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule)},

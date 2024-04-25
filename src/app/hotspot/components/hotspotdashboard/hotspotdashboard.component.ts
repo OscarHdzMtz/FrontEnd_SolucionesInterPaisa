@@ -3,6 +3,7 @@ import { HotspotuserprofileService } from '../../services/hotspotuserprofile.ser
 import { HotspotusersService } from '../../services/hotspotusers.service';
 import { HotspotactiveusersService } from '../../services/hotspotactiveusers.service';
 import { ServidoreshotspotfichasService } from 'src/app/demo/service/servidoreshotspotfichas.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-hotspotdashboard',
@@ -15,8 +16,12 @@ export class HotspotdashboardComponent implements OnInit {
   arrayUsuariosFichasActivos : any [] = [];
   arrayServersHotspot : any [] = [];
   private intervalId: any;
+  loading: boolean = true;
 
-  constructor(private _perfilesFichasService : HotspotuserprofileService, private _usuariosFichasService: HotspotusersService, private _usuariosFichasActivosService: HotspotactiveusersService, private _servidoresHostpotService : ServidoreshotspotfichasService) { }
+  constructor(private _perfilesFichasService : HotspotuserprofileService, private _usuariosFichasService: HotspotusersService, private _HotspotactiveusersService: HotspotactiveusersService, private _servidoresHostpotService : ServidoreshotspotfichasService) 
+  { 
+      
+  }
 
   ngOnInit(): void {
     this.obtenerPerfilFichas();
@@ -26,18 +31,19 @@ export class HotspotdashboardComponent implements OnInit {
     // Iniciar un intervalo para cargar los datos cada 2 segundos
     this.intervalId = setInterval(() => {
       this.obtenerUsuariosFichasActivos();
-    }, 2000); // Actualizar cada 2 segundos
+    }, 2000); // Actualizar cada 2 segundos      
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.intervalId);// Detener el intervalo cuando el componente se destruye
+    clearInterval(this.intervalId);// Detener el intervalo cuando el componente se destruye    
   }
 
   obtenerPerfilFichas(){
-      this._perfilesFichasService.getPlanesFichas().subscribe(
+      this._perfilesFichasService.getHotspotUserProfilesService().subscribe(
         (data) => {
           /* console.log(data); */
-          this.arrayPerfilFichas = data;
+          this.arrayPerfilFichas = data.resultado;
+          this.loading=false;
         },
         (error)=>{
           console.log(error);
@@ -45,10 +51,10 @@ export class HotspotdashboardComponent implements OnInit {
       )
   }
   obtenerUsuariosFichas(){
-    this._usuariosFichasService.getUsuariosFichas().subscribe(
+    this._usuariosFichasService.getHotspotUsersService().subscribe(
       data => {
         /* console.log(data); */
-        this.arrayUsuariosFichas = data
+        this.arrayUsuariosFichas = data.resultado        
       },
       error => {
         console.log(error);
@@ -57,10 +63,10 @@ export class HotspotdashboardComponent implements OnInit {
   }
   // Método para cargar los datos desde la API utilizando el servicio
   obtenerUsuariosFichasActivos(){
-    this._usuariosFichasActivosService.getUsuariosFichasActivos().subscribe(
+    this._HotspotactiveusersService.getHotspotActiveUsersService().subscribe(
       data => {
-        console.log(data)
-        this.arrayUsuariosFichasActivos = data;
+        //console.log(data.resultado)
+        this.arrayUsuariosFichasActivos = data.resultado;
       }, error=> {
         console.log(error);
       }
@@ -71,11 +77,12 @@ export class HotspotdashboardComponent implements OnInit {
   obtenerServerHotspot(){
     this._servidoresHostpotService.getServerHotspot().subscribe(
       data => {
-        console.log(data)
-        this.arrayServersHotspot = data;
+        //console.log(data)
+        this.arrayServersHotspot = data;        
       }, error=> {
-        console.log(error);
+        console.log(error);        
       }
     )
   }
+
 }
