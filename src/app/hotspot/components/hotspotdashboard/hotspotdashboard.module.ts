@@ -20,6 +20,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { BadgeModule } from 'primeng/badge';
 import { HotspotdashboardComponent } from './hotspotdashboard.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { TabViewModule } from 'primeng/tabview';
+import { Avatar, AvatarModule } from 'primeng/avatar';
+import { ChartModule } from 'primeng/chart';
 
 
 @NgModule({
@@ -43,7 +46,10 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     DialogModule,
     ConfirmDialogModule,
     BadgeModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    TabViewModule,
+    AvatarModule ,
+    ChartModule 
   ]
 })
 export class HotspotdashboardModule { }

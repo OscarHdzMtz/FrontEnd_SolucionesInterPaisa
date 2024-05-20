@@ -1,55 +1,312 @@
 <div class="grid">
-
-    <div class="col-12 lg:col-6 xl:col-6">
+    <div class="col-12 lg:col-8 xl:col-8">
         <div class="card">
-            <h5 align="center"><strong>ROUTERS HOTSPOT</strong></h5>           
-            <p-table [value]="arrayHotspotMikrotiks" [rows]="10" [paginator]="true" [rowHover]="true" dataKey="id"
-            responsiveLayout="scroll" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
-            [showCurrentPageReport]="true">
+            <h5 align="center"><strong>ROUTERS HOTSPOT</strong></h5>
+            <!-- <p-table [value]="arrayHotspotMikrotiks" [rows]="10" [paginator]="true" [rowHover]="true" dataKey="id"
+                responsiveLayout="scroll"
+                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+                [showCurrentPageReport]="true">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th></th>
-                        <th pSortableColumn="nombre">nombre<p-sortIcon field="name"></p-sortIcon></th>
-                        <th pSortableColumn="direccion_ip">Direccion IP<p-sortIcon field="price"></p-sortIcon></th>                                                                                          
-                        <!-- <th pSortableColumn="usuario">Usuario<p-sortIcon field="name"></p-sortIcon></th>                         -->
-                        <!-- <th pSortableColumn="created_at">Creado<p-sortIcon field="name"></p-sortIcon></th> -->
-                        <th pSortableColumn="active_status">Estado<p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="nombre">
+                            nombre<p-sortIcon field="name"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="direccion_ip">
+                            Direccion IP<p-sortIcon field="price"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="active_status">
+                            Estado<p-sortIcon field="name"></p-sortIcon>
+                        </th>
                         <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-hotspotMikrotik let-columns="columns">
                     <tr>
-                        <td>                            
-                            <img alt="img" src="assets/hotspot/img/mikrotik.png" [style.max-width.px]="100" [style.max-height.px]="100"style="vertical-align: middle" />                            
-                        </td>
-                        <td style="width: 35%; min-width: 7rem;">{{hotspotMikrotik.nombre}}</td>
-                        <td style="width: 35%; min-width: 8rem;">{{hotspotMikrotik.direccion_ip}}</td>
-                        <!-- <td style="width: 35%; min-width: 8rem;">{{hotspotMikrotik.usuario}}</td>                         -->
-                        <!-- <td style="width: 35%; min-width: 7rem;">{{hotspotMikrotik.created_at}}</td> -->
-                        <td><p-tag [severity]="getSeverity(hotspotMikrotik.active_status)">{{hotspotMikrotik.active_status ? 'Activo' : 'Inactivo' }}</p-tag></td>
                         <td>
-                            <div style="display: flex; align-items: center;">
-                                <button pButton pRipple icon="pi pi-file-edit" class="p-button-rounded p-button-info mr-2"></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"></button>
+                            <img alt="img" src="assets/hotspot/img/mikrotik.png" [style.max-width.px]="100"
+                                [style.max-height.px]="100" style="vertical-align: middle" />
+                        </td>
+                        <td style="width: 35%; min-width: 7rem">
+                            {{ hotspotMikrotik.nombre }}
+                        </td>
+                        <td style="width: 35%; min-width: 8rem">
+                            {{ hotspotMikrotik.direccion_ip }}
+                        </td>
+                        <td>
+                            <p-tag [severity]="
+                                    getSeverity(hotspotMikrotik.active_status)
+                                ">{{
+                                hotspotMikrotik.active_status
+                                ? "Activo"
+                                : "Inactivo"
+                                }}</p-tag>
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center">
+                                <button pTooltip="Editar" tooltipPosition="top" pButton pRipple icon="pi pi-file-edit"
+                                    class="p-button-rounded p-button-info mr-2"></button>
+                                <button pTooltip="Eliminar" tooltipPosition="top" pButton pRipple icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table> -->
+            <p-table [columns]="selectedColumns" [value]="arrayHotspotMikrotiks" [rows]="10" [paginator]="true"
+                [rowHover]="true" dataKey="id" responsiveLayout="scroll"
+                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+                [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
+                        placeholder="Choose Columns"></p-multiSelect>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th>Nombre</th>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-routers let-columns="columns">
+                    <tr>
+                        <td>{{routers.nombre}}</td>
+                        <td *ngFor="let col of columns">
+                            {{routers[col.field]}}
+                        </td>
+                        <td>
+                            <p-tag [severity]="
+                                    getSeverity(routers.active_status)
+                                ">{{
+                                routers.active_status
+                                ? "Activo"
+                                : "Inactivo"
+                                }}</p-tag>
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center">
+                                <button pTooltip="Validar conexion" tooltipPosition="top" pButton pRipple
+                                    icon="pi pi-sync" class="p-button-rounded p-button-success mr-1"
+                                    (click)="getValidarConexionMikrotik(routers.routers_id)"></button>
+                                <button pTooltip="Editar" tooltipPosition="top" pButton pRipple icon="pi pi-file-edit"
+                                    class="p-button-rounded p-button-info mr-1"
+                                    (click)="editRouterMikrotik(routers.routers_id)"></button>
+                                <button pTooltip="Eliminar" tooltipPosition="top" pButton pRipple icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger mr-1"></button>
                             </div>
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
-        </div>       
-    </div>
-    <div class="col-12 lg:col-6 xl:col-6">
-        <div class="card">
-            <div class="flex justify-content-center align-items-center mb-5">
-                <h5 align="center"><strong>MIKROTIK ACTIVO <p-tag severity="success" [rounded]="true"><span class="text-base">{{ResourcesystemHotspotMikrotik?.boardName}}</span></p-tag></strong></h5>
-                <div>
-                    <!-- <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain" ></button> -->
-                    <!-- <p-menu #menu [popup]="true" [model]="items"></p-menu> -->
-                </div>
-            </div>
-            
+
         </div>
     </div>
-    
+    <div class="col-12 lg:col-4 xl:col-4">
+        <div *ngIf="ResourcesystemHotspotMikrotik" class="card">
+            <h5 align="center">
+                <strong>MIKROTIK ACTIVO
+                    <p-tag severity="success" [rounded]="true"><span class="text-base">{{
+                            ResourcesystemHotspotMikrotik?.boardName
+                            }}</span></p-tag></strong>
+            </h5>
+            <div class="card">
+                <ul class="list-none p-0 m-0">
+                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                        <div>
+                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Tiempo de actividad:</span>
+                            <div class="mt-1 text-600">{{ResourcesystemHotspotMikrotik?.uptime}}</div>
+                        </div>
+                    </li>
+                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                        <div style="width: 100%;">
+                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Memoria</span>
+                            <p-progressBar
+                                [value]="((bytesToMiB(ResourcesystemHotspotMikrotik?.freeMemory) / bytesToMiB(ResourcesystemHotspotMikrotik?.totalMemory)) * 100).toFixed(0)"></p-progressBar>
 
+                            <div class="mt-1 text-600 text-center">
+                                {{bytesToMiB(ResourcesystemHotspotMikrotik?.freeMemory)}}Mib de
+                                {{bytesToMiB(ResourcesystemHotspotMikrotik?.totalMemory)}}Mib</div>
+
+                        </div>
+                    </li>
+                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                        <div style="width: 100%;">
+                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Almacenamiento</span>
+                            <p-progressBar
+                                [value]="((bytesToMiB(ResourcesystemHotspotMikrotik?.freeHddSpace) / bytesToMiB(ResourcesystemHotspotMikrotik?.totalHddSpace)) * 100).toFixed(0)"></p-progressBar>
+
+                            <div class="mt-1 text-600 text-center">
+                                {{bytesToMiB(ResourcesystemHotspotMikrotik?.freeHddSpace)}}Mib de
+                                {{bytesToMiB(ResourcesystemHotspotMikrotik?.totalHddSpace)}}Mib</div>
+
+                        </div>
+                    </li>
+                    <p-divider align="center" type="dotted">
+                        <b>CPU - {{ResourcesystemHotspotMikrotik?.cpu}}</b>
+                    </p-divider>
+
+                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                        <div>
+                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Cantidad de CPU</span>
+                            <div class="mt-1 text-600">{{ResourcesystemHotspotMikrotik?.cpuCount}}</div>
+                        </div>
+                    </li>
+                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                        <div>
+                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Frecuencia de la CPU</span>
+                            <div class="mt-1 text-600">{{ResourcesystemHotspotMikrotik?.cpuFrequency}}</div>
+                        </div>
+                    </li>
+                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                        <div class="flex items-center justify-center">
+                            <!-- Aplicamos clases de flexbox para centrar horizontalmente y verticalmente -->
+                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Carga del CPU</span>
+                            <p-knob [(ngModel)]="cpuLoad" [readonly]="true"></p-knob>
+                        </div>
+                    </li>
+                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                        <div>
+                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Arquitectura</span>
+                            <div class="mt-1 text-600">{{ResourcesystemHotspotMikrotik?.architectureName}}</div>
+                        </div>
+                    </li>
+                    <!-- <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                        <div>
+                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Modelo</span>
+                            <div class="mt-1 text-600">{{ResourcesystemHotspotMikrotik?.boardName}}</div>
+                        </div>
+                    </li> -->
+                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                        <div>
+                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Plataforma</span>
+                            <div class="mt-1 text-600">{{ResourcesystemHotspotMikrotik?.platform}}</div>
+                        </div>
+                    </li>
+
+                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                        <div>
+                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Versión:</span>
+                            <div class="mt-1 text-600"> {{ResourcesystemHotspotMikrotik?.version}}|</div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<p-dialog [(visible)]="visible" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div *ngIf="progressSpinner" align="center">
+            <p-progressSpinner styleClass="preloader-spinner" strokeWidth="8" fill="#ffffff"
+                aria-label="Loading"></p-progressSpinner> <br>
+            <strong>¡VALIDANDO CONEXION!</strong>
+        </div>
+
+        <div *ngIf="!progressSpinner" class="preloader-overlay loading" align="center">
+            <div *ngIf="boolValidarConexion">
+                <p-image src="../../../../assets/hotspot/img/connect.webp" alt="Image" width="120"></p-image>
+            </div>
+            <div *ngIf="!boolValidarConexion">
+                <p-image src="../../../../assets/hotspot/img/disconnect.webp" alt="Image" width="120"></p-image>
+            </div>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+
+        <p class="m-0 text-center">
+            {{messageValidarConexion}}
+        </p>
+
+    </ng-template>
+
+</p-dialog>
+
+<p-dialog [(visible)]="visibleModalEditRouter" [style]="{width: '450px'}"
+    header="EDITANDO MIKRTOIK {{filterarrayHotspotMikrotiks?.nombre}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div>
+            <div class="form grid grid">
+                <div class="field col">
+                    <label for="quantity">Nombre</label>
+                    <input type="text" pInputText id="nombrePerfil" required autofocus
+                        value="{{filterarrayHotspotMikrotiks.nombre}}" />
+                </div>
+                <div class="field col">
+                    <label for="quantity">Direccion IP</label>
+                    <input type="text" pInputText id="nombrePerfil" required autofocus
+                        value="{{filterarrayHotspotMikrotiks.direccion_ip}}" />
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="form grid grid">
+                <div class="field col">
+                    <label for="quantity">Usuario</label>
+                    <input type="text" pInputText id="nombrePerfil" required autofocus
+                        value="{{filterarrayHotspotMikrotiks.usuario}}" />
+                </div>
+                <div class="field col">
+                    <label for="quantity">Contraseña</label>
+                    <p-password [(ngModel)]="filterarrayHotspotMikrotiks.password" [toggleMask]="true"></p-password>
+                </div>
+            </div>
+        </div>
+        <p-divider align="center" type="dotted">
+            <b>PUERTOS</b>
+        </p-divider>
+        <div>
+            <div class="form grid grid">
+                <div class="field col">
+                    <label for="quantity">Puerto API</label>
+                    <p-inputNumber [(ngModel)]="filterarrayHotspotMikrotiks.puerto_api" mode="decimal"
+                        inputId="withoutgrouping" [useGrouping]="false"></p-inputNumber>
+                </div>
+                <div class="field col">
+                    <label for="quantity">Puerto API-SSL</label>
+                    <p-inputNumber [(ngModel)]="filterarrayHotspotMikrotiks.puerto_apissl" mode="decimal"
+                        inputId="withoutgrouping" [useGrouping]="false"></p-inputNumber>
+                </div>
+                <div class="field col">
+                    <label for="quantity">Puerto WinBox</label>
+                    <p-inputNumber [(ngModel)]="filterarrayHotspotMikrotiks.puerto_winbox" mode="decimal"
+                        inputId="withoutgrouping" [useGrouping]="false"></p-inputNumber>
+                </div>
+            </div>
+            <div>
+                <div class="form grid grid">
+                    <div class="field col">
+                        <label for="quantity">Puerto ssh</label>
+                        <p-inputNumber [(ngModel)]="filterarrayHotspotMikrotiks.puerto_ssh" mode="decimal"
+                            inputId="withoutgrouping" [useGrouping]="false"></p-inputNumber>
+                    </div>
+                    <div class="field col">
+                        <label for="quantity">Puerto www</label>
+                        <p-inputNumber [(ngModel)]="filterarrayHotspotMikrotiks.puerto_www" mode="decimal"
+                            inputId="withoutgrouping" [useGrouping]="false"></p-inputNumber>
+                    </div>
+                    <div class="field col">
+                        <label for="quantity">Puerto www-ssl</label>
+                        <p-inputNumber [(ngModel)]="filterarrayHotspotMikrotiks.puerto_wwwssl" mode="decimal"
+                            inputId="withoutgrouping" [useGrouping]="false"></p-inputNumber>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="closeDialogEditMikrotik()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"></button>
+    </ng-template>
+</p-dialog>

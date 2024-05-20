@@ -16,6 +16,8 @@ export class HotspotmikrotiksService {
     myApiUrlSystemIdentity = 'api/System/identity';
     myApiUrlSystemLog= 'api/System/log';
 
+    myApiValidarConexionHotspotMikrotiks= 'api/MikrotikHotspot/validarconexion/';
+
     constructor(private http: HttpClient, public layoutService: LayoutService) {        
     }
 
@@ -27,6 +29,16 @@ export class HotspotmikrotiksService {
             }),
         };
         return this.http.get(this.myAppURL + this.myApiUrl, httpOptions);
+    }
+
+    getValidarConexionHotspotMikrotiksService(id: number): Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + this.layoutService.getToken(), // Aquí se agrega el token
+            }),
+        };
+        return this.http.get(this.myAppURL + this.myApiValidarConexionHotspotMikrotiks + id, httpOptions);
     }
 
     getSystemResourceHotspotMikrotiks(): Observable<any> {

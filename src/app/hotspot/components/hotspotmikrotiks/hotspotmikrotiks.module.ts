@@ -21,6 +21,15 @@ import { BadgeModule } from 'primeng/badge';
 import { HotspotmikrotiksComponent } from './hotspotmikrotiks.component';
 import { TagModule } from 'primeng/tag';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { TooltipModule } from 'primeng/tooltip';
+import { MenuModule } from 'primeng/menu';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ImageModule } from 'primeng/image';
+import { KnobModule } from 'primeng/knob';
+import { DividerModule } from 'primeng/divider';
+import { PasswordModule } from 'primeng/password';
 
 
 
@@ -46,7 +55,16 @@ import { SplitButtonModule } from 'primeng/splitbutton';
     ConfirmDialogModule,
     BadgeModule,
     TagModule,
-    SplitButtonModule ,    
+    SplitButtonModule,    
+    SpeedDialModule ,
+    TooltipModule,
+    MenuModule,    
+    MultiSelectModule,
+    ProgressSpinnerModule,
+    ImageModule, 
+    KnobModule,
+    DividerModule,
+    PasswordModule 
   ]
 })
 export class HotspotmikrotiksModule { }

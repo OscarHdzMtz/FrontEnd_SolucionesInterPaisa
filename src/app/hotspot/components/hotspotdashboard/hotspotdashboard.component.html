@@ -5,36 +5,30 @@
         right: 0;
         bottom: 0;
         left: 0;
-        z-index: 1000; /* Asegura que esté por encima de otros elementos */
-        background-color: white; /* Fondo blanco con opacidad */
+        z-index: 1000;
+        /* Asegura que esté por encima de otros elementos */
+        background-color: white;
+        /* Fondo blanco con opacidad */
         display: flex;
         justify-content: center;
         align-items: center;
     }
 </style>
 <div *ngIf="loading" class="preloader-overlay loading">
-    <p-progressSpinner
-        styleClass="preloader-spinner"
-        strokeWidth="8"
-        fill="#ffffff"
-    ></p-progressSpinner>
+    <p-progressSpinner styleClass="preloader-spinner" strokeWidth="8" fill="#ffffff"></p-progressSpinner>
 </div>
 <div class="grid">
     <div class="col-12 lg:col-6 xl:col-3">
         <div class="card mb-0">
             <div class="flex justify-content-between mb-0">
                 <div>
-                    <span class="block text-500 font-medium mb-3"
-                        ><strong>Total de perfiles</strong></span
-                    >
+                    <span class="block text-500 font-medium mb-3"><strong>Total de perfiles</strong></span>
                     <div class="text-900 font-medium text-xl">
                         <h1>{{ arrayPerfilFichas.length }}</h1>
                     </div>
                 </div>
-                <div
-                    class="flex align-items-center justify-content-center bg-blue-google border-round"
-                    [ngStyle]="{ width: '4.0rem', height: '4.0rem' }"
-                >
+                <div class="flex align-items-center justify-content-center bg-blue-google border-round"
+                    [ngStyle]="{ width: '4.0rem', height: '4.0rem' }">
                     <i class="pi pi-fw pi-list text-white text-xl"></i>
                 </div>
             </div>
@@ -46,17 +40,13 @@
         <div class="card mb-0">
             <div class="flex justify-content-between mb-0">
                 <div>
-                    <span class="block text-500 font-medium mb-3"
-                        ><strong>Total de usuarios</strong></span
-                    >
+                    <span class="block text-500 font-medium mb-3"><strong>Total de usuarios</strong></span>
                     <div class="text-900 font-medium text-xl">
                         <h1>{{ arrayUsuariosFichas.length }}</h1>
                     </div>
                 </div>
-                <div
-                    class="flex align-items-center justify-content-center bg-green-google border-round"
-                    [ngStyle]="{ width: '4.0rem', height: '4.0rem' }"
-                >
+                <div class="flex align-items-center justify-content-center bg-green-google border-round"
+                    [ngStyle]="{ width: '4.0rem', height: '4.0rem' }">
                     <i class="pi pi-fw pi-user text-white text-xl"></i>
                 </div>
             </div>
@@ -66,17 +56,13 @@
         <div class="card mb-0">
             <div class="flex justify-content-between mb-0">
                 <div>
-                    <span class="block text-500 font-medium mb-3"
-                        ><strong>Fichas activas</strong></span
-                    >
+                    <span class="block text-500 font-medium mb-3"><strong>Fichas activas</strong></span>
                     <div class="text-900 font-medium text-xl">
                         <h1>{{ arrayUsuariosFichasActivos.length }}</h1>
                     </div>
                 </div>
-                <div
-                    class="flex align-items-center justify-content-center bg-yellow-google border-round"
-                    [ngStyle]="{ width: '4.0rem', height: '4.0rem' }"
-                >
+                <div class="flex align-items-center justify-content-center bg-yellow-google border-round"
+                    [ngStyle]="{ width: '4.0rem', height: '4.0rem' }">
                     <i class="pi pi-inbox text-white text-xl"></i>
                 </div>
             </div>
@@ -86,17 +72,13 @@
         <div class="card mb-0">
             <div class="flex justify-content-between mb-0">
                 <div>
-                    <span class="block text-500 font-medium mb-3"
-                        ><strong>Servidores Hotspot</strong></span
-                    >
+                    <span class="block text-500 font-medium mb-3"><strong>Servidores Hotspot</strong></span>
                     <div class="text-900 font-medium text-xl">
                         <h1>{{ arrayServersHotspot.length }}</h1>
                     </div>
                 </div>
-                <div
-                    class="flex align-items-center justify-content-center bg-red-google border-round"
-                    [ngStyle]="{ width: '4.0rem', height: '4.0rem' }"
-                >
+                <div class="flex align-items-center justify-content-center bg-red-google border-round"
+                    [ngStyle]="{ width: '4.0rem', height: '4.0rem' }">
                     <i class="pi pi-comment text-white text-xl"></i>
                 </div>
             </div>
@@ -105,74 +87,100 @@
         </div>
     </div>
 
-    <div class="col-12 lg:col-9 xl:col-9">
+    <div class="col-12 lg:col-6 xl:col-6">
         <div class="card">
-            <h5 align="center"><strong>USUARIOS ACTIVOS</strong></h5>
-            <p-table
-                #dt
-                [value]="arrayUsuariosFichasActivos"
-                [rows]="10"
-                [paginator]="true"
-                [rowHover]="true"
-                dataKey="id"
-                responsiveLayout="scroll"
-                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
-                [showCurrentPageReport]="true"
-            >
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th pSortableColumn="userName">
-                            Usuario<p-sortIcon field="name"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="upTime">
-                            Tiempo de conexión<p-sortIcon
-                                field="price"
-                            ></p-sortIcon>
-                        </th>
-                        <th>Tiempo restante</th>
-                        <!-- <th pSortableColumn="upTime">Datos de bajada<p-sortIcon field="price"></p-sortIcon></th>
+            <p-tabView>
+                <p-tabPanel header="Usuarios Activos">                   
+                    <h5 align="center"><strong>USUARIOS ACTIVOS</strong></h5>
+                    <p-table #dt [value]="arrayUsuariosFichasActivos" [rows]="10" [paginator]="true" [rowHover]="true"
+                        dataKey="id" responsiveLayout="scroll"
+                        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+                        [showCurrentPageReport]="true">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th pSortableColumn="userName">
+                                    Usuario<p-sortIcon field="name"></p-sortIcon>
+                                </th>
+                                <th pSortableColumn="upTime">
+                                    Tiempo de conexión<p-sortIcon field="price"></p-sortIcon>
+                                </th>
+                                <th>Tiempo restante</th>
+                                <!-- <th pSortableColumn="upTime">Datos de bajada<p-sortIcon field="price"></p-sortIcon></th>
                         <th pSortableColumn="upTime">Datos de subida<p-sortIcon field="price"></p-sortIcon></th>   -->
-                        <th pSortableColumn="server">
-                            Server<p-sortIcon field="name"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="address">
-                            Direccion IP<p-sortIcon field="name"></p-sortIcon>
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-fichasactivas>
-                    <tr>
-                        <td style="width: 35%; min-width: 7rem">
-                            {{ fichasactivas.userName }}
-                        </td>
-                        <td style="width: 35%; min-width: 8rem">
-                            {{ fichasactivas.upTime }}
-                        </td>
-                        <td style="width: 35%; min-width: 8rem">
-                            {{ fichasactivas.sessionTimeLeft }}
-                        </td>
-                        <!-- <td style="width: 35%; min-width: 8rem;">{{ fichasactivas.bytesIn < 1048576 ? (fichasactivas.bytesIn / 1024).toFixed(2) + ' KB' : (fichasactivas.bytesIn / 1048576).toFixed(2) + ' MB' }}</td>
+                                <th pSortableColumn="server">
+                                    Server<p-sortIcon field="name"></p-sortIcon>
+                                </th>
+                                <th pSortableColumn="address">
+                                    Direccion IP<p-sortIcon field="name"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-fichasactivas>
+                            <tr>
+                                <td style="width: 35%; min-width: 7rem">
+                                    {{ fichasactivas.userName }}
+                                </td>
+                                <td style="width: 35%; min-width: 8rem">
+                                    {{ fichasactivas.upTime }}
+                                </td>
+                                <td style="width: 35%; min-width: 8rem">
+                                    {{ fichasactivas.sessionTimeLeft }}
+                                </td>
+                                <!-- <td style="width: 35%; min-width: 8rem;">{{ fichasactivas.bytesIn < 1048576 ? (fichasactivas.bytesIn / 1024).toFixed(2) + ' KB' : (fichasactivas.bytesIn / 1048576).toFixed(2) + ' MB' }}</td>
                         <td style="width: 35%; min-width: 8rem;">{{ fichasactivas.bytesOut}}</td> -->
-                        <td style="width: 35%; min-width: 7rem">
-                            {{ fichasactivas.server }}
-                        </td>
-                        <td style="width: 35%; min-width: 7rem">
-                            {{ fichasactivas.address }}
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
+                                <td style="width: 35%; min-width: 7rem">
+                                    {{ fichasactivas.server }}
+                                </td>
+                                <td style="width: 35%; min-width: 7rem">
+                                    {{ fichasactivas.address }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+                <p-tabPanel header="Hosts Hotspot">
+                    <h5 align="center"><strong>HOSTS HOTSPOT</strong></h5>
+                    <p-table #dt [value]="arrayHostHotspot" [rows]="10" [paginator]="true" [rowHover]="true"
+                        dataKey="id" responsiveLayout="scroll"
+                        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+                        [showCurrentPageReport]="true">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th pSortableColumn="macAddress">
+                                    Mac<p-sortIcon field="name"></p-sortIcon>
+                                </th>
+                                <th pSortableColumn="address">
+                                    IP<p-sortIcon field="address"></p-sortIcon>
+                                </th>
+                                <th pSortableColumn="comment">Comment<p-sortIcon field="comment"></p-sortIcon></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-hosts>
+                            <tr>
+                                <td style="width: 35%; min-width: 7rem">
+                                    {{ hosts.macAddress }}
+                                </td>
+                                <td style="width: 35%; min-width: 8rem">
+                                    {{ hosts.address }}
+                                </td>
+                                <td style="width: 35%; min-width: 8rem">
+                                    {{ hosts.comment }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+                <p-tabPanel header="Ip Binding">
+                    <p>
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium...
+                    </p>
+                </p-tabPanel>
+            </p-tabView>
         </div>
     </div>
-    <div class="col-12 lg:col-3 xl:col-3">
+    <div class="col-12 lg:col-6 xl:col-6">
         <div class="card">
-            <div class="flex justify-content-center align-items-center mb-5">
-                <h5 align="center"><strong>Log</strong></h5>
-                <div>
-                    <!-- <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain" ></button> -->
-                    <!-- <p-menu #menu [popup]="true" [model]="items"></p-menu> -->
-                </div>
-            </div>
+            <p-chart type="line" [data]="data" [options]="options"></p-chart>
         </div>
     </div>
 </div>
@@ -197,7 +205,9 @@
     .bg-blue-google {
         background-color: #4285f4;
     }
+
     .bg-white-google {
-        background-color: #ffffff; /* Código hexadecimal para el blanco */
+        background-color: #ffffff;
+        /* Código hexadecimal para el blanco */
     }
 </style>
