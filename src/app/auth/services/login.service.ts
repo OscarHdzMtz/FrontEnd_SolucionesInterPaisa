@@ -11,7 +11,7 @@ export class LoginService {
 private httpClient = inject(HttpClient);
 
 
-myAppURL="http://10.5.50.100:8090/"
+myAppURL="http://10.5.50.90:8090/"
 myApiUrl = "api/auth/login"
 private tokenKey = 'authToken';
 

@@ -8,7 +8,7 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
 })
 export class HotspotuserprofileService {
     //myAppURL="https://localhost:5001/"
-    myAppURL = 'http://10.5.50.100:8090/'; //'http://localhost:5172/'
+    myAppURL = 'http://10.5.50.90:8090/'; //'http://localhost:5172/'
     myApiUrl = 'api/HotspotUserProfile/hotspot/userprofile'//'api/PlanesFichas/';
     myApiUrlPOST = 'api/HotspotUserProfile/hotspot/adduserprofile';
     myApiUrlDELETE = 'api/HotspotUserProfile/hotspot/delete/';

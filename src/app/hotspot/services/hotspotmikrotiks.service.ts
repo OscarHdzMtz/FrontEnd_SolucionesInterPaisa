@@ -8,8 +8,9 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
 })
 export class HotspotmikrotiksService {    
     //myAppURL="https://localhost:5001/"
-    myAppURL = 'http://10.5.50.100:8090/';
+    myAppURL = 'http://10.5.50.90:8090/';
     myApiUrl = 'api/MikrotikHotspot';
+    myApiUrlPutMikrotikHotspot = 'api/MikrotikHotspot/put/';
 
     myApiUrlSystemResource = 'api/System/resource';
     myApiUrlSystemRouterBoard = 'api/System/routerboard';
@@ -29,6 +30,16 @@ export class HotspotmikrotiksService {
             }),
         };
         return this.http.get(this.myAppURL + this.myApiUrl, httpOptions);
+    }
+
+    putHotspotMikrotiksService(id: string): Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + this.layoutService.getToken(), // Aquí se agrega el token
+            }),
+        };
+        return this.http.delete(this.myAppURL + this.myApiUrlPutMikrotikHotspot + id, httpOptions);
     }
 
     getValidarConexionHotspotMikrotiksService(id: number): Observable<any> {

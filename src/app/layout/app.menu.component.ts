@@ -39,7 +39,7 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/hotspot/dashboard']
                             },
                             {
-                                label: 'Ver y Crear Perfiles',
+                                label: 'Perfiles',
                                 icon: 'pi pi-fw pi-file',
                                 routerLink: ['/hotspot/userprofile']
                             },
@@ -49,7 +49,7 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/hotspot/usuariosfichas/addusuariosfichas']
                             }, */
                             {
-                                label: 'Ver y Crear Fichas',
+                                label: 'Usuarios',
                                 icon: 'pi pi-fw pi-bookmark',
                                 routerLink: ['/hotspot/users']
                             },

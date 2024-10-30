@@ -23,6 +23,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TabViewModule } from 'primeng/tabview';
 import { Avatar, AvatarModule } from 'primeng/avatar';
 import { ChartModule } from 'primeng/chart';
+import { TagModule } from 'primeng/tag';
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { ChartModule } from 'primeng/chart';
     ProgressSpinnerModule,
     TabViewModule,
     AvatarModule ,
-    ChartModule 
+    ChartModule,
+    TagModule,
+    CardModule 
   ]
 })
 export class HotspotdashboardModule { }

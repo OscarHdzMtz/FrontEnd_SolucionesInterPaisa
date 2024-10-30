@@ -90,7 +90,7 @@
     <div class="col-12 lg:col-6 xl:col-6">
         <div class="card">
             <p-tabView>
-                <p-tabPanel header="Usuarios Activos">                   
+                <p-tabPanel header="Usuarios Activos">
                     <h5 align="center"><strong>USUARIOS ACTIVOS</strong></h5>
                     <p-table #dt [value]="arrayUsuariosFichasActivos" [rows]="10" [paginator]="true" [rowHover]="true"
                         dataKey="id" responsiveLayout="scroll"
@@ -152,7 +152,9 @@
                                 <th pSortableColumn="address">
                                     IP<p-sortIcon field="address"></p-sortIcon>
                                 </th>
-                                <th pSortableColumn="comment">Comment<p-sortIcon field="comment"></p-sortIcon></th>
+                                <th pSortableColumn="authorized">
+                                    authorized<p-sortIcon field="authorized"></p-sortIcon>
+                                </th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-hosts>
@@ -164,16 +166,26 @@
                                     {{ hosts.address }}
                                 </td>
                                 <td style="width: 35%; min-width: 8rem">
-                                    {{ hosts.comment }}
+                                    <p-tag [severity]="
+                                            getSeverity(hosts.authorized)
+                                        ">{{
+                                        hosts.authorized
+                                        ? "Autorizado"
+                                        : "No Autorizado"
+                                        }}</p-tag>
                                 </td>
                             </tr>
                         </ng-template>
                     </p-table>
                 </p-tabPanel>
-                <p-tabPanel header="Ip Binding">
-                    <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium...
-                    </p>
+                <p-tabPanel header="IP Binding">
+                    <p-card header="PROXIMAMENTE">
+                        <strong>
+                            <p class="m-0">
+                                Funcion en desarrollo...
+                            </p>
+                        </strong>
+                    </p-card>
                 </p-tabPanel>
             </p-tabView>
         </div>

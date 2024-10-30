@@ -50,10 +50,21 @@ export class HotspotusersComponent implements OnInit {
             }
         );
     }
-    arrayUsuariosFichasPrint: any[] = [];
+    //arrayUsuariosFichasPrint: any[] = [];
+    arrayUsuariosFiltrado: any[] = [];
     exportExcel() {
+        
+        // Aquí puedes definir las columnas que deseas mantener en el nuevo arreglo
+        this.arrayUsuariosFiltrado = this.arrayUsuariosFichasFront.map(usuario => ({
+            COMENTARIO: usuario.comment,
+            USUARIO: usuario.name, // Ejemplo: Filtrar por la columna 'nombre'
+            CONTRASEÑA: usuario.password,   // Ejemplo: Filtrar por la columna 'email'
+            PERFIL: usuario.profile,   // Ejemplo: Filtrar por la columna 'email'
+            
+        }));
+
         //BORRAMOS LOS DATOS QUE NO QUEREMOS QUE SE IMPRIME EN EL EXCEL CON UN FOR
-        for (let i = 0; i < this.arrayUsuariosFichasFront.length; i++) {
+        /* for (let i = 0; i < this.arrayUsuariosFichasFront.length; i++) {
             delete(this.arrayUsuariosFichasFront[i].id)
             delete(this.arrayUsuariosFichasFront[i].address)            
             delete(this.arrayUsuariosFichasFront[i].email)
@@ -69,11 +80,19 @@ export class HotspotusersComponent implements OnInit {
             delete(this.arrayUsuariosFichasFront[i].packetsIn)
             delete(this.arrayUsuariosFichasFront[i].packetsOut)
             delete(this.arrayUsuariosFichasFront[i].uptime)
-        }                       
+        }   */      
+                      
         import('xlsx').then((xlsx) => {
             const worksheet = xlsx.utils.json_to_sheet(
-                this.arrayUsuariosFichasFront
+                this.arrayUsuariosFiltrado
             );
+
+            // Aplicar formato autofit a las columnas
+            const columnas = Object.keys(this.arrayUsuariosFiltrado[0]); // Obtener las columnas del primer objeto
+            const longitudColumnas = columnas.map(columna => ({
+                wch: columna.length + 5 // Ajustar según el contenido de la celda más la holgura deseada
+            }));
+
             const workbook = {
                 Sheets: { data: worksheet },
                 SheetNames: ['data'],
@@ -106,8 +125,8 @@ export class HotspotusersComponent implements OnInit {
             icon: 'pi pi-trash',
             accept: () => {
                 this._usuarioFichasService.deleteHotspotUsersService(id).subscribe(data => {                    
-                    this.messageService.add({severity:'success', summary: 'Eliminado', detail: 'Usuario ' + nombreFicha + ' eliminada con Exito', life: 3000});
                     this.obtenerUsuariosFichas();
+                    this.messageService.add({severity:'success', summary: 'Eliminado', detail: 'Usuario ' + nombreFicha + ' eliminada con Exito', life: 3000});                    
                 }, error => {                    
                     this.messageService.add({severity:'error', summary: 'Error', detail: error.status + ' ' +  error.name, life: 3000});
                 });

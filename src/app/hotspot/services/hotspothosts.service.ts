@@ -9,7 +9,7 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
 export class HotspothostsService {
   private token: string = '';
   //myAppURL="https://localhost:44335/"
-  myAppURL = 'http://10.5.50.100:8090/';
+  myAppURL = 'http://10.5.50.90:8090/';
   myApiUrl = 'api/HotspotHosts/hotspot/hosts';
 
   constructor(private http: HttpClient, public layoutService: LayoutService) {        
