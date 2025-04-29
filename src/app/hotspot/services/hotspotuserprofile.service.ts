@@ -7,14 +7,14 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
     providedIn: 'root',
 })
 export class HotspotuserprofileService {
-    //myAppURL="https://localhost:5001/"
-    myAppURL = 'http://10.5.50.90:8090/'; //'http://localhost:5172/'
+    //myAppURL="https://10.5.60.200:5001/"
+    myAppURL = 'http://10.5.60.200:5172/'; //'http://10.5.60.200:5172/'
     myApiUrl = 'api/HotspotUserProfile/hotspot/userprofile'//'api/PlanesFichas/';
     myApiUrlPOST = 'api/HotspotUserProfile/hotspot/adduserprofile';
     myApiUrlDELETE = 'api/HotspotUserProfile/hotspot/delete/';
 
     constructor(private http: HttpClient, public layoutService: LayoutService) {
-        
+
     }
 
     getHotspotUserProfilesService(): Observable<any> {

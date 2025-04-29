@@ -138,8 +138,8 @@
                         </ng-template>
                     </p-table>
                 </p-tabPanel>
-                <p-tabPanel header="Hosts Hotspot">
-                    <h5 align="center"><strong>HOSTS HOTSPOT</strong></h5>
+                <p-tabPanel header="Dispositivos conectados">
+                    <h5 align="center"><strong>CONEXIONES HOTSPOT</strong></h5>
                     <p-table #dt [value]="arrayHostHotspot" [rows]="10" [paginator]="true" [rowHover]="true"
                         dataKey="id" responsiveLayout="scroll"
                         currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
@@ -154,6 +154,9 @@
                                 </th>
                                 <th pSortableColumn="authorized">
                                     authorized<p-sortIcon field="authorized"></p-sortIcon>
+                                </th>
+                                <th pSortableColumn="authorized">
+                                    Act. hace<p-sortIcon field="authorized"></p-sortIcon>
                                 </th>
                             </tr>
                         </ng-template>
@@ -173,6 +176,9 @@
                                         ? "Autorizado"
                                         : "No Autorizado"
                                         }}</p-tag>
+                                </td>
+                                <td style="width: 35%; min-width: 8rem">
+                                    {{ hosts.uptime }}
                                 </td>
                             </tr>
                         </ng-template>

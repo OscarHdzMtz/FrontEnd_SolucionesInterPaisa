@@ -101,6 +101,11 @@ export class HotspotdashboardComponent implements OnInit {
                 console.log('hosts');
                 console.log(data.resultado);
                 this.arrayHostHotspot = data.resultado;
+
+                // Ordenar el array por la columna 'authorized'
+                this.arrayHostHotspot.sort((a, b) => {
+                    return (a.authorized === b.authorized) ? 0 : a.authorized ? -1 : 1;
+                });
             },
             (error) => {
                 console.log(error);
@@ -140,27 +145,27 @@ export class HotspotdashboardComponent implements OnInit {
             documentStyle.getPropertyValue('--surface-border');
         this.data = {
             labels: [
-                'January',
-                'February',
-                'March',
-                'April',
-                'May',
-                'June',
-                'July',
+                'Lunes',
+                'Martes',
+                'Miercoles',
+                'Jueves',
+                'Viernes',
+                'Sabado',
+                'Domingo',
             ],
             datasets: [
                 {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    label: 'Consumo de subida',
+                    data: [95, 59, 90, 71, 100, 90, 100],
                     fill: false,
                     borderColor: documentStyle.getPropertyValue('--blue-500'),
                     tension: 0.4,
                 },
                 {
-                    label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
+                    label: 'Consumo de descarga',
+                    data: [28, 48, 40, 19, 86, 65, 90],
                     fill: false,
-                    borderColor: documentStyle.getPropertyValue('--pink-500'),
+                    borderColor: documentStyle.getPropertyValue('--red-500'),
                     tension: 0.4,
                 },
             ],

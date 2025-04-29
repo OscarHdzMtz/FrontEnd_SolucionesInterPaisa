@@ -6,9 +6,9 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
 @Injectable({
     providedIn: 'root',
 })
-export class HotspotmikrotiksService {    
-    //myAppURL="https://localhost:5001/"
-    myAppURL = 'http://10.5.50.90:8090/';
+export class HotspotmikrotiksService {
+    //myAppURL="https://10.5.60.200:5001/"
+    myAppURL = 'http://10.5.60.200:5172/';
     myApiUrl = 'api/MikrotikHotspot';
     myApiUrlPutMikrotikHotspot = 'api/MikrotikHotspot/put/';
 
@@ -19,7 +19,7 @@ export class HotspotmikrotiksService {
 
     myApiValidarConexionHotspotMikrotiks= 'api/MikrotikHotspot/validarconexion/';
 
-    constructor(private http: HttpClient, public layoutService: LayoutService) {        
+    constructor(private http: HttpClient, public layoutService: LayoutService) {
     }
 
     getHotspotMikrotiks(): Observable<any> {

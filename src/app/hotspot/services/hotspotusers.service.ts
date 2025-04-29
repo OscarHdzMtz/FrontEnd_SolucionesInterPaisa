@@ -8,13 +8,13 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
     providedIn: 'root',
 })
 export class HotspotusersService {
-    //myAppURL="https://localhost:5001/"
-    myAppURL = 'http://10.5.50.90:8090/';
+    //myAppURL="https://10.5.60.200:5001/"
+    myAppURL = 'http://10.5.60.200:5172/';
     myApiUrl = 'api/HotspotUser/hotspot/users'; //"api/UsuariosFichas/"
     myApiUrlPOST = 'api/HotspotUser/hotspot/addhotspotuser';
     myApiUrlDELETE = 'api/HotspotUser/';
 
-    constructor(private http: HttpClient, public layoutService: LayoutService) {        
+    constructor(private http: HttpClient, public layoutService: LayoutService) {
     }
 
     getHotspotUsersService(): Observable<any> {

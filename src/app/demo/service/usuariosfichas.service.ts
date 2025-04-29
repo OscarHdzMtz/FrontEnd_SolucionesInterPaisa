@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UsuariosfichasService {
 
-    //myAppURL="https://localhost:5001/"
+    //myAppURL="https://10.5.60.200:5001/"
     myAppURL="http://10.5.50.90:8080/"
     myApiUrl = "api/UsuariosFichas/"
   constructor(private http:HttpClient) {
@@ -24,5 +24,5 @@ export class UsuariosfichasService {
 
   deleteUsuariosFichas(id: string): Observable<any>{
     return this.http.delete(this.myAppURL + this.myApiUrl + id);
-  }  
+  }
 }

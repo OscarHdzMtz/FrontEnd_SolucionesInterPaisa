@@ -11,7 +11,7 @@ export class LoginService {
 private httpClient = inject(HttpClient);
 
 
-myAppURL="http://10.5.50.90:8090/"
+myAppURL="http://10.5.60.200:5172/"
 myApiUrl = "api/auth/login"
 private tokenKey = 'authToken';
 
@@ -25,7 +25,7 @@ private tokenKey = 'authToken';
   }
 
   loginUser(formValue: any): Observable<any> {
-    
+
     return this.http.post<any>(this.myAppURL + this.myApiUrl, formValue).pipe(
 
       map(response => {
@@ -44,14 +44,14 @@ private tokenKey = 'authToken';
     );
   }
 
-  isLoggedIn(){    
+  isLoggedIn(){
 
-    let longToken : string;    
+    let longToken : string;
 
     longToken = this.layoutService.getToken(); //this.getToken();
 
     return longToken.length > 0;
-    
+
   }
 
   saveToken(token: string) {

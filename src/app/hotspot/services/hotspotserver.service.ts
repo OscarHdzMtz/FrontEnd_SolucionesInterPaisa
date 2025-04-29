@@ -7,7 +7,7 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
     providedIn: 'root',
 })
 export class HotspotserverService {
-    myAppURL = 'http://10.5.50.90:8090/';
+    myAppURL = 'http://10.5.60.200:5172/';
     myApiUrl = 'api/HotspotServers/hotspot/servers';
 
     constructor(
