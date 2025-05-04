@@ -8,6 +8,7 @@ import { ChartModule } from 'primeng/chart';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { StyleClassModule } from 'primeng/styleclass';
     StyleClassModule,
     ChartModule,
     PanelModule,
-    ButtonModule    
+    ButtonModule,
+    CardModule    
   ],
 })
 export class PublicoModule { }

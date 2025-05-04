@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CardModule } from 'primeng/card';
 
 
 
@@ -28,7 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         HttpClientModule,
         BrowserAnimationsModule, // required animations module
         ToastrModule.forRoot(), // ToastrModule added
-        ReactiveFormsModule
+        ReactiveFormsModule,CardModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
